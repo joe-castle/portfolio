@@ -1,0 +1,57 @@
+// ---------------------------------------------
+// ------ Variables
+// ---------------------------------------------
+text-font-stack = 'Roboto', 'Arial', sans-serif
+
+code-font-stack = 'Roboto Mono', 'Monaco', monospace
+
+base-url = '/assets/'
+
+breakpoints = {
+  tablet: 768px,
+  desktop: 1050px
+}
+
+// Used in creating a meterial design box-shdaow
+z-depth-grades = {
+  '1': '0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12)',
+  '1.5': '0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15)',
+  '2': '0 8px 17px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)',
+  '3': '0 12px 15px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19)',
+  '4': '0 16px 28px 0 rgba(0,0,0,0.22), 0 25px 55px 0 rgba(0,0,0,0.21)',
+  '5': '0 27px 24px 0 rgba(0,0,0,0.2), 0 40px 77px 0 rgba(0,0,0,0.22)'
+}
+
+
+// ---------------------------------------------
+// ------ Functions
+// ---------------------------------------------
+// Native `url(..)` function wrapper
+// @param {String} $base - base URL for the asset
+// @param {String} $type - asset type folder (e.g. `fonts/`)
+// @param {String} $path - asset path
+// @return {Url}
+asset(base, type, path)
+  url(base + type + path)
+
+// Returns URL to an image based on its path
+// @param {String} $path - image path
+// @param {String} $base [$base-url] - base URL
+// @return {Url}
+// @require $base-url
+image(path, base = base-url)
+  asset(base, 'images/', path)
+
+// ---------------------------------------------
+// ------ Mixins
+// ---------------------------------------------
+// Creates a material design style box-shadow.
+z-depth(grade)
+  box-shadow: unquote(z-depth-grades[grade])
+
+// Save having to right hover, active and focus on all links.
+hover-state()
+  &:hover
+  &:active
+  &:focus
+    {block}

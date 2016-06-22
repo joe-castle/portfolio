@@ -1,0 +1,132 @@
+@keyframes loading
+  0%
+  100%
+    background green-500
+  50%
+    background green-100
+
+.TwitchApp
+  max-width 400px
+  padding 0
+  width 100%
+
+  &__header
+    background blue-500
+    margin-bottom 15px
+    padding 20px
+    position relative
+    z-depth('2')
+
+    &__nav
+
+      &__item
+        background green-500
+        color grey-200
+        cursor pointer
+        display inline-block
+        height 50px
+        font-size 25px
+        line-height 50px
+        list-style none
+        text-align center
+        transition all 0.2s linear
+        user-select none
+        width 30%
+        z-depth('1')
+
+        &:not(:last-child)
+          margin-right 5%
+
+        +hover-state()
+          z-depth('1.5')
+
+        &--active
+          background green-a100
+          color grey-800
+
+    &__inputs
+      padding 0 20px 20px 20px
+
+      &__search-input
+      &__new-streamer-input
+        z-depth('1')
+        border 0
+        margin-top 10px
+        font-size 16px
+        padding 10px
+        width 100%
+
+    &__loading
+      animation loading 1s linear infinite
+      bottom 0
+      height 10px
+      left 0
+      position absolute
+      width 100%
+
+  &__streamers-box
+    padding 5px
+
+    &__streamer
+      background blue-50
+      height 150px
+      line-height 22px
+      position relative
+      margin-bottom 15px
+      z-depth('1.5')
+
+      figure
+        margin 0
+
+      &__logo
+      &__name
+      &__status
+      &__status-icon
+      &__delete-icon
+        position absolute
+
+      &__logo
+        border 5px solid red-500
+        border-radius 50%
+        left 20px
+        max-width 100px
+        padding 5px
+        top 25px
+
+      &__name
+        font-size 20px
+        left 130px
+        top 40px
+        a
+          max-width 170px
+          overflow hidden
+          text-overflow ellipsis
+
+      &__status
+        color grey-700
+        font-size 12px
+        left 130px
+        max-width 240px
+        top 75px
+
+      &__status-icon
+        color red-500
+        right 40px
+        top 40px
+        user-select none
+
+      &__delete-icon
+        color grey-500
+        cursor pointer
+        transition color .1s linear
+        user-select none
+
+        +hover-state()
+          color grey-800
+
+      &--online
+        & ^[2]
+          &__status-icon
+            color green-500
+          &__logo
+            border-color green-500

@@ -1,0 +1,50 @@
+// ---------------------------------------------
+// ------ Reset
+// ---------------------------------------------
+@import '~normalize.css/normalize.css';
+
+// Apply a natural box layout model to all elements,
+// but allowing components to change
+html
+  box-sizing border-box
+
+*
+*:before
+*:after
+  box-sizing inherit
+
+// ---------------------------------------------
+// ------ Fonts
+// ---------------------------------------------
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,300,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,300,700');
+
+// ---------------------------------------------
+// ------ Typography
+// ---------------------------------------------
+$body-font = text-font-stack
+$header-font = text-font-stack
+
+typographic()
+
+grid-overlay(black, 17)
+
+// ---------------------------------------------
+// ------ Helpers
+// ---------------------------------------------
+// Ensures site takes up full height of the page
+html
+body
+  background grey-100
+  height 100%
+
+#root
+  min-height 100%
+  position relative
+
+// ---------------------------------------------
+// ------ Basic Styles
+// ---------------------------------------------
+.App
+  margin 0 auto
+  max-width 1200px

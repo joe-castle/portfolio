@@ -1,0 +1,14 @@
+{
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "env": {
+    "mocha": true
+  },
+  "rules": {
+    "no-console": 1,
+    "no-undef": 1,
+    "no-unused-expressions": 1,
+    "react/prefer-stateless-function": 1,
+    "global-require": 1
+  }
+}
