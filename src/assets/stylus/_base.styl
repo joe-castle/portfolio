@@ -16,14 +16,18 @@ html
 // ---------------------------------------------
 // ------ Fonts
 // ---------------------------------------------
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,300,700');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,300,700');
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro:300,700')
 
 // ---------------------------------------------
 // ------ Typography
 // ---------------------------------------------
 $body-font = text-font-stack
 $header-font = text-font-stack
+
+$min-font = 16px
+
+$body-color = body-font-color
+$header-color = header-font-color
 
 typographic()
 
@@ -35,16 +39,17 @@ grid-overlay(black, 17)
 // Ensures site takes up full height of the page
 html
 body
-  background grey-100
-  height 100%
-
 #root
-  min-height 100%
-  position relative
+.App
+  height 100%
 
 // ---------------------------------------------
 // ------ Basic Styles
 // ---------------------------------------------
-.App
-  margin 0 auto
-  max-width 1200px
+a
+  color header-font-color
+  text-decoration none
+  transition color .2s linear
+
+  +hover-state()
+    color rgba(@color, .5)

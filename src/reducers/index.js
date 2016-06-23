@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import todos from './todos';
+import navVisible from './navVisible';
 
 export default combineReducers({
-  todos,
+  navVisible,
   routing: routerReducer,
 });

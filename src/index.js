@@ -10,6 +10,8 @@ import { AppContainer } from 'react-hot-loader';
 import configureStore from './store/configureStore';
 import routes from './render/routes';
 
+import App from './components/App';
+
 const store = configureStore(window.INITIAL_STATE);
 const history = syncHistoryWithStore(browserHistory, store);
 
