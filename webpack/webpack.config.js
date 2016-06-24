@@ -33,12 +33,11 @@ module.exports = {
   plugins,
   module: {
     loaders: [
-      { test: /\.js$/, loaders: ['babel'], exclude: /node_modules/ },
-      { test: /\.styl$/, loader: cssLoader }
+      { test: /\.js$/, loader: 'babel', exclude: /node_modules/ },
+      { test: /\.styl$/, loader: cssLoader },
+      { test: /\.(woff2?|svg)$/, loader: 'url?limit=10000' },
+      { test: /\.(ttf|eot)$/, loader: 'file' }
     ]
-  },
-  stylus: {
-    use: [require('jeet')(), require('rupture')(), require('typographic')()]
   },
   postcss: [require('autoprefixer')],
   devtool: 'source-map'

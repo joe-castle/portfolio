@@ -2,16 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames';
 
-import { toggleNav } from '../actions/navVisbleActions';
-
-function NavButton({
-  dispatch,
-  navVisible,
-}) {
+function NavButton({ navVisible, toggleNav }) {
   return (
     <button
       type="button"
-      onClick={() => dispatch(toggleNav())}
+      onClick={toggleNav}
       className={classNames({
         tcon: true,
         'tcon-menu--xcross': true,
@@ -25,4 +20,4 @@ function NavButton({
   );
 }
 
-export default connect(({ navVisible }) => ({ navVisible }))(NavButton)
+export default NavButton

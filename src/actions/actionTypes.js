@@ -1,1 +1,2 @@
 export const TOGGLE_NAV = 'TOGGLE_NAV';
+export const MAKE_FOOTER_VISIBLE = 'MAKE_FOOTER_VISIBLE';

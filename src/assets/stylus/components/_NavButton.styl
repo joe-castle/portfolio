@@ -73,6 +73,10 @@ tcon-menu-lines()
   width auto
 
   &.tcon-transform
+    // Button fixed when the nav is open, so nav and button are in sync and cover the screen
+    // even when scrolled
+    position fixed
+
     .tcon-menu__lines
       background transparent
 

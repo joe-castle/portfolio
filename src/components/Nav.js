@@ -3,18 +3,18 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import classNames from 'classnames';
 
-function Nav({ navVisible }) {
+function Nav({ navVisible, toggleNav }) {
   return (
     <nav className={classNames({
       Nav: true,
       'Nav--visible': navVisible,
     })}>
       <section className='Nav__links'>
-        <Link to="/projects" className="Nav__links__link">Projects</Link>
-        <Link to="/about" className="Nav__links__link">About Me</Link>
+        <Link onClick={toggleNav} to="/projects" className="Nav__links__link">Projects</Link>
+        <Link onClick={toggleNav} to="/about" className="Nav__links__link">About Me</Link>
       </section>
     </nav>
   )
 }
 
-export default connect(({ navVisible }) => ({ navVisible }))(Nav)
+export default Nav
