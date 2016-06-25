@@ -1,8 +1,14 @@
 import React from 'react';
 
+// import * as projectsObj from './projects';
+//
+// const projects = Object.keys(projectsObj).map(Project => ({
+//
+// }));
+
 function Projects() {
   return (
-    <div></div>
+    <section></section>
   );
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IndexRoute, Route } from 'react-router';
+import { Route } from 'react-router';
 
 import App from '../components/App';
 import Projects from '../components/Projects';
@@ -11,7 +11,6 @@ import Projects from '../components/Projects';
 
 export default (
   <Route path="/" component={App}>
-    {/*<IndexRoute component={Home} />*/}
     <Route path="projects" component={Projects} />
   </Route>
 );

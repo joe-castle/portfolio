@@ -5,9 +5,10 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import routes from './render/routes';
 
 export default function Root({ store }) {
-  const history = syncHistoryWithStore(browserHistory, store);
-
   return (
-    <Router history={history} routes={routes} />
+    <Router
+      history={syncHistoryWithStore(browserHistory, store)}
+      routes={routes}
+    />
   );
 }

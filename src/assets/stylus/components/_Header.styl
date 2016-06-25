@@ -16,12 +16,15 @@
     align()
 
     ^[0]--content-active &
-      top 60%
+      top 55%
 
     &::after
       animation blink 1s linear infinite
       color body-bg-color
       content '|'
+
+      ^[0]--content-active &
+        content ''
 
   &--content-active
     box-shadow 0 5px 11px 0 rgba(0,0,0,0.4), 0 4px 15px 0 rgba(0,0,0,0.32)
