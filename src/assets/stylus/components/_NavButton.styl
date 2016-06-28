@@ -23,11 +23,14 @@ tcon-transform-menu-color = header-bg-color
   outline none
   -webkit-tap-highlight-color rgba(0,0,0,0)
   -webkit-tap-highlight-color transparent
-  position absolute
-  top vr-block(1)
-  right vr-block(1)
+  absolute top vr-block(1.25) right vr-block(1.25)
+  padding 0
+  margin 0
   // ensures navbutton stays on top of the page
   z-index 10
+
+  +above(breakpoints.tablet)
+    display none
 
   > *
     display block

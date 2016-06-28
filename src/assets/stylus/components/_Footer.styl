@@ -1,37 +1,26 @@
-font-color = #454d60
-icons = {
-  Github: '\0041',
-  Codepen: '\0042',
-  FCC: '\0043',
-  Linkedin: '\0044',
-  Facebook: '\0045',
-  Email: '\0046'
-}
-
 .Footer
+  absolute bottom
   background header-bg-color
-  bottom 0
-  height 45%
-  position absolute
+  height 50%
   transition all .2s linear
   width 100%
 
   &__wrapper
-    margin-top vr-block(1)
     opacity 0
     text-align center
     transform scale(0, 0)
     transition transform .5s linear
 
+    &__copyright
     &__attribution
     &__icon
-      color font-color
+      color #454d60
 
     &__icon
       display inline-block
       font-size vr-block(1.5)
-      margin-left 10px
-      margin-right 10px
+      margin-left 5px
+      margin-right 5px
       transition color .2s linear
 
       +hover-state()
@@ -54,15 +43,17 @@ icons = {
               margin-left 10px
               vertical-align top
 
+    // Zoom in effect of footer for frontpage, when text has finished typing
     &--visible
       opacity 1
       transform scale(1, 1)
 
     &__copyright
-      color font-color
       display block
       text-align center
 
+  // FIXME: Footers height doesn't expand on mobile, when icons collapse because they dont fit.
+  // Setting min-height makes it toooo big
   &--content-active
     bottom -(vr-block(6))
     box-shadow 0 -5px 11px 0 rgba(0,0,0,0.4), 0 -4px 15px 0 rgba(0,0,0,0.32)

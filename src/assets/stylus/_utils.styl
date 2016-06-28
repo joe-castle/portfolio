@@ -12,9 +12,9 @@ breakpoints = {
 }
 
 header-bg-color = #2C313A
-header-font-color = #2196F3
-body-bg-color = #EAEAEA
-body-font-color = #36393B
+header-font-color = blue-500
+body-bg-color = grey-200
+body-font-color = grey-900
 
 // Used in creating a meterial design box-shdaow
 z-depth-grades = {
@@ -26,6 +26,14 @@ z-depth-grades = {
   '5': '0 27px 24px 0 rgba(0,0,0,0.2), 0 40px 77px 0 rgba(0,0,0,0.22)'
 }
 
+icons = {
+  Github: '\0041',
+  Codepen: '\0042',
+  FCC: '\0043',
+  Linkedin: '\0044',
+  Facebook: '\0045',
+  Email: '\0046'
+}
 
 // ---------------------------------------------
 // ------ Functions
@@ -59,3 +67,21 @@ hover-state()
   &:active
   &:focus
     {block}
+
+// Nibs position Mixins
+-pos(type, args)
+  i = 0
+  position: unquote(type)
+  for j in (1..4)
+    if length(args) > i
+      {args[i]}: args[i + 1] is a 'unit' ? args[i += 1] : 0
+    i += 1
+
+fixed()
+  -pos('fixed', arguments)
+
+absolute()
+  -pos('absolute', arguments)
+
+relative()
+  -pos('relative', arguments)

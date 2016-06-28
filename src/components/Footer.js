@@ -17,6 +17,7 @@ function Footer({ footerVisible, contentActive }) {
         'Footer--content-active': contentActive,
       })}>
       <section className={classNames({
+          'container': true,
           'Footer__wrapper': true,
           'Footer__wrapper--visible': footerVisible || contentActive,
         })}>

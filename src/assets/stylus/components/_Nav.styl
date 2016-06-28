@@ -12,9 +12,34 @@
     align()
 
     &__link
-      font-size vr-block(1)
+      font-size vr-block(.9)
       margin vr-block(1)
       stack()
 
   &--visible
     display block
+
+  +above(breakpoints.tablet)
+    background none
+    display block
+    height vr-block(7)
+    position absolute
+    width 100%
+
+    &__links
+      float right
+      // Margin 1/4 of the size of the header image so it and the links look inline
+      margin vr-block(.5)
+      position static
+      transform none
+
+      &__link
+        unstack()
+        margin-right vr-block(1)
+
+        &--active
+          color body-bg-color
+          cursor default
+
+          +hover-state()
+            color body-bg-color

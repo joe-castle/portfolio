@@ -3,16 +3,29 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import classNames from 'classnames';
 
-function Nav({ navVisible, toggleNav }) {
+function Nav({ navVisible, toggleNav, path }) {
   return (
     <nav className={classNames({
       Nav: true,
       'Nav--visible': navVisible,
     })}>
-      <section className='Nav__links'>
-        <Link onClick={toggleNav} to="/projects" className="Nav__links__link">Projects</Link>
-        <Link onClick={toggleNav} to="/about" className="Nav__links__link">About Me</Link>
-      </section>
+      <div className="container">
+        <section className='Nav__links'>
+          {[['/projects', 'Projects'], ['/about', 'About Me']].map(link => (
+            <Link
+              key={link[0]}
+              onClick={toggleNav}
+              to={link[0]}
+              className={classNames({
+                'Nav__links__link': true,
+                'Nav__links__link--active': path === link[0]
+              })}
+            >
+              {link[1]}
+            </Link>
+          ))}
+        </section>
+      </div>
     </nav>
   )
 }

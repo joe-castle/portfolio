@@ -25,7 +25,7 @@ function App({
       'App': true,
       'App--content-active': contentActive,
     })}>
-      <Nav navVisible={navVisible} toggleNav={toggleNav} />
+      <Nav navVisible={navVisible} toggleNav={toggleNav} path={location.pathname}/>
       <NavButton navVisible={navVisible} toggleNav={toggleNav} />
       <Header makeFooterVisible={makeFooterVisible} contentActive={contentActive}/>
       {children}
