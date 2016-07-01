@@ -18,7 +18,7 @@ function Nav({ navVisible, toggleNav, path }) {
               to={link[0]}
               className={classNames({
                 'Nav__links__link': true,
-                'Nav__links__link--active': path === link[0]
+                'Nav__links__link--active': RegExp(link[0]).test(path)
               })}
             >
               {link[1]}

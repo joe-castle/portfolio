@@ -4,17 +4,20 @@
 text-font-stack = 'Source Sans Pro', 'Arial', sans-serif
 code-font-stack = 'Source Code Pro', 'Monaco', monospace
 
-base-url = '/assets/'
+header-bg-color = #2C313A
+header-font-color = teal-500
+header-blended-font-color = #454d60
+subheading-color = blue-500
+body-bg-color = grey-200
+body-font-color = grey-900
+
+header-height = 7
+header-img-size = 2.5
 
 breakpoints = {
   tablet: 768px,
   desktop: 1050px
 }
-
-header-bg-color = #2C313A
-header-font-color = blue-500
-body-bg-color = grey-200
-body-font-color = grey-900
 
 // Used in creating a meterial design box-shdaow
 z-depth-grades = {
@@ -32,27 +35,16 @@ icons = {
   FCC: '\0043',
   Linkedin: '\0044',
   Facebook: '\0045',
-  Email: '\0046'
+  Email: '\0046',
+  npm: '\0047'
 }
+
+// TODO: Extrapolate all the properts that rely on another, e.g. img size and nav padding into variables
 
 // ---------------------------------------------
 // ------ Functions
 // ---------------------------------------------
-// Native `url(..)` function wrapper
-// @param {String} $base - base URL for the asset
-// @param {String} $type - asset type folder (e.g. `fonts/`)
-// @param {String} $path - asset path
-// @return {Url}
-asset(base, type, path)
-  url(base + type + path)
 
-// Returns URL to an image based on its path
-// @param {String} $path - image path
-// @param {String} $base [$base-url] - base URL
-// @return {Url}
-// @require $base-url
-image(path, base = base-url)
-  asset(base, 'images/', path)
 
 // ---------------------------------------------
 // ------ Mixins
@@ -85,3 +77,15 @@ absolute()
 
 relative()
   -pos('relative', arguments)
+
+// Maintains the aspect ratio of a given element
+aspect-ratio(width, height)
+  position relative
+
+  &::before
+    content ''
+    display block
+    padding-top (height / width) * 100%
+
+  > *
+    absolute top right bottom left

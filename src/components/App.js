@@ -25,11 +25,25 @@ function App({
       'App': true,
       'App--content-active': contentActive,
     })}>
-      <Nav navVisible={navVisible} toggleNav={toggleNav} path={location.pathname}/>
-      <NavButton navVisible={navVisible} toggleNav={toggleNav} />
-      <Header makeFooterVisible={makeFooterVisible} contentActive={contentActive}/>
+      <Nav
+        navVisible={navVisible}
+        toggleNav={toggleNav}
+        path={location.pathname}
+      />
+      <NavButton
+        navVisible={navVisible} 
+        toggleNav={toggleNav}
+      />
+      <Header
+        makeFooterVisible={makeFooterVisible}
+        contentActive={contentActive}
+        path={location.pathname}
+      />
       {children}
-      <Footer footerVisible={footerVisible} contentActive={contentActive}/>
+      <Footer
+        footerVisible={footerVisible}
+        contentActive={contentActive}
+      />
     </div>
   );
 }

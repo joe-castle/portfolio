@@ -5,12 +5,15 @@ import App from '../components/App';
 import Projects from '../components/Projects';
 
 // Projects
-// import SimonGame from '../components/projects/SimonGame';
-// import TwitchApp from '../components/projects/TwitchApp';
-// import Calculator from '../components/projects/Calculator';
+import SimonGame from '../components/projects/SimonGame';
+import TwitchApp from '../components/projects/TwitchApp';
+import Calculator from '../components/projects/Calculator';
 
 export default (
   <Route path="/" component={App}>
     <Route path="projects" component={Projects} />
+    <Route path="projects/SimonGame" component={SimonGame} />
+    <Route path="projects/TwitchApp" component={TwitchApp} />
+    <Route path="projects/Calculator" component={Calculator} />
   </Route>
 );

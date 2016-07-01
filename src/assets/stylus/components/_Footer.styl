@@ -14,7 +14,7 @@
     &__copyright
     &__attribution
     &__icon
-      color #454d60
+      color header-blended-font-color
 
     &__icon
       display inline-block
@@ -55,6 +55,6 @@
   // FIXME: Footers height doesn't expand on mobile, when icons collapse because they dont fit.
   // Setting min-height makes it toooo big
   &--content-active
-    bottom -(vr-block(6))
+    bottom -(vr-block(header-height - 1))
     box-shadow 0 -5px 11px 0 rgba(0,0,0,0.4), 0 -4px 15px 0 rgba(0,0,0,0.32)
-    height vr-block(6)
+    height vr-block(header-height - 1)

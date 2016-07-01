@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="297mm"
+   height="297mm"
+   viewBox="0 0 1052.3622 1052.3622"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="npm.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="374.03041"
+     inkscape:cy="482.08021"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1680"
+     inkscape:window-height="1001"
+     inkscape:window-x="0"
+     inkscape:window-y="1"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="fill:#000000"
+       d="M 526.18164 0 A 526.18109 526.18109 0 0 0 0 526.18164 A 526.18109 526.18109 0 0 0 526.18164 1052.3613 A 526.18109 526.18109 0 0 0 1052.3613 526.18164 A 526.18109 526.18109 0 0 0 526.18164 0 z M 77.142578 402.9375 L 962.96875 402.9375 L 962.96875 698.21289 L 520.05664 698.21289 L 520.05664 747.42578 L 323.20508 747.42578 L 323.20508 698.21289 L 77.142578 698.21289 L 77.142578 402.9375 z M 126.35547 452.15039 L 126.35547 649 L 224.78125 649 L 224.78125 501.36133 L 273.99414 501.36133 L 273.99414 649 L 323.20508 649 L 323.20508 452.15039 L 126.35547 452.15039 z M 372.41797 452.15039 L 372.41797 698.21289 L 470.84375 698.21289 L 470.84375 649 L 569.26953 649 L 569.26953 452.15039 L 372.41797 452.15039 z M 618.48047 452.15039 L 618.48047 649 L 716.90625 649 L 716.90625 501.36133 L 766.11914 501.36133 L 766.11914 649 L 815.33203 649 L 815.33203 501.36133 L 864.54492 501.36133 L 864.54492 649 L 913.75781 649 L 913.75781 452.15039 L 618.48047 452.15039 z M 470.84375 501.36133 L 520.05664 501.36133 L 520.05664 599.78711 L 470.84375 599.78711 L 470.84375 501.36133 z "
+       id="path3534" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="Npm text" />
+</svg>

@@ -9,18 +9,17 @@
   transition all .2s linear
 
   &__img
-    border 3px solid header-font-color
+    border 3px solid subheading-color
     border-radius 50%
-    max-height vr-block(2)
-    max-width vr-block(2)
+    height vr-block(header-img-size)
     transition box-shadow .2s linear
-    z-depth('1')
+    width vr-block(header-img-size)
 
-    +hover-state()
-      z-depth('1.5')
+    // TODO: Add fancy hoverstate
 
   &__title
     absolute bottom left
+    color header-font-color
     margin 0
     text-align center
     transition top .2s linear
@@ -39,4 +38,4 @@
 
   &--content-active
     box-shadow 0 5px 11px 0 rgba(0,0,0,0.4), 0 4px 15px 0 rgba(0,0,0,0.32)
-    height vr-block(7)
+    height vr-block(header-height)

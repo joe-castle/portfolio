@@ -17,6 +17,7 @@ html
 // ------ Fonts
 // ---------------------------------------------
 
+// FIXME: body and code fonts aren't loaded in build, last error seemed ot be missing a /: assets...
 // Body font
 @font-face
   font-family 'Source Sans Pro'
@@ -58,7 +59,7 @@ $header-font = text-font-stack
 $min-font = 16px
 
 $body-color = body-font-color
-$header-color = header-font-color
+$header-color = subheading-color
 
 typographic()
 
@@ -78,17 +79,19 @@ body
   height 100%
   padding vr-block(1)
   margin 0 auto
-  max-width 1200px
+  max-width 1050px
   position relative
   width 100%
 
 // ---------------------------------------------
 // ------ Basic Styles
 // ---------------------------------------------
+
+// TODO: Make awesome anchor hoverstatte
 a
-  color header-font-color
+  color subheading-color
   text-decoration none
   transition color .2s linear
 
   +hover-state()
-    color rgba(@color, .5)
+    color blue-200
