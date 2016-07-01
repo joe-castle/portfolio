@@ -50,6 +50,7 @@ function Project({ project }) {
       <section className="Projects__project__content-wrapper">
         <section className="Projects__project__live-preview">
           <Frame
+            id="test"
             frameBorder={0}
             initialContent={
               `<!DOCTYPE html><html><head>
@@ -73,7 +74,7 @@ function Project({ project }) {
           </section>
         </section>
         <Link className="Projects__project__title" to={`/projects/${project.title.replace(' ', '')}`}>
-          {project.title}
+          <span>{project.title}</span>
         </Link>
       </section>
     </section>

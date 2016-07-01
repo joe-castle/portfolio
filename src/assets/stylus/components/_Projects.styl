@@ -48,14 +48,18 @@
         +hover-state()
           opacity 1
 
-    // FIXME: Align title in the middle
     &__title
       background grey-300
       display block
-      font-size vr-block(1.2)
+      font-size vr-block(1.1)
       height 20%
       margin 0
+      position relative
       text-align center
+
+      span
+        width 100%
+        align()
 
     +above(breakpoints.tablet)
       col(1/2, cycle: 2)
