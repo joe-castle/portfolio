@@ -10,6 +10,8 @@ import NavButton from './NavButton';
 import Header from './Header';
 import Footer from './Footer';
 
+// TODO: Extract similar code into react components
+
 function App({
   children,
   location,
@@ -31,7 +33,7 @@ function App({
         path={location.pathname}
       />
       <NavButton
-        navVisible={navVisible} 
+        navVisible={navVisible}
         toggleNav={toggleNav}
       />
       <Header
@@ -39,7 +41,7 @@ function App({
         contentActive={contentActive}
         path={location.pathname}
       />
-      {children}
+      <main className="container">{children}</main>
       <Footer
         footerVisible={footerVisible}
         contentActive={contentActive}

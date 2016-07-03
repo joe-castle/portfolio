@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router';
 import Frame from 'react-frame-component';
-
+// Give projects their own full page, or atleast give timr its own page 
 import SimonGame from './projects/SimonGame';
 import Calculator from './projects/Calculator';
 import TwitchApp from './projects/TwitchApp';
+import QuoteGenerator from './projects/QuoteGenerator';
 
 const personalProjects = [
   {
@@ -37,6 +38,14 @@ const fccProjects = [
   {
     livePreview: Calculator,
     title: 'Calculator',
+    links: {
+      Codepen: 'http://codepen.io/joesmith/pen/EKRpLQ',
+      FCC: 'https://www.freecodecamp.com/challenges/build-a-javascript-calculator',
+    },
+  },
+  {
+    livePreview: QuoteGenerator,
+    title: 'QuoteGenerator',
     links: {
       Codepen: 'http://codepen.io/joesmith/pen/EKRpLQ',
       FCC: 'https://www.freecodecamp.com/challenges/build-a-javascript-calculator',
@@ -80,10 +89,11 @@ function Project({ project }) {
     </section>
   );
 }
-
+// Add some sort of separator between personal and freecodecamp
+// Make it more obvious that the title links to the project and the live preview is just for external links
 function Projects({ children }) {
   return (
-    <section className="Projects container">
+    <section className="Projects">
       <h2>Personal</h2>
       <p>The following projects are my own personal projects.</p>
       <section className="Projects__wrapper">
@@ -91,9 +101,13 @@ function Projects({ children }) {
           <Project key={project.title} project={project} />
         ))}
       </section>
+      <h2>freeCodeCamp</h2>
+      <p>
+        The following projects were built as part of the
+          <a href="freecodecamp.com" target="_blank"> freeCodeCamp.com </a>
+        curriculum.
+      </p>
       <section className="Projects__wrapper">
-        <h2><a href="freecodecamp.com" target="_blank">FreeCodeCamp.com</a></h2>
-        <p>The following projects were built as part of the freeCodeCamp curriculum.</p>
         {fccProjects.map(project => (
           <Project key={project.title} project={project} />
         ))}

@@ -1,14 +1,12 @@
 .Projects
-
   &__wrapper
     cf()
 
   &__project
     aspect-ratio 16 9
-    border 3px solid grey-300
+    border 3px solid header-bg-color
     margin vr-block(1) auto 0 auto
     width 100%
-    z-depth('1.5')
 
     &__live-preview
       height 80%
@@ -33,7 +31,7 @@
 
         &__links
           align()
-
+          // TODO: make a mixin / class for icons as used in footer as well
           for icon, content in icons
             &--{icon}
               color grey-300
@@ -49,7 +47,7 @@
           opacity 1
 
     &__title
-      background grey-300
+      background header-bg-color
       display block
       font-size vr-block(1.1)
       height 20%

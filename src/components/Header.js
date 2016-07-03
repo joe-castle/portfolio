@@ -19,6 +19,7 @@ function Header({ makeFooterVisible, contentActive, path }) {
       'Header': true,
       'Header--content-active': contentActive
     })}>
+      <span className="Header__gradient" />
       <div className="container">
         <Link to="/">
           <img className="Header__img" src="http://placekitten.com/200/200" />

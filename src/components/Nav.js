@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import classNames from 'classnames';
-
+// TODO: Add home, contact links
 function Nav({ navVisible, toggleNav, path }) {
   return (
     <nav className={classNames({

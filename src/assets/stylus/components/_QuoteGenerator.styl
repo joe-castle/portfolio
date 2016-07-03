@@ -1,0 +1,48 @@
+.QuoteGenerator
+
+  &__actions
+    margin-bottom vr-block(1)
+    cf()
+
+    &__new-quote
+    &__tweet
+      col(1/2)
+      border 3px solid header-bg-color
+      color header-bg-color
+      cursor pointer
+      font-weight 600
+      padding vr-block(.25)
+      text-align center
+      transition all .2s linear
+
+    &__tweet
+      +hover-state()
+        background blue-500
+        border-color @background
+        color body-bg-color
+
+    &__new-quote
+      +hover-state()
+        background green-500
+        border-color @background
+        color body-bg-color
+
+  &__quote
+    background header-bg-color
+    padding vr-block(1)
+
+    .loader
+      color body-bg-color
+
+    &__text
+    &__author
+      display block
+      text-align center
+
+    &__text
+      color body-bg-color
+      font-weight 600
+
+    &__author
+      color header-blended-font-color
+      font-style italic

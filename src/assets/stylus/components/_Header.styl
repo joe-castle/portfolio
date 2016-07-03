@@ -1,3 +1,6 @@
+gradient-height = header-img-size + 2
+transition-time = .2s
+
 @keyframes blink
   50%
     opacity 0
@@ -6,27 +9,37 @@
   background header-bg-color
   height 50%
   position relative
-  transition all .2s linear
+  transition height transition-time linear
 
+  &__gradient
+    absolute top left
+    background darken(header-bg-color, 15%)
+    display block
+    height 0
+    transition height transition-time linear
+    width 100%
+
+    ^[0]--content-active &
+      height vr-block(gradient-height)
+
+  // TODO: Add fancy hoverstate
   &__img
     border 3px solid subheading-color
     border-radius 50%
     height vr-block(header-img-size)
-    transition box-shadow .2s linear
     width vr-block(header-img-size)
 
-    // TODO: Add fancy hoverstate
-
+  // TODO: Remove title when content active
   &__title
     absolute bottom left
     color header-font-color
     margin 0
     text-align center
-    transition top .2s linear
+    transition bottom transition-time linear
     width 100%
 
     ^[0]--content-active &
-      bottom vr-block(1)
+      bottom vr-block((header-height - gradient-height - 2) / 2)
 
     &::after
       animation blink 1s linear infinite
@@ -37,5 +50,5 @@
         content ''
 
   &--content-active
-    box-shadow 0 5px 11px 0 rgba(0,0,0,0.4), 0 4px 15px 0 rgba(0,0,0,0.32)
+    // box-shadow 0 5px 11px 0 rgba(0,0,0,0.4), 0 4px 15px 0 rgba(0,0,0,0.32)
     height vr-block(header-height)
