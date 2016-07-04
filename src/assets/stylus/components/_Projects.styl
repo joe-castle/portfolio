@@ -4,7 +4,7 @@
 
   &__project
     aspect-ratio 16 9
-    border 3px solid header-bg-color
+    border border-size solid header-background-color
     margin vr-block(1) auto 0 auto
     width 100%
 
@@ -18,7 +18,7 @@
         height 201%
         transform scale(.5)
         transform-origin top left
-        width 201%
+        width @height
 
       &__overlay
         absolute top left
@@ -26,7 +26,7 @@
         content ''
         height 100%
         opacity 0
-        width 100%
+        width @height
         transition all .2s linear
 
         &__links
@@ -47,7 +47,7 @@
           opacity 1
 
     &__title
-      background header-bg-color
+      background header-background-color
       display block
       font-size vr-block(1.1)
       height 20%

@@ -1,49 +1,52 @@
-gradient-height = header-img-size + 2
-transition-time = .2s
+// gradient-height = header-img-size + 2
 
 @keyframes blink
   50%
     opacity 0
 
 .Header
-  background header-bg-color
+  background header-background-color
   height 50%
   position relative
-  transition height transition-time linear
+  transition height layout-transition-time linear
 
-  &__gradient
-    absolute top left
-    background darken(header-bg-color, 15%)
-    display block
-    height 0
-    transition height transition-time linear
-    width 100%
-
-    ^[0]--content-active &
-      height vr-block(gradient-height)
+  // &__gradient
+  //   absolute top left
+  //   background darken(header-bg-color, 15%)
+  //   display block
+  //   height 0
+  //   transition height transition-time linear
+  //   width 100%
+  //
+  //   ^[0]--content-active &
+  //     height vr-block(gradient-height)
 
   // TODO: Add fancy hoverstate
   &__img
-    border 3px solid subheading-color
+    border 5px solid body-background-color
     border-radius 50%
     height vr-block(header-img-size)
+    transition border-color .2s linear
     width vr-block(header-img-size)
+
+    +hover-state()
+      border-color header-hover-color
 
   // TODO: Remove title when content active
   &__title
     absolute bottom left
-    color header-font-color
+    color header-color
     margin 0
     text-align center
-    transition bottom transition-time linear
+    // transition bottom transition-time linear
     width 100%
-
-    ^[0]--content-active &
-      bottom vr-block((header-height - gradient-height - 2) / 2)
+    //
+    // ^[0]--content-active &
+    //   bottom vr-block((header-height - gradient-height - 2) / 2)
 
     &::after
       animation blink 1s linear infinite
-      color body-bg-color
+      color body-background-color
       content '|'
 
       ^[0]--content-active &
@@ -51,4 +54,5 @@ transition-time = .2s
 
   &--content-active
     // box-shadow 0 5px 11px 0 rgba(0,0,0,0.4), 0 4px 15px 0 rgba(0,0,0,0.32)
+    border-bottom border-size solid footer-color
     height vr-block(header-height)

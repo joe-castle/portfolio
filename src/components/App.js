@@ -41,7 +41,11 @@ function App({
         contentActive={contentActive}
         path={location.pathname}
       />
-      <main className="container">{children}</main>
+      <main>
+        <div className="container">
+          {children}
+        </div>
+      </main>
       <Footer
         footerVisible={footerVisible}
         contentActive={contentActive}

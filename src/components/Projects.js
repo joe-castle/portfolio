@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router';
 import Frame from 'react-frame-component';
-// Give projects their own full page, or atleast give timr its own page 
+
+// TODO: Give projects their own full page, or atleast give timr its own page
+// TODO: Store all ajax data from projects into redux, to stop them being fetched on every page change.
+
 import SimonGame from './projects/SimonGame';
 import Calculator from './projects/Calculator';
 import TwitchApp from './projects/TwitchApp';
@@ -61,6 +64,7 @@ function Project({ project }) {
           <Frame
             id="test"
             frameBorder={0}
+            scrolling="no"
             initialContent={
               `<!DOCTYPE html><html><head>
               <link href="/assets/bundle.css" rel="stylesheet">
@@ -104,7 +108,7 @@ function Projects({ children }) {
       <h2>freeCodeCamp</h2>
       <p>
         The following projects were built as part of the
-          <a href="freecodecamp.com" target="_blank"> freeCodeCamp.com </a>
+          <a href="http://www.freecodecamp.com" target="_blank"> freeCodeCamp.com </a>
         curriculum.
       </p>
       <section className="Projects__wrapper">

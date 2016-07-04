@@ -4,15 +4,22 @@
 text-font-stack = 'Source Sans Pro', 'Arial', sans-serif
 code-font-stack = 'Source Code Pro', 'Monaco', monospace
 
-header-bg-color = #2C313A
-header-font-color = teal-500
-header-blended-font-color = lighten(header-bg-color, 25%)
-subheading-color = blue-500
-body-bg-color = grey-300
-body-font-color = grey-900
+container-padding = .5
 
-header-height = 7
-header-img-size = 2.5
+header-background-color = #2C313A
+header-color = blue-500
+header-hover-color = blue-500
+header-img-size = 3
+header-height = header-img-size + (container-padding * 2)
+
+body-background-color = #f2f2f2
+body-color = grey-900
+
+footer-color = lighten(header-background-color, 35%)
+footer-height = 4
+
+layout-transition-time = .2s
+border-size = 3px
 
 breakpoints = {
   tablet: 768px,

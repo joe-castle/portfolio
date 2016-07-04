@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Button from '../Button';
+
 class QuoteGenerator extends React.Component {
   constructor() {
     super();
@@ -31,19 +33,21 @@ class QuoteGenerator extends React.Component {
     return (
       <section className="QuoteGenerator">
         <section className="QuoteGenerator__actions">
-          <a
+          <Button
+            color="green"
             onClick={this.getNewQuote}
             className="QuoteGenerator__actions__new-quote"
           >
             New Quote
-          </a>
-          <a
+          </Button>
+          <Button
+            color="blue"
             href={`https://twitter.com/intent/tweet?text=${this.state.quote.quote}`}
             target="_blank"
             className="QuoteGenerator__actions__tweet"
           >
             Tweet
-          </a>
+          </Button>
         </section>
         <article className="QuoteGenerator__quote">
           {this.state.quote ? (

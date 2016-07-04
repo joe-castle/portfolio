@@ -1,5 +1,5 @@
 .Nav
-  background body-bg-color
+  background body-background-color
   display none
   height 100%
   position fixed
@@ -12,9 +12,19 @@
     align()
 
     &__link
-      font-size vr-block(.9)
-      margin vr-block(1)
+      border-bottom 3px solid header-background-color
+      color header-background-color
+      font-size vr-block(1)
+      margin vr-block(.5)
+      padding vr-block(.25)
+      transition all .2s linear
       stack()
+
+      +hover-state()
+        border-color header-hover-color
+
+      &--active
+        border-color header-hover-color
 
   &--visible
     display block
@@ -27,7 +37,8 @@
     height vr-block(header-height)
     position absolute
     width 100%
-    // Specilaised link hover state, add home and contact? Use the creative hover site
+
+    // TODO: Specilaised link hover state, add home and contact? Use the creative hover site
     &__links
       float right
       margin-top vr-block(header-img-size / 3)
@@ -36,12 +47,10 @@
 
       &__link
         unstack()
+        border-color body-background-color
+        font-size vr-block(.7)
+        color body-background-color
         margin-right vr-block(1)
 
-        // TODO: Better active  and hover states for nav links? rather than default
         &--active
-          color blue-50
-          cursor default
-
-          +hover-state()
-            color blue-50
+          border-color header-hover-color

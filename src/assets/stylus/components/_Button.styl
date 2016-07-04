@@ -1,0 +1,22 @@
+make-hover(color)
+  +hover-state()
+    background color
+    border-color color
+    color body-background-color
+
+.Button
+  border 3px solid header-background-color
+  color header-background-color
+  cursor pointer
+  font-weight 600
+  padding vr-block(.25)
+  text-align center !important
+  transition all .2s linear
+
+  make-hover(header-background-color)
+
+  &--blue
+    make-hover(blue-500)
+
+  &--green
+    make-hover(green-500)

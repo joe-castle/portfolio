@@ -1,8 +1,9 @@
 .Footer
   absolute bottom
-  background header-bg-color
+  background header-background-color
   height 50%
-  transition all .2s linear
+  padding-top vr-block(1)
+  transition all layout-transition-time linear
   width 100%
 
   &__wrapper
@@ -14,34 +15,32 @@
     &__copyright
     &__attribution
     &__icon
-      color header-blended-font-color
+      color footer-color
 
     &__icon
       display inline-block
       font-size vr-block(1.5)
       margin-left 5px
-      margin-right 5px
+      margin-right @margin-left
       transition color .2s linear
 
       +hover-state()
-        color header-font-color
+        color header-hover-color
 
       for icon, content in icons
         &--{icon}
-          display inline-block
-          font-family Flaticon
-          font-style normal
+          font normal vr-block(1.5) Flaticon
 
           &:before
             content content
           // Provides text to icons at desktop widths
-          +above(breakpoints.desktop)
-            &:after
-              content icon
-              font-family text-font-stack
-              font-size vr-block(.3)
-              margin-left 10px
-              vertical-align top
+          // +above(breakpoints.desktop)
+          //   &:after
+          //     content icon
+          //     font-family text-font-stack
+          //     font-size vr-block(.3)
+          //     margin-left 10px
+          //     vertical-align middle
 
     // Zoom in effect of footer for frontpage, when text has finished typing
     &--visible
@@ -50,11 +49,14 @@
 
     &__copyright
       display block
+      margin-top vr-block(.25)
       text-align center
 
   // FIXME: Footers height doesn't expand on mobile, when icons collapse because they dont fit.
   // Setting min-height makes it toooo big
   &--content-active
-    bottom -(vr-block(header-height - 1))
+    border-top border-size solid footer-color
+    bottom -(vr-block(footer-height))
     // box-shadow 0 -5px 11px 0 rgba(0,0,0,0.4), 0 -4px 15px 0 rgba(0,0,0,0.32)
-    height vr-block(header-height - 1)
+    height vr-block(footer-height)
+    padding-top 0
