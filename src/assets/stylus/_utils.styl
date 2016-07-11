@@ -28,12 +28,10 @@ breakpoints = {
 
 // Used in creating a meterial design box-shdaow
 z-depth-grades = {
-  '1': '0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12)',
-  '1.5': '0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15)',
-  '2': '0 8px 17px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19)',
-  '3': '0 12px 15px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19)',
-  '4': '0 16px 28px 0 rgba(0,0,0,0.22), 0 25px 55px 0 rgba(0,0,0,0.21)',
-  '5': '0 27px 24px 0 rgba(0,0,0,0.2), 0 40px 77px 0 rgba(0,0,0,0.22)'
+  '1': {
+    normal: '0 1px 4px 0 rgba(0,0,0,0.37)',
+    hover: '0 2px 2px 0 rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.3)'
+  },
 }
 
 icons = {
@@ -57,8 +55,12 @@ icons = {
 // ------ Mixins
 // ---------------------------------------------
 // Creates a material design style box-shadow.
-z-depth(grade)
-  box-shadow: unquote(z-depth-grades[grade])
+z-depth(grade, hover = false)
+  box-shadow: unquote(z-depth-grades[grade].normal)
+
+  if hover
+    +hover-state()
+      box-shadow: unquote(z-depth-grades[grade].hover)
 
 // Save having to right hover, active and focus on all links.
 hover-state()

@@ -5,10 +5,11 @@ import App from '../components/App';
 import Projects from '../components/Projects';
 
 // Projects
-import SimonGame from '../components/projects/SimonGame';
-import TwitchApp from '../components/projects/TwitchApp';
-import Calculator from '../components/projects/Calculator';
-import QuoteGenerator from '../components/projects/QuoteGenerator';
+import SimonGame from '../components/SimonGame';
+import TwitchApp from '../components/TwitchApp';
+import Calculator from '../components/Calculator';
+import QuoteGenerator from '../components/QuoteGenerator';
+import PomodoroTimer from '../components/PomodoroTimer';
 
 export default (
   <Route path="/" component={App}>
@@ -17,5 +18,6 @@ export default (
     <Route path="projects/TwitchApp" component={TwitchApp} />
     <Route path="projects/Calculator" component={Calculator} />
     <Route path="projects/QuoteGenerator" component={QuoteGenerator} />
+    <Route path="projects/PomodoroTimer" component={PomodoroTimer} />
   </Route>
 );

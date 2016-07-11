@@ -5,6 +5,7 @@
   &--content-active
     // FIXME: This works, it keeps the app 100% then properly expands with content.
     // Hoever, the animation looks choppy rather than a nice sliding open motion
+      // Using vh on the footer / header sort of fixes the animation
     // Also, if the content doesn't fill up the body, the footer won't be fixed to the bottom
     height auto
     margin-bottom vr-block(footer-height)

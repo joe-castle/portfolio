@@ -5,10 +5,11 @@ import Frame from 'react-frame-component';
 // TODO: Give projects their own full page, or atleast give timr its own page
 // TODO: Store all ajax data from projects into redux, to stop them being fetched on every page change.
 
-import SimonGame from './projects/SimonGame';
-import Calculator from './projects/Calculator';
-import TwitchApp from './projects/TwitchApp';
-import QuoteGenerator from './projects/QuoteGenerator';
+import SimonGame from './SimonGame';
+import Calculator from './Calculator';
+import TwitchApp from './TwitchApp';
+import QuoteGenerator from './QuoteGenerator';
+import PomodoroTimer from './PomodoroTimer';
 
 const personalProjects = [
   {
@@ -48,10 +49,18 @@ const fccProjects = [
   },
   {
     livePreview: QuoteGenerator,
-    title: 'QuoteGenerator',
+    title: 'Quote Generator',
     links: {
       Codepen: 'http://codepen.io/joesmith/pen/EKRpLQ',
-      FCC: 'https://www.freecodecamp.com/challenges/build-a-javascript-calculator',
+      FCC: 'https://www.freecodecamp.com/challenges/build-a-random-quote-machine',
+    },
+  },
+  {
+    livePreview: PomodoroTimer,
+    title: 'Pomodoro Timer',
+    links: {
+      Codepen: 'http://codepen.io/joesmith/pen/KzoaLe',
+      FCC: 'https://www.freecodecamp.com/challenges/build-a-pomodoro-clock',
     },
   },
 ];

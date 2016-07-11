@@ -1,0 +1,183 @@
+// TODO: clean up styles, especially input, make use of variables etc.
+
+session = {
+  normal: green-900,
+  hover: green-700
+}
+
+break = {
+  normal: red-900,
+  hover: red-500
+}
+
+box-border(color, size = 2px, blur = 0)
+  box-shadow: size 0 blur size color,
+    0 size blur size color,
+    -(size) 0 blur size color,
+    0 (-(size)) blur size color
+
+session-colors(colors)
+  box-border(colors.normal)
+
+  +hover-state()
+    box-border(colors.hover, 4px, 4px)
+
+@keyframes session-finish
+  50%
+    background: session.hover
+
+@keyframes break-finish
+  50%
+    background: break.hover
+
+input-style(colors)
+  div
+    border: 3px solid colors.normal
+    box-sizing content-box
+    height 36px
+    line-height 0
+    margin 0 auto
+    width vr-block(11)
+
+  label
+    box-sizing content-box
+    color: colors.normal
+    margin 0 auto -1px auto
+    padding 0
+    text-align left
+    text-transform capitalize
+    width vr-block(11)
+
+    .session-name
+    .time
+      border: 3px solid colors.normal
+      border-bottom 0
+      display inline-block
+      font-size vr-block(.7)
+      text-align center
+      width vr-block(2)
+
+    .session-name
+      background: colors.normal
+      color body-background-color
+      font-weight bold
+      margin-left -3px
+
+    .time
+      padding-left 5px
+      padding-right 5px
+
+  input
+    width vr-block(11)
+    -webkit-appearance none
+
+    &:focus
+      outline none
+
+    &::-webkit-slider-runnable-track
+      width 100%
+      height 8.4px
+      cursor pointer
+      background: colors.hover
+      margin-top 14px
+
+    &::-webkit-slider-thumb
+      height 36px
+      width 16px
+      background: colors.normal
+      cursor pointer
+      -webkit-appearance none
+      margin-top -14px
+
+    &::-moz-range-track
+      width 100%
+      height 8.4px
+      cursor pointer
+      background: colors.hover
+
+    &::-moz-range-thumb
+      height 36px
+      width 16px
+      background: colors.hover
+      cursor pointer
+
+    &::-ms-track
+      width 100%
+      height 8.4px
+      cursor pointer
+      background transparent
+      border-color transparent
+      color transparent
+
+    &::-ms-fill-lower
+      background #50cb4f
+
+    &::-ms-fill-upper
+      background: colors.hover
+
+    &::-ms-thumb
+      height 36px
+      width 16px
+      border-radius 3px
+      background: colors.hover
+      cursor pointer
+      height 8.4px
+
+.PomodoroTimer
+  text-align center
+  user-select none
+
+  &__timer
+    background blue-grey-900
+    border 6px solid @background
+    border-radius 50%
+    cursor pointer
+    height vr-block(11)
+    margin 0 auto
+    overflow hidden
+    position relative
+    transition all .2s linear
+    width @height
+
+    &--session
+      session-colors(session)
+
+    &--break
+      session-colors(break)
+
+    &__time
+      align()
+      color body-background-color
+      font-size vr-block(3)
+
+    &__cta
+      align()
+      color rgba(body-background-color, .05)
+      font-size vr-block(11)
+
+    &__fill
+      absolute bottom left
+      height 0
+      transition @transition
+      width @width
+
+      ^[1]--session &
+        background: session.normal
+
+        &--finish
+          animation session-finish .6s linear 5
+
+      ^[1]--break &
+        background: break.normal
+
+        &--finish
+          animation break-finish .6s linear 5
+
+  &__input
+    margin-top vr-block(.7)
+
+    &--session
+      input-style(session)
+
+    &--break
+      input-style(break)
