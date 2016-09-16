@@ -179,43 +179,45 @@ class TwitchApp extends React.Component {
 		}));
 	};
 
-	render = () => (
-		<section className='TwitchApp'>
-      <header className="TwitchApp__header">
-        <section className="TwitchApp__header__inputs">
-  				<input
-            className='TwitchApp__header__inputs__search-input'
-            placeholder='Search...'
-            onChange={ev => this.setState({ searchString: ev.target.value })}
-  				/>
-          <form
-            onSubmit={ev => {
-              ev.preventDefault();
-              this.getStreamer(this.refs.streamerInput.value)
-            }}
-            ref='streamerForm'
-          >
-  					<input
-              ref='streamerInput'
-  						className='TwitchApp__header__inputs__new-streamer-input'
-  						placeholder='Add a streamer...'
-  					/>
-    			</form>
-  			</section>
-        <Nav
-          filter={this.state.filter}
-          setFilter={filter => this.setState({ filter })}
-        />
-      {this.state.fetching && <div className="TwitchApp__header__loading" />}
-      </header>
-			<StreamersBox
-				filter={this.state.filter}
-				searchString={this.state.searchString}
-				streamers={this.state.streamers}
-				deleteStreamer={this.deleteStreamer}
-			/>
-  </section>
-	);
+	render() {
+    return (
+      <section className='TwitchApp'>
+        <header className="TwitchApp__header">
+          <section className="TwitchApp__header__inputs">
+    				<input
+              className='TwitchApp__header__inputs__search-input'
+              placeholder='Search...'
+              onChange={ev => this.setState({ searchString: ev.target.value })}
+    				/>
+            <form
+              onSubmit={ev => {
+                ev.preventDefault();
+                this.getStreamer(this.refs.streamerInput.value)
+              }}
+              ref='streamerForm'
+            >
+    					<input
+                ref='streamerInput'
+    						className='TwitchApp__header__inputs__new-streamer-input'
+    						placeholder='Add a streamer...'
+    					/>
+      			</form>
+    			</section>
+          <Nav
+            filter={this.state.filter}
+            setFilter={filter => this.setState({ filter })}
+          />
+        {this.state.fetching && <div className="TwitchApp__header__loading" />}
+        </header>
+  			<StreamersBox
+  				filter={this.state.filter}
+  				searchString={this.state.searchString}
+  				streamers={this.state.streamers}
+  				deleteStreamer={this.deleteStreamer}
+  			/>
+      </section>
+    );
+  }
 };
 
 export default TwitchApp;

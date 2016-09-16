@@ -1,0 +1,27 @@
+.GameOfLife
+
+  &__grid
+    border 3px solid blue-grey-900
+    box-sizing content-box
+    height 50 * 12px
+    width 70 * 12px
+
+    &__cell
+      border-bottom 1px solid blue-grey-900
+      border-right 1px solid blue-grey-900
+      box-sizing border-box
+      display inline-block
+      float left
+      height 12px
+      margin 0
+      padding 0
+      width 12px
+
+      &--dead
+        background blue-grey-800
+
+      &--alive
+        background blue-400
+
+      &--old
+        background blue-800

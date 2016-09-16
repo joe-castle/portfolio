@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import Frame from 'react-frame-component';
 
-// TODO: Give projects their own full page, or atleast give timr its own page
+// TODO: Give projects their own full page, or atleast give timr its own page, free of header/ borrder with a simple back/home/projects button.
 // TODO: Store all ajax data from projects into redux, to stop them being fetched on every page change.
 
 import SimonGame from './SimonGame';
@@ -10,15 +10,13 @@ import Calculator from './Calculator';
 import TwitchApp from './TwitchApp';
 import QuoteGenerator from './QuoteGenerator';
 import PomodoroTimer from './PomodoroTimer';
+import WeatherWidget from './WeatherWidget';
+import GameOfLife from './GameOfLife';
 
 const personalProjects = [
   {
     livePreview: SimonGame,
     title: 'TimrJS',
-    links: {
-      Github: 'https://github.com/joesmith100/timrjs',
-      npm: 'https://www.npmjs.com/package/timrjs'
-    },
   },
 ];
 
@@ -26,48 +24,36 @@ const fccProjects = [
   {
     livePreview: SimonGame,
     title: 'Simon Game',
-    links: {
-      Codepen: 'http://codepen.io/joesmith/pen/ZWmaWP',
-      FCC: 'https://www.freecodecamp.com/challenges/build-a-simon-game',
-    },
   },
   {
     livePreview: TwitchApp,
     title: 'Twitch App',
-    links: {
-      Codepen: 'http://codepen.io/joesmith/pen/zqyXjo',
-      FCC: 'https://www.freecodecamp.com/challenges/use-the-twitchtv-json-api',
-    },
   },
   {
     livePreview: Calculator,
     title: 'Calculator',
-    links: {
-      Codepen: 'http://codepen.io/joesmith/pen/EKRpLQ',
-      FCC: 'https://www.freecodecamp.com/challenges/build-a-javascript-calculator',
-    },
   },
   {
     livePreview: QuoteGenerator,
     title: 'Quote Generator',
-    links: {
-      Codepen: 'http://codepen.io/joesmith/pen/EKRpLQ',
-      FCC: 'https://www.freecodecamp.com/challenges/build-a-random-quote-machine',
-    },
   },
   {
     livePreview: PomodoroTimer,
     title: 'Pomodoro Timer',
-    links: {
-      Codepen: 'http://codepen.io/joesmith/pen/KzoaLe',
-      FCC: 'https://www.freecodecamp.com/challenges/build-a-pomodoro-clock',
-    },
+  },
+  {
+    livePreview: WeatherWidget,
+    title: 'Weather Widget',
+  },
+  {
+    livePreview: GameOfLife,
+    title: 'Game Of Life',
   },
 ];
 
 function Project({ project }) {
   return (
-    <section className="Projects__project">
+    <Link className="Projects__project" to={`/projects/${project.title.replace(/\s/g, '')}`}>
       <section className="Projects__project__content-wrapper">
         <section className="Projects__project__live-preview">
           <Frame
@@ -79,27 +65,16 @@ function Project({ project }) {
               <link href="/assets/bundle.css" rel="stylesheet">
               </head><body><div></div></body></html>`
             }
-            >
+          >
             {React.createElement(project.livePreview)}
           </Frame>
-          <section className="Projects__project__live-preview__overlay">
-            <section className="Projects__project__live-preview__overlay__links">
-              {Object.keys(project.links).map(link => (
-                <a
-                  className={`Projects__project__live-preview__overlay__links--${link}`}
-                  key={link}
-                  href={project.links[link]}
-                  target="_blank"
-                  />
-              ))}
-            </section>
-          </section>
+          <section></section>
         </section>
-        <Link className="Projects__project__title" to={`/projects/${project.title.replace(' ', '')}`}>
-          <span>{project.title}</span>
-        </Link>
+        <section className="Projects__project__title-wrapper">
+          <span className="Projects__project__title-wrapper__title">{project.title}</span>
+        </section>
       </section>
-    </section>
+    </Link>
   );
 }
 // Add some sort of separator between personal and freecodecamp

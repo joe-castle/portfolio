@@ -15,7 +15,7 @@ function RangeInput({ time, changeFn, session }) {
           <input
             onChange={ev => changeFn(ev.target.value)}
             value={time}
-            type='range' min='1' max='99'
+            type='range' min='1' max='120'
             name={`${session}-label`}
           />
         </div>
@@ -40,6 +40,8 @@ class PomodoroTimer extends React.Component {
   }
 
   componentDidMount() {
+    this.buzzer = new Audio('http://cpres.herokuapp.com/pomodoro-timer/egg-timer.wav');
+
     this.timer = Timr(`${this.state.sessionTime}m`)
       .ticker((ft, pd) => {
         this.setState({ time: ft, fillHeight: pd });
@@ -47,7 +49,7 @@ class PomodoroTimer extends React.Component {
       .finish(self => {
         this.setState({ finish: 'finish' });
 
-        this.refs.buzzer.play();
+        this.buzzer.play();
 
         // Timeout to give finish animation enough time to run.
         setTimeout(() => {
@@ -71,13 +73,15 @@ class PomodoroTimer extends React.Component {
 
   // Changing session length also resets timer
   changeSessionLength = val => {
-    this.setState({
-      session: 'session',
-      sessionTime: val,
-      running: false,
-      fillHeight: 0,
-      time: this.timer.setStartTime(`${val}m`),
-    });
+    if (!this.state.running) {
+      this.setState({
+        session: 'session',
+        sessionTime: val,
+        running: false,
+        fillHeight: 0,
+        time: this.timer.setStartTime(`${val}m`),
+      });
+    }
   };
 
   changeBreakLength = val => {
@@ -120,11 +124,6 @@ class PomodoroTimer extends React.Component {
           time={breakTime}
           changeFn={this.changeBreakLength}
           session="break"
-        />
-        <audio
-          ref='buzzer'
-          type='audio/wav'
-          src='http://cpres.herokuapp.com/pomodoro-timer/egg-timer.wav'
         />
       </section>
     );

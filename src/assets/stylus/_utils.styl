@@ -15,6 +15,8 @@ header-height = header-img-size + (container-padding * 2)
 body-background-color = #f2f2f2
 body-color = grey-900
 
+content-color = #fafafa
+
 footer-color = lighten(header-background-color, 35%)
 footer-height = 4
 
@@ -57,6 +59,7 @@ icons = {
 // Creates a material design style box-shadow.
 z-depth(grade, hover = false)
   box-shadow: unquote(z-depth-grades[grade].normal)
+  transition box-shadow .2s linear
 
   if hover
     +hover-state()
@@ -87,7 +90,7 @@ absolute()
 relative()
   -pos('relative', arguments)
 
-// Maintains the aspect ratio of a given element
+// Maintains the aspect ratio of a given element when resized
 aspect-ratio(width, height)
   position relative
 

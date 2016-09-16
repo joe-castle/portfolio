@@ -5,9 +5,11 @@
 
   &__project
     aspect-ratio 16 9
-    border border-size solid header-background-color
+    border border-size solid content-color
+    display block
     margin vr-block(1) auto 0 auto
     width 100%
+    z-depth '1' true
 
     &__live-preview
       height 80%
@@ -21,44 +23,30 @@
         transform-origin top left
         width @height
 
-      &__overlay
+      > section
         absolute top left
-        background rgba(black, 0.7)
+        background rgba(black, 0.6)
         content ''
         height 100%
         opacity 0
         width @height
-        transition all .2s linear
-
-        &__links
-          align()
-          // TODO: make a mixin / class for icons as used in footer as well
-          for icon, content in icons
-            &--{icon}
-              color grey-300
-              font normal vr-block(2) Flaticon
-
-              &:not(:first-child)
-                margin-left vr-block(.3)
-
-              &:before
-                content content
+        transition opacity .2s linear
 
         +hover-state()
           opacity 1
 
-    &__title
-      background header-background-color
-      display block
-      font-size vr-block(1.1)
+    &__title-wrapper
+      background content-color
       height 20%
       margin 0
       position relative
-      text-align center
 
-      span
-        width 100%
+      &__title
         align()
+        color header-color
+        font-size vr-block(1.1)
+        text-align center
+        width 100%
 
     +above(breakpoints.tablet)
       col(1/2, cycle: 2)
