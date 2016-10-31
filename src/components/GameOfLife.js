@@ -105,11 +105,11 @@ const checkNeighbours = (position, cells) => {
 }
 
 // Pre-made Life patterns
-const gliderGun = (i) => [500, 501, 570, 571, 510, 580, 650, 721, 441, 372, 373, 792, 793, 445, 725, 516, 586, 656, 587, 584, 380, 381, 450, 451, 520, 521, 312, 592, 244, 314, 594, 664, 394, 395, 464, 465].some(x => x === i);
-
-const switchEngine = (i) => [1414, 1415, 1416, 1417, 1418, 1419, 1420, 1421, 1423, 1424, 1425, 1426, 1427, 1431, 1432, 1433, 1440, 1441, 1442, 1443, 1444, 1445, 1446, 1448, 1449, 1450, 1451, 1452].some(x => x === i);
-
-const pufferTrain = (i) => [906, 907, 908, 975, 976, 977, 978, 979, 1044, 1045, 1047, 1048, 1049, 1115, 1116, 1322, 1324, 1385, 1391, 1394, 1454, 1455, 1456, 1457, 1458, 1462, 1464, 1523, 1524, 1528, 1529, 1531, 1532, 1594, 1602, 1665, 1666, 1669, 1672, 1743, 1805, 1806, 1809, 1812, 1874, 1882, 1943, 1944, 1948, 1949, 1951, 1952, 2014, 2015, 2016, 2017, 2018, 2022, 2024, 2085, 2091, 2094, 2162, 2164, 2375, 2376, 2444, 2445, 2447, 2448, 2449, 2515, 2516, 2517, 2518, 2519, 2586, 2587, 2588].some(x => x === i);
+const patterns = {
+  gliderGun: [500, 501, 570, 571, 510, 580, 650, 721, 441, 372, 373, 792, 793, 445, 725, 516, 586, 656, 587, 584, 380, 381, 450, 451, 520, 521, 312, 592, 244, 314, 594, 664, 394, 395, 464, 465],
+  switchEngine: [1414, 1415, 1416, 1417, 1418, 1419, 1420, 1421, 1423, 1424, 1425, 1426, 1427, 1431, 1432, 1433, 1440, 1441, 1442, 1443, 1444, 1445, 1446, 1448, 1449, 1450, 1451, 1452],
+  pufferTrain: [906, 907, 908, 975, 976, 977, 978, 979, 1044, 1045, 1047, 1048, 1049, 1115, 1116, 1322, 1324, 1385, 1391, 1394, 1454, 1455, 1456, 1457, 1458, 1462, 1464, 1523, 1524, 1528, 1529, 1531, 1532, 1594, 1602, 1665, 1666, 1669, 1672, 1743, 1805, 1806, 1809, 1812, 1874, 1882, 1943, 1944, 1948, 1949, 1951, 1952, 2014, 2015, 2016, 2017, 2018, 2022, 2024, 2085, 2091, 2094, 2162, 2164, 2375, 2376, 2444, 2445, 2447, 2448, 2449, 2515, 2516, 2517, 2518, 2519, 2586, 2587, 2588],
+};
 
 class GameOfLife extends React.Component {
 	constructor() {
@@ -127,9 +127,36 @@ class GameOfLife extends React.Component {
 
     if (grid.getContext) {
       this.grid = grid.getContext('2d');
+
+      grid.addEventListener('click', ev => {
+        const rect = grid.getBoundingClientRect();
+        const x = ev.clientX - rect.left;
+        const y = ev.clientY - rect.top;
+
+        let column = 0;
+        let row = 0;
+
+        const cellID = this.state.cells.find(cell => {
+          const test = x >= column
+            && x <= column + 12
+            && y >= row
+            && y <= row + 12;
+
+          column += 12;
+
+          if (column >= 840) {
+            column = 0;
+            row += 12;
+          }
+
+          return test;
+        }).id;
+
+        this.handleCellClick(cellID)
+      });
     }
 
-		this.setupCells();
+		this.setupCells('random');
 		this.start();
 	}
 
@@ -148,36 +175,15 @@ class GameOfLife extends React.Component {
 				return this.clear();
 			}
 
+      const nextCells = this.changeCells();
+
 			this.setState({
-				cells: this.changeCells(),
+				cells: nextCells,
 				generation: this.state.generation += 1
 			});
 
-      // this.grid.fillStyle = '#37474f';
-      // this.grid.fillRect(0, 0, 70 * 12, 50 * 12);
-
       if (this.grid) {
-        let column = 0;
-        let row = 0;
-        
-        this.state.cells.forEach(cell => {
-          // Draw the cell
-          this.grid.fillStyle = this.getFillStyle(cell);
-          this.grid.fillRect(column, row, 12, 12);
-
-          // Give the cell a border
-          this.grid.fillStyle = '#263238';
-          this.grid.strokeRect(column, row, 12, 12);
-
-          // Move to the next cell
-          column += 12;
-
-          // Move to the next row
-          if (column >= 840) {
-            column = 0;
-            row += 12;
-          }
-        });
+        this.updateCanvasGrid(nextCells);
       }
 
 			this.clearTimer();
@@ -190,23 +196,47 @@ class GameOfLife extends React.Component {
 		}
 	}
 
-  getFillStyle = cell => {
-    if (cell.dead) {
-      return '#37474f';
+  updateCanvasGrid = cells => {
+    function getFillStyle(cell) {
+      if (!cell.alive) {
+        return '#37474f';
+      }
+
+      if (cell.old) {
+        return '#1565c0';
+      }
+
+      if (cell.alive) {
+        return '#29b6f6';
+      }
     }
 
-    if (cell.old) {
-      return '#1565c0';
-    }
+    let column = 0;
+    let row = 0;
 
-    if (cell.alive) {
-      return '#29b6f6';
-    }
+    cells.forEach(cell => {
+      // Draw the cell
+      this.grid.fillStyle = getFillStyle(cell);
+      this.grid.fillRect(column, row, 12, 12);
+
+      // Give the cell a border
+      this.grid.strokeStyle = '#263238';
+      this.grid.strokeRect(column, row, 12, 12);
+
+      // Move to the next cell
+      column += 12;
+
+      // Move to the next row
+      if (column >= 840) {
+        column = 0;
+        row += 12;
+      }
+    });
   }
 
 	clear = () => {
 		this.clearTimer();
-		this.setupCells('all dead');
+		this.setupCells('allDead');
 		this.setState({ running: false, generation: 0 });
 	}
 
@@ -214,37 +244,43 @@ class GameOfLife extends React.Component {
 		clearTimeout(this.generationTimer);
 	}
 
-	boardType = type => {
+	changeBoardType = type => {
 		this.clear();
 		this.setupCells(type);
 	}
 
 	handleCellClick = id => {
-		this.setState(state => ({
-			cells: [
-				...state.cells.slice(0, id),
-				this.createCellNode(id, !state.cells[id].alive),
-				...state.cells.slice(id + 1)
-			]
-		}));
+    const nextCells = [
+      ...this.state.cells.slice(0, id),
+      this.createCellNode(id, !this.state.cells[id].alive),
+      ...this.state.cells.slice(id + 1)
+    ]
+
+		this.setState({ cells: nextCells });
+
+    if (this.grid) {
+      this.updateCanvasGrid(nextCells)
+    }
 	}
 
 	setupCells = type => {
 		let nextCells = [], alive;
 
-		for (let i = 0, j = 3500; i < j; i++) {
+		for (let cell = 0, maxCells = 3500; cell < maxCells; cell++) {
 			switch(type) {
-				case 'all dead': alive = false; break;
-				case 'glider gun': alive = gliderGun(i); break;
-				case 'switch engine': alive = switchEngine(i); break;
-				case 'puffer train': alive = pufferTrain(i); break;
-				default: alive = Math.random() <= 0.2;
+				case 'allDead': alive = false; break;
+				case 'random': alive = Math.random() <= 0.2; break;
+				default: alive = patterns[type].some(match => cell === match); break;
 			}
 
-			nextCells.push(this.createCellNode(i, alive));
+			nextCells.push(this.createCellNode(cell, alive));
 		}
 
 		this.setState({ cells: nextCells });
+
+    if (this.grid) {
+      this.updateCanvasGrid(nextCells);
+    }
 	}
 
 	// aliveCellsId = () => {
@@ -288,12 +324,21 @@ class GameOfLife extends React.Component {
 
 	render() {
     return (
-      <div className="GameOfLife">
+      <section className="GameOfLife">
         <h1 className="GameOfLife__generation">Generations: {this.state.generation}</h1>
-        <canvas ref="grid" className="GameOfLife__grid" width={70 * 12} height={50 * 12}>
-          <div className="GameOfLife__grid">
+        <canvas
+          className="GameOfLife__grid"
+          ref="grid"
+          width={70 * 12}
+          height={50 * 12}
+          // onClick={ev => {
+          //   console.log(ev)
+          //   console.log(ev.target.clientX, ev.target.clientY);
+          // }}
+        >
+          <section className="GameOfLife__grid">
             {this.grid ? null : this.state.cells.map(cell => (
-              <div
+              <section
             		id={cell.id}
             		onClick={() => this.handleCellClick(cell.id)}
             		className={classNames({
@@ -304,25 +349,31 @@ class GameOfLife extends React.Component {
             		})}
             	/>
             ))}
-          </div>
+          </section>
         </canvas>
-        <div className="GameOfLife__options">
+        <section className="GameOfLife__options">
           <input onClick={this.start} type="button" value="Run"/>
           <input onClick={this.pause} type="button" value="Pause"/>
           <input onClick={this.clear} type="button" value="Clear"/>
-          <input onClick={() => this.setState({ speed: 160 })} type="button" value="Slow"/>
-          <input onClick={() => this.setState({ speed: 80 })} type="button" value="Normal"/>
-          <input onClick={() => this.setState({ speed: 10 })} type="button" value="Fast"/>
-          {/*for setting up patterns
-          <input onClick={this.aliveCellsId} type="button" value="Alive Cells"/>*/}
-        </div>
-        <div className="boardType">
-          <input onClick={this.boardType} type="button" value="Random"/>
-          <input onClick={this.boardType.bind(this, 'glider gun')} type="button" value="Glider Gun"/>
-          <input onClick={this.boardType.bind(this, 'switch engine')} type="button" value="Switch Engine"/>
-          <input onClick={this.boardType.bind(this, 'puffer train')} type="button" value="Puffer Train"/>
-        </div>
-      </div>
+          <label for="speed">Speed:</label>
+          <input
+            name="speed"
+            onChange={ev => this.setState({ speed: ev.target.value })}
+            value={this.state.speed}
+            min={10}
+            max={150}
+            type="range"
+          />
+          <select onChange={ev => this.changeBoardType(ev.target.value)}>
+            <option disabled selected>Please select a pattern</option>
+            <option value="random">Random</option>
+            <option value="gliderGun">Glider Gun</option>
+            <option value="switchEngine">Switch Engine</option>
+            <option value="pufferTrain">Puffer Train</option>
+            <option disabled>-----------------------</option>
+          </select>
+        </section>
+      </section>
     );
   }
 }
