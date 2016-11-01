@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import Button from './Button';
+
 // TODO: Provide way for custom saved patterns using local storage. Provide dropdown to populate cells.
 // TODO: Refactor checkneighbours?
 // TODO: Story cells as an array with alive, old and an position/id. Rather than storing react objects in state.
@@ -104,13 +106,6 @@ const checkNeighbours = (position, cells) => {
 	return neighbours;
 }
 
-// Pre-made Life patterns
-const patterns = {
-  gliderGun: [500, 501, 570, 571, 510, 580, 650, 721, 441, 372, 373, 792, 793, 445, 725, 516, 586, 656, 587, 584, 380, 381, 450, 451, 520, 521, 312, 592, 244, 314, 594, 664, 394, 395, 464, 465],
-  switchEngine: [1414, 1415, 1416, 1417, 1418, 1419, 1420, 1421, 1423, 1424, 1425, 1426, 1427, 1431, 1432, 1433, 1440, 1441, 1442, 1443, 1444, 1445, 1446, 1448, 1449, 1450, 1451, 1452],
-  pufferTrain: [906, 907, 908, 975, 976, 977, 978, 979, 1044, 1045, 1047, 1048, 1049, 1115, 1116, 1322, 1324, 1385, 1391, 1394, 1454, 1455, 1456, 1457, 1458, 1462, 1464, 1523, 1524, 1528, 1529, 1531, 1532, 1594, 1602, 1665, 1666, 1669, 1672, 1743, 1805, 1806, 1809, 1812, 1874, 1882, 1943, 1944, 1948, 1949, 1951, 1952, 2014, 2015, 2016, 2017, 2018, 2022, 2024, 2085, 2091, 2094, 2162, 2164, 2375, 2376, 2444, 2445, 2447, 2448, 2449, 2515, 2516, 2517, 2518, 2519, 2586, 2587, 2588],
-};
-
 class GameOfLife extends React.Component {
 	constructor() {
 		super();
@@ -118,11 +113,24 @@ class GameOfLife extends React.Component {
 			cells: [],
 			running: false,
 			generation: 0,
-			speed: 80
+			speed: 80,
+      customPatterns: {
+        gliderGun: [500, 501, 570, 571, 510, 580, 650, 721, 441, 372, 373, 792, 793, 445, 725, 516, 586, 656, 587, 584, 380, 381, 450, 451, 520, 521, 312, 592, 244, 314, 594, 664, 394, 395, 464, 465],
+        switchEngine: [1414, 1415, 1416, 1417, 1418, 1419, 1420, 1421, 1423, 1424, 1425, 1426, 1427, 1431, 1432, 1433, 1440, 1441, 1442, 1443, 1444, 1445, 1446, 1448, 1449, 1450, 1451, 1452],
+        pufferTrain: [906, 907, 908, 975, 976, 977, 978, 979, 1044, 1045, 1047, 1048, 1049, 1115, 1116, 1322, 1324, 1385, 1391, 1394, 1454, 1455, 1456, 1457, 1458, 1462, 1464, 1523, 1524, 1528, 1529, 1531, 1532, 1594, 1602, 1665, 1666, 1669, 1672, 1743, 1805, 1806, 1809, 1812, 1874, 1882, 1943, 1944, 1948, 1949, 1951, 1952, 2014, 2015, 2016, 2017, 2018, 2022, 2024, 2085, 2091, 2094, 2162, 2164, 2375, 2376, 2444, 2445, 2447, 2448, 2449, 2515, 2516, 2517, 2518, 2519, 2586, 2587, 2588],
+      },
 		};
 	}
 
 	componentDidMount() {
+    /*
+     * Get custom patterns from storage after mount
+     * to avoid issues with server rendering (no window object).
+     */
+    this.setState({
+      customPatterns: Object.assign(this.state.customPatterns, this.getLocalStorage())
+    });
+
     const grid = this.refs.grid;
 
     if (grid.getContext) {
@@ -163,6 +171,14 @@ class GameOfLife extends React.Component {
 	componentWillUnmount() {
 		this.clearTimer();
 	}
+
+  getLocalStorage = () => (
+    JSON.parse(localStorage.getItem('fccGameOfLife'))
+  )
+
+  setLocalStorage = data => {
+    localStorage.setItem('fccGameOfLife', JSON.stringify(data));
+  }
 
 	pause = () => {
 		this.setState({ running: false });
@@ -270,7 +286,7 @@ class GameOfLife extends React.Component {
 			switch(type) {
 				case 'allDead': alive = false; break;
 				case 'random': alive = Math.random() <= 0.2; break;
-				default: alive = patterns[type].some(match => cell === match); break;
+				default: alive = this.state.customPatterns[type].some(match => cell === match); break;
 			}
 
 			nextCells.push(this.createCellNode(cell, alive));
@@ -282,12 +298,6 @@ class GameOfLife extends React.Component {
       this.updateCanvasGrid(nextCells);
     }
 	}
-
-	// aliveCellsId = () => {
-	// 	alert(this.state.cells.filter((x, i) => (
-	// 		x.props.alive
-	// 	)).map(x => x.props.id))
-	// }
 
 	changeCells = () => {
     const cells = this.state.cells;
@@ -322,6 +332,24 @@ class GameOfLife extends React.Component {
 		this.state.cells.reduce((amountAlive, cell) => (cell.alive ? amountAlive + 1 : amountAlive), 0)
 	)
 
+  getPatternIDS = () => (
+  	this.state.cells
+      .filter(cell => cell.alive)
+      .map(cell => cell.id)
+  )
+
+  savePattern = () => {
+    const newCustomPatterns = Object.assign(
+      this.state.customPatterns, { [this.refs.patternName.value]: this.getPatternIDS() }
+    );
+
+    this.setState({ customPatterns: newCustomPatterns});
+
+    this.setLocalStorage(newCustomPatterns);
+
+    this.refs.patternName.reset()
+  }
+
 	render() {
     return (
       <section className="GameOfLife">
@@ -352,26 +380,44 @@ class GameOfLife extends React.Component {
           </section>
         </canvas>
         <section className="GameOfLife__options">
-          <input onClick={this.start} type="button" value="Run"/>
-          <input onClick={this.pause} type="button" value="Pause"/>
-          <input onClick={this.clear} type="button" value="Clear"/>
-          <label for="speed">Speed:</label>
-          <input
-            name="speed"
-            onChange={ev => this.setState({ speed: ev.target.value })}
-            value={this.state.speed}
-            min={10}
-            max={150}
-            type="range"
-          />
-          <select onChange={ev => this.changeBoardType(ev.target.value)}>
-            <option disabled selected>Please select a pattern</option>
-            <option value="random">Random</option>
-            <option value="gliderGun">Glider Gun</option>
-            <option value="switchEngine">Switch Engine</option>
-            <option value="pufferTrain">Puffer Train</option>
-            <option disabled>-----------------------</option>
-          </select>
+          <section className="GameOfLife__options__controls">
+            <Button onClick={this.start} className="GameOfLife__options__controls__start">Start</Button>
+            <Button onClick={this.pause} className="GameOfLife__options__controls__pause">Pause</Button>
+            <Button onClick={this.clear} className="GameOfLife__options__controls__clear">Clear</Button>
+            <label htmlFor="speed-input">
+              <span className="title">Speed</span>
+              <span className="speed">{`${this.state.speed}ms`}</span>
+            </label>
+            <div>
+              <input
+                id="speed-input"
+                onChange={ev => this.setState({ speed: ev.target.value })}
+                value={this.state.speed}
+                min={10}
+                max={150}
+                type="range"
+              />
+            </div>
+          </section>
+          <section className="GameOfLife__options__patterns">
+            <select onChange={ev => this.changeBoardType(ev.target.value)}>
+              <option disabled selected>Please select a pattern</option>
+              <option value="random">Random</option>
+              {/* <option value="gliderGun">Glider Gun</option>
+              <option value="switchEngine">Switch Engine</option>
+              <option value="pufferTrain">Puffer Train</option>
+              <option disabled>-----------------------</option> */}
+              {Object.keys(this.state.customPatterns).map(pattern => (
+                <option value={pattern}>{pattern}</option>
+              ))}
+            </select>
+            <input
+              className="GameOfLife__options__patterns__name-input"
+              ref="patternName"
+              placeholder="Enter pattern name..."
+            />
+            <Button onClick={this.savePattern}>Save</Button>
+          </section>
         </section>
       </section>
     );

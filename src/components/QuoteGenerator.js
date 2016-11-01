@@ -42,7 +42,7 @@ class QuoteGenerator extends React.Component {
           </Button>
           <Button
             color="blue"
-            href={`https://twitter.com/intent/tweet?text=${this.state.quote.quote}`}
+            href={`https://twitter.com/intent/tweet?text="${this.state.quote.quote}" - ${this.state.quote.author}`}
             target="_blank"
             className="QuoteGenerator__actions__tweet"
           >

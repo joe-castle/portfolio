@@ -56,6 +56,7 @@ icons = {
 // ---------------------------------------------
 // ------ Mixins
 // ---------------------------------------------
+
 // Creates a material design style box-shadow.
 z-depth(grade, hover = false)
   box-shadow: unquote(z-depth-grades[grade].normal)
@@ -101,3 +102,79 @@ aspect-ratio(width, height)
 
   > *
     absolute top right bottom left
+
+// Creates a custome range input with configurable primary and secondary colors
+custom-range-input(primary, secondary, width)
+  track-height = 6px
+  track-margin = 22px - track-height
+
+  thumb-height = 36px
+  thumb-width = 16px
+  thumb-margin = -(22px - track-height)
+
+  input[type=range]
+    // Reset styles to apply own.
+    background transparent
+    -webkit-appearance none
+    width width
+
+    &:focus
+      outline none
+
+    &::-webkit-slider-thumb
+      -webkit-appearance none
+
+    &::-ms-track
+      width 100%
+      cursor pointer
+      background transparent
+      border-color transparent
+      color transparent
+
+    // Custom styles
+    &::-webkit-slider-runnable-track
+      width 100%
+      height track-height
+      cursor pointer
+      background: secondary
+      margin-top track-margin
+
+    &::-webkit-slider-thumb
+      height thumb-height
+      width thumb-width
+      background: primary
+      cursor pointer
+      -webkit-appearance none
+      margin-top thumb-margin
+
+    &::-moz-range-track
+      width 100%
+      height track-height
+      cursor pointer
+      background: secondary
+
+    &::-moz-range-thumb
+      height thumb-height
+      width thumb-width
+      background: secondary
+      cursor pointer
+
+    &::-ms-track
+      width 100%
+      height track-height
+      cursor pointer
+      background transparent
+      border-color transparent
+      color transparent
+
+    &::-ms-fill-lower
+      background: primary
+
+    &::-ms-fill-upper
+      background: secondary
+
+    &::-ms-thumb
+      height thumb-height
+      width thumb-width
+      background: secondary
+      cursor pointer

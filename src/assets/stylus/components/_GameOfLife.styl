@@ -3,6 +3,7 @@
   width 70 * 12px
 
   &__generation
+  &__options
     background blue-grey-700
     border 1px solid blue-grey-900
     color grey-200
@@ -14,6 +15,87 @@
     box-sizing content-box
     display block
     height 50 * 12px
+
+  &__options
+    padding 0
+    cf()
+
+    &__controls
+    &__patterns
+      padding 20px
+      span(1/2)
+
+    // TODO: Make a react element for customer range input
+    &__controls
+      border-right 3px solid blue-grey-900
+
+      div
+        border 3px solid blue-grey-900
+        box-sizing content-box
+        height 36px
+        line-height 0
+        margin 0 auto
+        width vr-block(6)
+
+      label
+        box-sizing content-box
+        color blue-grey-900
+        margin 20px auto -2px auto
+        padding 0
+        text-align center
+        width vr-block(6)
+
+        .title
+        .speed
+          border 3px solid blue-grey-900
+          border-bottom 0
+          color body-background-color
+          display inline-block
+          font-size vr-block(.6)
+          padding-left 5px
+          padding-right 5px
+          text-align center
+          width vr-block(1.6)
+
+        .title
+          background blue-grey-900
+          font-weight bold
+          margin-left -3px
+
+      custom-range-input(blue-grey-900, blue-grey-900, vr-block(6))
+
+      &__start
+      &__pause
+        margin-right 5px
+
+    &__patterns
+
+      select
+        background none
+        border 3px solid blue-grey-900
+        color blue-grey-900
+        font-weight bold
+        transition all .2s linear
+        width vr-block(7)
+
+        +hover-state()
+          background blue-grey-900
+          color body-background-color
+          outline none
+
+      &__name-input
+        background none
+        border 3px solid blue-grey-900
+        color blue-grey-900
+        font-weight 600
+        margin 20px 5px 0 0
+        padding vr-block(.1)
+        transition all .2s linear
+
+        +hover-state()
+          background blue-grey-900
+          color body-background-color
+          outline none
 
     // Cell styling is for canvas fallback.
     &__cell
