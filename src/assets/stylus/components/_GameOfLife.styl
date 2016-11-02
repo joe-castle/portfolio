@@ -66,6 +66,7 @@
 
       &__start
       &__pause
+      &__reset
         margin-right 5px
 
     &__patterns
@@ -82,6 +83,17 @@
           background blue-grey-900
           color body-background-color
           outline none
+
+      &__delete
+        color blue-grey-900
+        cursor pointer
+        font-size vr-block(1)
+        margin-left 5px
+        transition all .2s linear
+        vertical-align bottom
+
+        +hover-state()
+          color red-900
 
       &__name-input
         background none

@@ -8,6 +8,7 @@ import Button from './Button';
 // TODO: Story cells as an array with alive, old and an position/id. Rather than storing react objects in state.
 // TODO: On mobile, enlarge square on hold to make it easier to select custome patterns
 // TODO: Allow dragging to create patterns, rather than just click. Use a variable (componentdidmount) and mouseenter to siumulate drag
+// TODO: Provide a way to share patterns, export & import
 
 const checkNeighbours = (position, cells) => {
 	let neighbours = 0, w = 70, l = cells.length;
@@ -118,6 +119,7 @@ class GameOfLife extends React.Component {
         gliderGun: [500, 501, 570, 571, 510, 580, 650, 721, 441, 372, 373, 792, 793, 445, 725, 516, 586, 656, 587, 584, 380, 381, 450, 451, 520, 521, 312, 592, 244, 314, 594, 664, 394, 395, 464, 465],
         switchEngine: [1414, 1415, 1416, 1417, 1418, 1419, 1420, 1421, 1423, 1424, 1425, 1426, 1427, 1431, 1432, 1433, 1440, 1441, 1442, 1443, 1444, 1445, 1446, 1448, 1449, 1450, 1451, 1452],
         pufferTrain: [906, 907, 908, 975, 976, 977, 978, 979, 1044, 1045, 1047, 1048, 1049, 1115, 1116, 1322, 1324, 1385, 1391, 1394, 1454, 1455, 1456, 1457, 1458, 1462, 1464, 1523, 1524, 1528, 1529, 1531, 1532, 1594, 1602, 1665, 1666, 1669, 1672, 1743, 1805, 1806, 1809, 1812, 1874, 1882, 1943, 1944, 1948, 1949, 1951, 1952, 2014, 2015, 2016, 2017, 2018, 2022, 2024, 2085, 2091, 2094, 2162, 2164, 2375, 2376, 2444, 2445, 2447, 2448, 2449, 2515, 2516, 2517, 2518, 2519, 2586, 2587, 2588],
+        heart: [1146,1147,1148,1149,1150,1151,1159,1160,1161,1162,1163,1164,1215,1222,1228,1235,1284,1293,1297,1306,1353,1364,1366,1377,1422,1435,1448,1491,1519,1561,1589,1630,1660,1700,1730,1770,1800,1840,1870,1911,1939,1982,2008,2053,2077,2124,2146,2195,2215,2266,2284,2337,2353,2408,2422,2479,2491,2550,2560,2621,2629,2692,2698,2763,2767,2834,2836,2905],
       },
 		};
 	}
@@ -180,11 +182,6 @@ class GameOfLife extends React.Component {
     localStorage.setItem('fccGameOfLife', JSON.stringify(data));
   }
 
-	pause = () => {
-		this.setState({ running: false });
-		this.clearTimer();
-	}
-
 	start = () => {
 		const startFn = () => {
 			if (this.checkAmountAlive() <= 0) {
@@ -211,6 +208,23 @@ class GameOfLife extends React.Component {
 			this.generationTimer = setTimeout(startFn, this.state.speed)
 		}
 	}
+
+  pause = () => {
+    this.setState({ running: false });
+    this.clearTimer();
+  }
+
+  clear = () => {
+    this.clearTimer();
+    this.setupCells('allDead');
+    this.setState({ running: false, generation: 0 });
+  }
+
+  reset = () => {
+    console.log('Reset:', this.refs.patternSelector.value);
+    this.clear();
+    this.setupCells(this.refs.patternSelector.value || 'random')
+  }
 
   updateCanvasGrid = cells => {
     function getFillStyle(cell) {
@@ -249,12 +263,6 @@ class GameOfLife extends React.Component {
       }
     });
   }
-
-	clear = () => {
-		this.clearTimer();
-		this.setupCells('allDead');
-		this.setState({ running: false, generation: 0 });
-	}
 
 	clearTimer = () => {
 		clearTimeout(this.generationTimer);
@@ -340,15 +348,51 @@ class GameOfLife extends React.Component {
 
   savePattern = () => {
     const newCustomPatterns = Object.assign(
-      this.state.customPatterns, { [this.refs.patternName.value]: this.getPatternIDS() }
+      this.state.customPatterns, {
+        [this.camelCase(this.refs.patternNameInput.value)]: this.getPatternIDS()
+      }
     );
 
     this.setState({ customPatterns: newCustomPatterns});
 
     this.setLocalStorage(newCustomPatterns);
 
-    this.refs.patternName.reset()
+    this.refs.patternNameInput.value = '';
   }
+
+  deletePattern = () => {
+    const pattern = this.refs.patternSelector.value;
+    const customPatterns = this.state.customPatterns
+    const newCustomPatterns = {};
+
+    if (pattern && confirm(`
+      Are you sure you want to delete the pattern: "${this.unCamelCase(pattern)}"?
+    `)) {
+      for (let key in customPatterns) {
+        if (pattern !== key) {
+          newCustomPatterns[key] = customPatterns[key]
+        }
+      }
+
+      this.setState({ customPatterns: newCustomPatterns })
+
+      this.setLocalStorage(newCustomPatterns);
+    }
+  }
+
+  camelCase = text => (
+    text
+      .replace(/\s(.)/g, match => match.toUpperCase())
+      .replace(/\s/g, '')
+      .replace(/^(.)/, match => match.toLowerCase())
+  )
+
+  unCamelCase = text => (
+    text
+      .split(/(?=[A-Z])/g)
+      .map(word => `${word[0].toUpperCase()}${word.substring(1)}`)
+      .join(' ')
+  )
 
 	render() {
     return (
@@ -383,6 +427,7 @@ class GameOfLife extends React.Component {
           <section className="GameOfLife__options__controls">
             <Button onClick={this.start} className="GameOfLife__options__controls__start">Start</Button>
             <Button onClick={this.pause} className="GameOfLife__options__controls__pause">Pause</Button>
+            <Button onClick={this.reset} className="GameOfLife__options__controls__reset">Reset</Button>
             <Button onClick={this.clear} className="GameOfLife__options__controls__clear">Clear</Button>
             <label htmlFor="speed-input">
               <span className="title">Speed</span>
@@ -400,20 +445,22 @@ class GameOfLife extends React.Component {
             </div>
           </section>
           <section className="GameOfLife__options__patterns">
-            <select onChange={ev => this.changeBoardType(ev.target.value)}>
-              <option disabled selected>Please select a pattern</option>
+            <select ref="patternSelector" onChange={ev => this.changeBoardType(ev.target.value)}>
+              <option value="" disabled selected>Please select a pattern</option>
               <option value="random">Random</option>
-              {/* <option value="gliderGun">Glider Gun</option>
-              <option value="switchEngine">Switch Engine</option>
-              <option value="pufferTrain">Puffer Train</option>
-              <option disabled>-----------------------</option> */}
               {Object.keys(this.state.customPatterns).map(pattern => (
-                <option value={pattern}>{pattern}</option>
+                <option key={pattern} value={pattern}>{this.unCamelCase(pattern)}</option>
               ))}
             </select>
+            <i
+              onClick={this.deletePattern}
+              className="material-icons GameOfLife__options__patterns__delete"
+            >
+              delete
+            </i>
             <input
               className="GameOfLife__options__patterns__name-input"
-              ref="patternName"
+              ref="patternNameInput"
               placeholder="Enter pattern name..."
             />
             <Button onClick={this.savePattern}>Save</Button>
