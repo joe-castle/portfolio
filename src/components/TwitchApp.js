@@ -128,8 +128,12 @@ class TwitchApp extends React.Component {
 
 	fetchStreamer = streamer => {
 		const api = (streamer => url => (
-			fetch(`https://api.twitch.tv/kraken/${url}/${streamer}`)
-      .then(res => res.json())
+			fetch(`https://api.twitch.tv/kraken/${url}/${streamer}`, {
+        headers: {
+          'Client-ID': 'arswo3b5tabfew3rro46kc58vvnl4dk'
+        }
+      })
+        .then(res => res.json())
 		))(streamer);
 
     return Promise.all([api('channels'), api('streams')])

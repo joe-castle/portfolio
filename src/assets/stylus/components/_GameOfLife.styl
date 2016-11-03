@@ -1,5 +1,6 @@
 .GameOfLife
   margin 0 auto
+  user-select none
   width 70 * 12px
 
   &__generation
@@ -15,6 +16,27 @@
     box-sizing content-box
     display block
     height 50 * 12px
+
+    // Cell styling is for canvas fallback.
+    &__cell
+      border-bottom 1px solid blue-grey-900
+      border-right 1px solid blue-grey-900
+      box-sizing border-box
+      display inline-block
+      float left
+      height 12px
+      margin 0
+      padding 0
+      width 12px
+
+      &--dead
+        background blue-grey-800
+
+      &--alive
+        background blue-400
+
+      &--old
+        background blue-800
 
   &__options
     padding 0
@@ -100,7 +122,7 @@
         border 3px solid blue-grey-900
         color blue-grey-900
         font-weight 600
-        margin 20px 5px 0 0
+        margin 30px 5px 0 0
         padding vr-block(.1)
         transition all .2s linear
 
@@ -108,24 +130,3 @@
           background blue-grey-900
           color body-background-color
           outline none
-
-    // Cell styling is for canvas fallback.
-    &__cell
-      border-bottom 1px solid blue-grey-900
-      border-right 1px solid blue-grey-900
-      box-sizing border-box
-      display inline-block
-      float left
-      height 12px
-      margin 0
-      padding 0
-      width 12px
-
-      &--dead
-        background blue-grey-800
-
-      &--alive
-        background blue-400
-
-      &--old
-        background blue-800

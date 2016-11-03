@@ -3,12 +3,12 @@ import classNames from 'classnames';
 
 import Button from './Button';
 
-// TODO: Provide way for custom saved patterns using local storage. Provide dropdown to populate cells.
 // TODO: Refactor checkneighbours?
-// TODO: Story cells as an array with alive, old and an position/id. Rather than storing react objects in state.
 // TODO: On mobile, enlarge square on hold to make it easier to select custome patterns
 // TODO: Allow dragging to create patterns, rather than just click. Use a variable (componentdidmount) and mouseenter to siumulate drag
 // TODO: Provide a way to share patterns, export & import
+// TODO: Make it scalable to mobile
+// TODO: Look into the perfomance, its VERY slow when manipulating the dom (Canvas fallback), also its stuttering after macbook been running for a (unknown) period of time, perhaps reduce use of array functions?
 
 const checkNeighbours = (position, cells) => {
 	let neighbours = 0, w = 70, l = cells.length;
@@ -221,7 +221,6 @@ class GameOfLife extends React.Component {
   }
 
   reset = () => {
-    console.log('Reset:', this.refs.patternSelector.value);
     this.clear();
     this.setupCells(this.refs.patternSelector.value || 'random')
   }
@@ -403,14 +402,11 @@ class GameOfLife extends React.Component {
           ref="grid"
           width={70 * 12}
           height={50 * 12}
-          // onClick={ev => {
-          //   console.log(ev)
-          //   console.log(ev.target.clientX, ev.target.clientY);
-          // }}
         >
           <section className="GameOfLife__grid">
             {this.grid ? null : this.state.cells.map(cell => (
               <section
+                key={cell.id}
             		id={cell.id}
             		onClick={() => this.handleCellClick(cell.id)}
             		className={classNames({
