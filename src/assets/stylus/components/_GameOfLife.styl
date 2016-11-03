@@ -47,13 +47,16 @@
 
     &__controls
     &__patterns
+    &__draw
       padding 20px
-      span(1/2)
+      span(2/5)
 
     // TODO: Make a react element for customer range input
     &__controls
+    &__draw
       border-right 3px solid blue-grey-900
 
+    &__controls
       div
         border 3px solid blue-grey-900
         box-sizing content-box
@@ -93,6 +96,28 @@
       &__pause
       &__reset
         margin-right 5px
+
+    &__draw
+      padding-top 0
+      span(1/5)
+
+      &__title
+        color blue-grey-900
+        margin 0
+
+      &__mode
+        border 3px solid blue-grey-900
+        border-radius 5px
+        color blue-grey-900
+        cursor pointer
+        // display block
+        font-size 48px
+        margin-top 5px
+        transition all .1s linear
+
+        &--active
+          background blue-grey-900
+          color body-background-color
 
     &__patterns
 

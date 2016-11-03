@@ -115,6 +115,7 @@ class GameOfLife extends React.Component {
 			running: false,
 			generation: 0,
 			speed: 80,
+      drawMode: 'draw',
       customPatterns: {
         gliderGun: [500, 501, 570, 571, 510, 580, 650, 721, 441, 372, 373, 792, 793, 445, 725, 516, 586, 656, 587, 584, 380, 381, 450, 451, 520, 521, 312, 592, 244, 314, 594, 664, 394, 395, 464, 465],
         switchEngine: [1414, 1415, 1416, 1417, 1418, 1419, 1420, 1421, 1423, 1424, 1425, 1426, 1427, 1431, 1432, 1433, 1440, 1441, 1442, 1443, 1444, 1445, 1446, 1448, 1449, 1450, 1451, 1452],
@@ -308,7 +309,7 @@ class GameOfLife extends React.Component {
 	handleCellClick = id => {
     const nextCells = [
       ...this.state.cells.slice(0, id),
-      this.createCellNode(id, !this.state.cells[id].alive),
+      this.createCellNode(id, this.state.drawMode === 'draw' || false),
       ...this.state.cells.slice(id + 1)
     ]
 
@@ -472,6 +473,29 @@ class GameOfLife extends React.Component {
                 type="range"
               />
             </div>
+          </section>
+          <section className="GameOfLife__options__draw">
+            <h4 className="GameOfLife__options__draw__title">Draw Mode</h4>
+            <i
+              onClick={() => this.setState({ drawMode: 'draw' })}
+              className={classNames({
+                'material-icons': true,
+                'GameOfLife__options__draw__mode': true,
+                'GameOfLife__options__draw__mode--active': this.state.drawMode === 'draw',
+              })}
+            >
+              create
+            </i>
+            <i
+              onClick={() => this.setState({ drawMode: 'erase' })}
+              className={classNames({
+                'material-icons': true,
+                'GameOfLife__options__draw__mode': true,
+                'GameOfLife__options__draw__mode--active': this.state.drawMode === 'erase',
+              })}
+            >
+              brightness_1
+            </i>
           </section>
           <section className="GameOfLife__options__patterns">
             <select ref="patternSelector" onChange={ev => this.changeBoardType(ev.target.value)}>
