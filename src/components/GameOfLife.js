@@ -138,31 +138,35 @@ class GameOfLife extends React.Component {
     if (grid.getContext) {
       this.grid = grid.getContext('2d');
 
-      grid.addEventListener('click', ev => {
-        const rect = grid.getBoundingClientRect();
-        const x = ev.clientX - rect.left;
-        const y = ev.clientY - rect.top;
+      /**
+       * The following provides the ability to drag the mouse to create a pattern,
+       * rather than clicking individual cells.
+       */
+      let prevCellID;
+      const mouseMoveListener = ev => {
+        const currCellID = this.getCanvasClickedCellID(ev);
 
-        let column = 0;
-        let row = 0;
+        if (currCellID === prevCellID) {
+          return;
+        }
 
-        const cellID = this.state.cells.find(cell => {
-          const test = x >= column
-            && x <= column + 12
-            && y >= row
-            && y <= row + 12;
+        prevCellID = currCellID;
 
-          column += 12;
+        this.handleCellClick(currCellID);
+      };
 
-          if (column >= 840) {
-            column = 0;
-            row += 12;
-          }
+      grid.addEventListener('mousedown', ev => {
+        const cellID = this.getCanvasClickedCellID(ev);
 
-          return test;
-        }).id;
+        prevCellID = cellID;
 
-        this.handleCellClick(cellID)
+        this.handleCellClick(cellID);
+
+        grid.addEventListener('mousemove', mouseMoveListener);
+      });
+
+      grid.addEventListener('mouseup', ev => {
+        grid.removeEventListener('mousemove', mouseMoveListener);
       });
     }
 
@@ -173,6 +177,35 @@ class GameOfLife extends React.Component {
 	componentWillUnmount() {
 		this.clearTimer();
 	}
+
+  getCanvasClickedCellID = ev => {
+    const rect = this.refs.grid.getBoundingClientRect();
+    const x = ev.clientX - rect.left;
+    const y = ev.clientY - rect.top;
+
+    let column = 0;
+    let row = 0;
+    let cell = 0;
+
+    for (let maxCells = 3500; cell < maxCells; cell++) {
+      if ( x >= column
+        && x <= column + 12
+        && y >= row
+        && y <= row + 12
+      ) {
+        break;
+      }
+
+      column += 12;
+
+      if (column >= 840) {
+        column = 0;
+        row += 12;
+      }
+    }
+
+    return cell;
+  }
 
   getLocalStorage = () => (
     JSON.parse(localStorage.getItem('fccGameOfLife'))
