@@ -5,7 +5,6 @@ import Button from './Button';
 
 // TODO: Refactor checkneighbours?
 // TODO: On mobile, enlarge square on hold to make it easier to select custome patterns
-// TODO: Allow dragging to create patterns, rather than just click. Use a variable (componentdidmount) and mouseenter to siumulate drag
 // TODO: Provide a way to share patterns, export & import
 // TODO: Make it scalable to mobile
 // TODO: Look into the perfomance, its VERY slow when manipulating the dom (Canvas fallback), also its stuttering after macbook been running for a (unknown) period of time, perhaps reduce use of array functions?
@@ -144,6 +143,7 @@ class GameOfLife extends React.Component {
        * rather than clicking individual cells.
        */
       let prevCellID;
+      
       const mouseMoveListener = ev => {
         const currCellID = this.getCanvasClickedCellID(ev);
 
@@ -163,10 +163,13 @@ class GameOfLife extends React.Component {
 
         this.handleCellClick(cellID);
 
-        grid.addEventListener('mousemove', mouseMoveListener);
+        // Drawing only works when game isnt running, to prevent lag.
+        if (!this.state.running) {
+          grid.addEventListener('mousemove', mouseMoveListener);
+        }
       });
 
-      grid.addEventListener('mouseup', ev => {
+      window.addEventListener('mouseup', ev => {
         grid.removeEventListener('mousemove', mouseMoveListener);
       });
     }
@@ -194,7 +197,7 @@ class GameOfLife extends React.Component {
         && y >= row
         && y <= row + 12
       ) {
-        break;
+        return cell;
       }
 
       column += 12;
@@ -204,8 +207,6 @@ class GameOfLife extends React.Component {
         row += 12;
       }
     }
-
-    return cell;
   }
 
   getLocalStorage = () => (
@@ -307,16 +308,19 @@ class GameOfLife extends React.Component {
 	}
 
 	handleCellClick = id => {
-    const nextCells = [
-      ...this.state.cells.slice(0, id),
-      this.createCellNode(id, this.state.drawMode === 'draw' || false),
-      ...this.state.cells.slice(id + 1)
-    ]
+    // Only runs if the click stays within the canvas borders
+    if (id) {
+      const nextCells = [
+        ...this.state.cells.slice(0, id),
+        this.createCellNode(id, this.state.drawMode === 'draw' || false),
+        ...this.state.cells.slice(id + 1)
+      ]
 
-		this.setState({ cells: nextCells });
+      this.setState({ cells: nextCells });
 
-    if (this.grid) {
-      this.updateCanvasGrid(nextCells)
+      if (this.grid) {
+        this.updateCanvasGrid(nextCells)
+      }
     }
 	}
 
@@ -475,8 +479,8 @@ class GameOfLife extends React.Component {
             </div>
           </section>
           <section className="GameOfLife__options__draw">
-            <h4 className="GameOfLife__options__draw__title">Draw Mode</h4>
             <i
+              alt='Draw'
               onClick={() => this.setState({ drawMode: 'draw' })}
               className={classNames({
                 'material-icons': true,
@@ -487,6 +491,7 @@ class GameOfLife extends React.Component {
               create
             </i>
             <i
+              alt="Erase"
               onClick={() => this.setState({ drawMode: 'erase' })}
               className={classNames({
                 'material-icons': true,
