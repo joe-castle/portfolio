@@ -8,6 +8,10 @@ import Button from './Button';
 // TODO: Provide a way to share patterns, export & import
 // TODO: Make it scalable to mobile
 // TODO: Look into the perfomance, its VERY slow when manipulating the dom (Canvas fallback), also its stuttering after macbook been running for a (unknown) period of time, perhaps reduce use of array functions?
+// TODO: Simplify pattern creatrion and storage. Provide a way to reset a pattern that isn't saved by storing it in a currentPattern variable.
+// TODO: unify for loops into a function? / use the same variables for all.
+// TODO: Remove all array functions in favour of for loop for speed, as above.
+// TODO: Reorder functions in list.
 
 const checkNeighbours = (position, cells) => {
 	let neighbours = 0, w = 70, l = cells.length;
@@ -143,7 +147,7 @@ class GameOfLife extends React.Component {
        * rather than clicking individual cells.
        */
       let prevCellID;
-      
+
       const mouseMoveListener = ev => {
         const currCellID = this.getCanvasClickedCellID(ev);
 
@@ -189,15 +193,15 @@ class GameOfLife extends React.Component {
 
     let column = 0;
     let row = 0;
-    let cell = 0;
+    let cellID = 0;
 
-    for (let maxCells = 3500; cell < maxCells; cell++) {
+    for (; cellID < 3500; cellID++) {
       if ( x >= column
         && x <= column + 12
         && y >= row
         && y <= row + 12
       ) {
-        return cell;
+        return cellID;
       }
 
       column += 12;
@@ -219,7 +223,8 @@ class GameOfLife extends React.Component {
 
 	start = () => {
 		const startFn = () => {
-			if (this.checkAmountAlive() <= 0) {
+      // If all cells are dead, stop the game and reset generation.
+			if (this.checkIfAllCellsDead()) {
 				return this.clear();
 			}
 
@@ -260,6 +265,10 @@ class GameOfLife extends React.Component {
     this.setupCells(this.refs.patternSelector.value || 'random')
   }
 
+  clearTimer = () => {
+    clearTimeout(this.generationTimer);
+  }
+
   updateCanvasGrid = cells => {
     function getFillStyle(cell) {
       if (!cell.alive) {
@@ -278,9 +287,9 @@ class GameOfLife extends React.Component {
     let column = 0;
     let row = 0;
 
-    cells.forEach(cell => {
+    for (let cell = 0; cell < 3500; cell++) {
       // Draw the cell
-      this.grid.fillStyle = getFillStyle(cell);
+      this.grid.fillStyle = getFillStyle(cells[cell]);
       this.grid.fillRect(column, row, 12, 12);
 
       // Give the cell a border
@@ -295,25 +304,21 @@ class GameOfLife extends React.Component {
         column = 0;
         row += 12;
       }
-    });
+    }
   }
-
-	clearTimer = () => {
-		clearTimeout(this.generationTimer);
-	}
 
 	changeBoardType = type => {
 		this.clear();
 		this.setupCells(type);
 	}
 
-	handleCellClick = id => {
-    // Only runs if the click stays within the canvas borders
-    if (id) {
+	handleCellClick = cellID => {
+    // Only runs if the click/drag is within the canvas borders
+    if (cellID) {
       const nextCells = [
-        ...this.state.cells.slice(0, id),
-        this.createCellNode(id, this.state.drawMode === 'draw' || false),
-        ...this.state.cells.slice(id + 1)
+        ...this.state.cells.slice(0, cellID),
+        this.createCellNode(cellID, this.state.drawMode === 'draw' || false),
+        ...this.state.cells.slice(cellID + 1)
       ]
 
       this.setState({ cells: nextCells });
@@ -327,14 +332,14 @@ class GameOfLife extends React.Component {
 	setupCells = type => {
 		let nextCells = [], alive;
 
-		for (let cell = 0, maxCells = 3500; cell < maxCells; cell++) {
+		for (let cellID = 0; cellID < 3500; cellID++) {
 			switch(type) {
 				case 'allDead': alive = false; break;
 				case 'random': alive = Math.random() <= 0.2; break;
-				default: alive = this.state.customPatterns[type].some(match => cell === match); break;
+				default: alive = this.state.customPatterns[type].some(match => cellID === match); break;
 			}
 
-			nextCells.push(this.createCellNode(cell, alive));
+			nextCells.push(this.createCellNode(cellID, alive));
 		}
 
 		this.setState({ cells: nextCells });
@@ -348,19 +353,19 @@ class GameOfLife extends React.Component {
     const cells = this.state.cells;
     let nextCells = [];
 
-		for (let id = 0, totalCells = 3500; id < totalCells; id++) {
-		  let aliveNeighbours = checkNeighbours(id, cells);
+		for (let cellID = 0; cellID < 3500; cellID++) {
+		  let aliveNeighbours = checkNeighbours(cellID, cells);
 
-		  if (cells[id].alive) {
+		  if (cells[cellID].alive) {
 			 if (aliveNeighbours >= 4 || aliveNeighbours <= 1) {
-				nextCells.push(this.createCellNode(id, false));
+				nextCells.push(this.createCellNode(cellID, false));
 			 } else {
-				nextCells.push(this.createCellNode(id, true, true));
+				nextCells.push(this.createCellNode(cellID, true, true));
 			 }
 		  } else if (aliveNeighbours === 3) {
-			 nextCells.push(this.createCellNode(id, true));
+			 nextCells.push(this.createCellNode(cellID, true));
 		  } else {
-			 nextCells.push(cells[id]);
+			 nextCells.push(cells[cellID]);
 		  }
 		}
 
@@ -373,9 +378,15 @@ class GameOfLife extends React.Component {
     old,
 	})
 
-	checkAmountAlive = () => (
-		this.state.cells.reduce((amountAlive, cell) => (cell.alive ? amountAlive + 1 : amountAlive), 0)
-	)
+	checkIfAllCellsDead = () => {
+    for (let cell = 0; cell < 3500; cell++) {
+      if (this.state.cells[cell].alive) {
+        return;
+      }
+    }
+
+    return true;
+	}
 
   getPatternIDS = () => (
   	this.state.cells
