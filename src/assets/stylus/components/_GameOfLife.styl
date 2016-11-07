@@ -49,7 +49,7 @@
     &__patterns
     &__draw
       padding-bottom 10px
-      padding-top 30px
+      padding-top 20px
       span(2/5)
 
     // TODO: Make a react element for customer range input
@@ -98,7 +98,7 @@
     &__draw
       border-left 3px solid blue-grey-900
       border-right 3px solid blue-grey-900
-      padding 20px
+      padding 30px
       span(1/5)
 
       &__mode
@@ -108,8 +108,10 @@
         cursor pointer
         display block
         font-size 48px
-        margin-top 15px
         transition all .1s linear
+
+        &:last-child
+          margin-top 20px
 
         &--active
           background blue-grey-900
@@ -139,14 +141,14 @@
         vertical-align bottom
 
         +hover-state()
-          color red-900
+          color body-background-color
 
       &__name-input
         background none
         border 3px solid blue-grey-900
         color blue-grey-900
         font-weight 600
-        margin 30px 5px 0 0
+        margin 5px 5px 0 0
         padding vr-block(.1)
         transition all .2s linear
 
@@ -154,3 +156,12 @@
           background blue-grey-900
           color body-background-color
           outline none
+
+      &__import-export
+        margin-top 15px
+
+        .Button
+          width 35%
+
+          &:first-child
+            margin-right 20px

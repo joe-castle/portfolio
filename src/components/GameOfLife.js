@@ -8,7 +8,6 @@ import Button from './Button';
 // TODO: Provide a way to share patterns, export & import
 // TODO: Make it scalable to mobile
 // TODO: Look into the perfomance, its VERY slow when manipulating the dom (Canvas fallback), also its stuttering after macbook been running for a (unknown) period of time, perhaps reduce use of array functions?
-// TODO: Simplify pattern creatrion and storage. Provide a way to reset a pattern that isn't saved by storing it in a currentPattern variable.
 
 const checkNeighbours = (position, cells) => {
 	let neighbours = 0, w = 70, l = cells.length;
@@ -545,6 +544,10 @@ class GameOfLife extends React.Component {
               placeholder="Enter pattern name..."
             />
             <Button onClick={this.savePattern}>Save</Button>
+            <section className="GameOfLife__options__patterns__import-export">
+              <Button>Import</Button>
+              <Button>Export</Button>
+            </section>
           </section>
         </section>
       </section>
