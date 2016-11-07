@@ -373,7 +373,11 @@ class GameOfLife extends React.Component {
 
   changeGridPattern = pattern => {
     this.clear();
-    this.setupCells(this.state.customPatterns[pattern]);
+    this.setupCells(
+      typeof pattern === 'string'
+        ? this.state.customPatterns[pattern]
+        : pattern
+    );
   }
 
 	createCellNode = (id, alive, old = false) => ({
@@ -420,6 +424,23 @@ class GameOfLife extends React.Component {
 
       this.setLocalStorage(newCustomPatterns);
     }
+  }
+
+  importPattern = () => {
+    const pattern = prompt('Please paste the pattern below and press ok.');
+
+    if (pattern) {
+      this.clear();
+      this.changeGridPattern(JSON.parse(pattern));
+    }
+  }
+
+  exportPattern = () => {
+    alert(
+      `Please copy the below:
+
+      ${JSON.stringify(this.getPatternIDS())}`
+    )
   }
 
   camelCase = text => (
@@ -545,8 +566,8 @@ class GameOfLife extends React.Component {
             />
             <Button onClick={this.savePattern}>Save</Button>
             <section className="GameOfLife__options__patterns__import-export">
-              <Button>Import</Button>
-              <Button>Export</Button>
+              <Button onClick={this.importPattern}>Import</Button>
+              <Button onClick={this.exportPattern}>Export</Button>
             </section>
           </section>
         </section>
