@@ -9,9 +9,6 @@ import Button from './Button';
 // TODO: Make it scalable to mobile
 // TODO: Look into the perfomance, its VERY slow when manipulating the dom (Canvas fallback), also its stuttering after macbook been running for a (unknown) period of time, perhaps reduce use of array functions?
 // TODO: Simplify pattern creatrion and storage. Provide a way to reset a pattern that isn't saved by storing it in a currentPattern variable.
-// TODO: unify for loops into a function? / use the same variables for all.
-// TODO: Remove all array functions in favour of for loop for speed, as above.
-// TODO: Reorder functions in list.
 
 const checkNeighbours = (position, cells) => {
 	let neighbours = 0, w = 70, l = cells.length;
@@ -113,12 +110,22 @@ const checkNeighbours = (position, cells) => {
 class GameOfLife extends React.Component {
 	constructor() {
 		super();
+
+    // Setup a cells array for creating patterns.
+    const clearedCells = [];
+
+    for (let cellID = 0; cellID < 3500; cellID++) {
+      clearedCells.push(this.createCellNode(cellID, false));
+    }
+
 		this.state = {
 			cells: [],
+      clearedCells,
 			running: false,
 			generation: 0,
 			speed: 80,
       drawMode: 'draw',
+      currentPattern: [],
       customPatterns: {
         gliderGun: [500, 501, 570, 571, 510, 580, 650, 721, 441, 372, 373, 792, 793, 445, 725, 516, 586, 656, 587, 584, 380, 381, 450, 451, 520, 521, 312, 592, 244, 314, 594, 664, 394, 395, 464, 465],
         switchEngine: [1414, 1415, 1416, 1417, 1418, 1419, 1420, 1421, 1423, 1424, 1425, 1426, 1427, 1431, 1432, 1433, 1440, 1441, 1442, 1443, 1444, 1445, 1446, 1448, 1449, 1450, 1451, 1452],
@@ -186,6 +193,46 @@ class GameOfLife extends React.Component {
 		this.clearTimer();
 	}
 
+  updateCanvasGrid = cells => {
+    if (this.grid) {
+      function getFillStyle(cell) {
+        if (!cell.alive) {
+          return '#37474f';
+        }
+
+        if (cell.old) {
+          return '#1565c0';
+        }
+
+        if (cell.alive) {
+          return '#29b6f6';
+        }
+      }
+
+      let column = 0;
+      let row = 0;
+
+      for (let cell = 0; cell < 3500; cell++) {
+        // Draw the cell
+        this.grid.fillStyle = getFillStyle(cells[cell]);
+        this.grid.fillRect(column, row, 12, 12);
+
+        // Give the cell a border
+        this.grid.strokeStyle = '#263238';
+        this.grid.strokeRect(column, row, 12, 12);
+
+        // Move to the next cell
+        column += 12;
+
+        // Move to the next row
+        if (column >= 840) {
+          column = 0;
+          row += 12;
+        }
+      }
+    }
+  }
+
   getCanvasClickedCellID = ev => {
     const rect = this.refs.grid.getBoundingClientRect();
     const x = ev.clientX - rect.left;
@@ -222,29 +269,33 @@ class GameOfLife extends React.Component {
   }
 
 	start = () => {
-		const startFn = () => {
-      // If all cells are dead, stop the game and reset generation.
-			if (this.checkIfAllCellsDead()) {
-				return this.clear();
-			}
+		if (!this.state.running) {
+      const startFn = () => {
+        // If all cells are dead, stop the game and reset generation.
+        if (this.checkIfAllCellsDead()) {
+          return this.clear();
+        }
 
-      const nextCells = this.changeCells();
+        const nextCells = this.changeCells();
+
+        this.setState({
+          cells: nextCells,
+          generation: this.state.generation += 1
+        });
+
+        if (this.grid) {
+          this.updateCanvasGrid(nextCells);
+        }
+
+        this.clearTimer();
+        this.generationTimer = setTimeout(startFn, this.state.speed);
+      };
 
 			this.setState({
-				cells: nextCells,
-				generation: this.state.generation += 1
-			});
+        running: true,
+        currentPattern: this.getPatternIDS(),
+      });
 
-      if (this.grid) {
-        this.updateCanvasGrid(nextCells);
-      }
-
-			this.clearTimer();
-			this.generationTimer = setTimeout(startFn, this.state.speed);
-		};
-
-		if (!this.state.running) {
-			this.setState({ running: true });
 			this.generationTimer = setTimeout(startFn, this.state.speed)
 		}
 	}
@@ -256,97 +307,36 @@ class GameOfLife extends React.Component {
 
   clear = () => {
     this.clearTimer();
-    this.setupCells('allDead');
-    this.setState({ running: false, generation: 0 });
+    this.setState({
+      cells: this.state.clearedCells,
+      running: false,
+      generation: 0,
+    });
+    this.updateCanvasGrid(this.state.clearedCells);
   }
 
   reset = () => {
     this.clear();
-    this.setupCells(this.refs.patternSelector.value || 'random')
+    this.setupCells(this.state.currentPattern);
   }
 
   clearTimer = () => {
     clearTimeout(this.generationTimer);
   }
 
-  updateCanvasGrid = cells => {
-    function getFillStyle(cell) {
-      if (!cell.alive) {
-        return '#37474f';
-      }
-
-      if (cell.old) {
-        return '#1565c0';
-      }
-
-      if (cell.alive) {
-        return '#29b6f6';
-      }
-    }
-
-    let column = 0;
-    let row = 0;
-
-    for (let cell = 0; cell < 3500; cell++) {
-      // Draw the cell
-      this.grid.fillStyle = getFillStyle(cells[cell]);
-      this.grid.fillRect(column, row, 12, 12);
-
-      // Give the cell a border
-      this.grid.strokeStyle = '#263238';
-      this.grid.strokeRect(column, row, 12, 12);
-
-      // Move to the next cell
-      column += 12;
-
-      // Move to the next row
-      if (column >= 840) {
-        column = 0;
-        row += 12;
-      }
-    }
-  }
-
-	changeBoardType = type => {
-		this.clear();
-		this.setupCells(type);
-	}
-
-	handleCellClick = cellID => {
-    // Only runs if the click/drag is within the canvas borders
-    if (cellID) {
-      const nextCells = [
-        ...this.state.cells.slice(0, cellID),
-        this.createCellNode(cellID, this.state.drawMode === 'draw' || false),
-        ...this.state.cells.slice(cellID + 1)
-      ]
-
-      this.setState({ cells: nextCells });
-
-      if (this.grid) {
-        this.updateCanvasGrid(nextCells)
-      }
-    }
-	}
-
-	setupCells = type => {
-		let nextCells = [], alive;
-
-		for (let cellID = 0; cellID < 3500; cellID++) {
-			switch(type) {
-				case 'allDead': alive = false; break;
-				case 'random': alive = Math.random() <= 0.2; break;
-				default: alive = this.state.customPatterns[type].some(match => cellID === match); break;
-			}
-
-			nextCells.push(this.createCellNode(cellID, alive));
-		}
+	setupCells = pattern => {
+		const nextCells = this.state.clearedCells.map(cell => (
+      this.createCellNode(
+        cell.id,
+        pattern === 'random'
+          ? Math.random() <= 0.2
+          : pattern.some(id => id === cell.id)
+      )
+    ));
 
 		this.setState({ cells: nextCells });
 
-    if (this.grid) {
-      this.updateCanvasGrid(nextCells);
-    }
+    this.updateCanvasGrid(nextCells);
 	}
 
 	changeCells = () => {
@@ -372,13 +362,7 @@ class GameOfLife extends React.Component {
 		return nextCells;
 	}
 
-	createCellNode = (id, alive, old = false) => ({
-    id,
-    alive,
-    old,
-	})
-
-	checkIfAllCellsDead = () => {
+  checkIfAllCellsDead = () => {
     for (let cell = 0; cell < 3500; cell++) {
       if (this.state.cells[cell].alive) {
         return;
@@ -386,7 +370,18 @@ class GameOfLife extends React.Component {
     }
 
     return true;
-	}
+  }
+
+  changeGridPattern = pattern => {
+    this.clear();
+    this.setupCells(this.state.customPatterns[pattern]);
+  }
+
+	createCellNode = (id, alive, old = false) => ({
+    id,
+    alive,
+    old,
+	})
 
   getPatternIDS = () => (
   	this.state.cells
@@ -442,6 +437,37 @@ class GameOfLife extends React.Component {
       .join(' ')
   )
 
+  handleCellClick = cellID => {
+    // Only runs if the click/drag is within the canvas borders
+    if (cellID) {
+      const nextCells = [
+        ...this.state.cells.slice(0, cellID),
+        this.createCellNode(cellID, this.state.drawMode === 'draw' || false),
+        ...this.state.cells.slice(cellID + 1)
+      ]
+
+      this.setState({ cells: nextCells });
+
+      this.updateCanvasGrid(nextCells)
+    }
+  }
+
+  renderCanvasBackup = () => (
+    this.state.cells.map(cell => (
+      <section
+        key={cell.id}
+        id={cell.id}
+        onClick={() => this.handleCellClick(cell.id)}
+        className={classNames({
+          'GameOfLife__grid__cell': true,
+          'GameOfLife__grid__cell--dead': !cell.alive,
+          'GameOfLife__grid__cell--alive': cell.alive,
+          'GameOfLife__grid__cell--old': cell.old
+        })}
+      />
+    ))
+  )
+
 	render() {
     return (
       <section className="GameOfLife">
@@ -453,19 +479,7 @@ class GameOfLife extends React.Component {
           height={50 * 12}
         >
           <section className="GameOfLife__grid">
-            {this.grid ? null : this.state.cells.map(cell => (
-              <section
-                key={cell.id}
-            		id={cell.id}
-            		onClick={() => this.handleCellClick(cell.id)}
-            		className={classNames({
-            			'GameOfLife__grid__cell': true,
-            			'GameOfLife__grid__cell--dead': !cell.alive,
-            			'GameOfLife__grid__cell--alive': cell.alive,
-            			'GameOfLife__grid__cell--old': cell.old
-            		})}
-            	/>
-            ))}
+            {this.grid ? null : this.renderCanvasBackup()}
           </section>
         </canvas>
         <section className="GameOfLife__options">
@@ -491,7 +505,6 @@ class GameOfLife extends React.Component {
           </section>
           <section className="GameOfLife__options__draw">
             <i
-              alt='Draw'
               onClick={() => this.setState({ drawMode: 'draw' })}
               className={classNames({
                 'material-icons': true,
@@ -502,7 +515,6 @@ class GameOfLife extends React.Component {
               create
             </i>
             <i
-              alt="Erase"
               onClick={() => this.setState({ drawMode: 'erase' })}
               className={classNames({
                 'material-icons': true,
@@ -514,7 +526,7 @@ class GameOfLife extends React.Component {
             </i>
           </section>
           <section className="GameOfLife__options__patterns">
-            <select ref="patternSelector" onChange={ev => this.changeBoardType(ev.target.value)}>
+            <select ref="patternSelector" onChange={ev => this.changeGridPattern(ev.target.value)}>
               <option value="" disabled selected>Please select a pattern</option>
               <option value="random">Random</option>
               {Object.keys(this.state.customPatterns).map(pattern => (
