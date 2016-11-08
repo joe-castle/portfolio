@@ -71,6 +71,12 @@ body
   position relative
   width 100%
 
+main
+  .container
+    +below(breakpoints.mobile)
+      padding-left 0
+      padding-right 0
+
 // Pre-loader animation
 @keyframes load7
   0%

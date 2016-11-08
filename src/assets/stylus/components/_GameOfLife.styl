@@ -3,6 +3,12 @@
   user-select none
   width 70 * 12px
 
+  +below(breakpoints.desktop)
+    width 60 * 12px
+
+  +below(breakpoints.tablet)
+    width 30 * 12px
+
   &__generation
   &__options
     background blue-grey-700
@@ -13,9 +19,11 @@
     text-align center
 
   &__grid
-    box-sizing content-box
     display block
-    height 50 * 12px
+
+    &--canvas-backup
+      box-sizing content-box
+      height 50 * 12px
 
     +hover-state()
       cursor pointer
@@ -45,14 +53,19 @@
     padding 0
     cf()
 
-    &__controls
-    &__patterns
     &__draw
+    &__patterns
+      +below(breakpoints.desktop)
+        display none
+
+    &__controls
+    &__draw
+    &__patterns
       padding-bottom 10px
       padding-top 20px
       span(2/5)
 
-    // TODO: Make a react element for customer range input
+    // TODO: Make a react element for custom range input
 
     &__controls
       div
@@ -95,10 +108,13 @@
       &__reset
         margin-right 5px
 
+      +below(breakpoints.desktop)
+        span(1/1)
+
     &__draw
       border-left 3px solid blue-grey-900
       border-right 3px solid blue-grey-900
-      padding 30px
+      padding vr-block(.8)
       span(1/5)
 
       &__mode

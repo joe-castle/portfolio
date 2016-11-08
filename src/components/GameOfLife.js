@@ -8,118 +8,20 @@ import Button from './Button';
 // TODO: Provide a way to share patterns, export & import
 // TODO: Make it scalable to mobile
 // TODO: Look into the perfomance, its VERY slow when manipulating the dom (Canvas fallback), also its stuttering after macbook been running for a (unknown) period of time, perhaps reduce use of array functions?
-
-const checkNeighbours = (position, cells) => {
-	let neighbours = 0, w = 70, l = cells.length;
-
-  // Checks nodes in the top left corner
-	if (position === 0) {
-		if (cells[l-1].alive) neighbours +=1;
-		if (cells[l-w].alive) neighbours +=1;
-		if (cells[l-w+1].alive) neighbours +=1;
-		if (cells[w-1].alive) neighbours +=1;
-		if (cells[1].alive) neighbours +=1;
-		if (cells[w*2-1].alive) neighbours +=1;
-		if (cells[w].alive) neighbours +=1;
-		if (cells[w+1].alive) neighbours +=1;
-  // Checks nodes in the top right corner
-	} else if (position === w-1) {
-		if (cells[l-2].alive) neighbours +=1;
-		if (cells[l-1].alive) neighbours +=1;
-		if (cells[l-w].alive) neighbours +=1;
-		if (cells[w-2].alive) neighbours +=1;
-		if (cells[0].alive) neighbours +=1;
-		if (cells[w*2-2].alive) neighbours +=1;
-		if (cells[w*2-1].alive) neighbours +=1;
-		if (cells[w].alive) neighbours +=1;
-  // Checkes nodes in the bottom left corner
-	} else if (position === l-w) {
-		if (cells[l-w-1].alive) neighbours +=1;
-		if (cells[position-w].alive) neighbours +=1;
-		if (cells[position-w+1].alive) neighbours +=1;
-		if (cells[l-1].alive) neighbours +=1;
-		if (cells[position+1].alive) neighbours +=1;
-		if (cells[w-1].alive) neighbours +=1;
-		if (cells[0].alive) neighbours +=1;
-		if (cells[1].alive) neighbours +=1;
-  // Checks nodes in the bottom right corner
-	} else if (position === l-1) {
-		if (cells[l-w-2].alive) neighbours +=1;
-		if (cells[l-w-1].alive) neighbours +=1;
-		if (cells[l-w*2].alive) neighbours +=1;
-		if (cells[l-2].alive) neighbours +=1;
-		if (cells[l-w].alive) neighbours +=1;
-		if (cells[w-2].alive) neighbours +=1;
-		if (cells[w-1].alive) neighbours +=1;
-		if (cells[0].alive) neighbours +=1;
-  // Checks nodes in top row (excluding the corners)
-	} else if (position >= 1 && position <= w-2) {
-		if (cells[l-w+position].alive) neighbours +=1;
-		if (cells[l-w-1+position].alive) neighbours +=1;
-		if (cells[l-w+1+position].alive) neighbours +=1;
-		if (cells[position-1].alive) neighbours +=1;
-		if (cells[position+1].alive) neighbours +=1;
-		if (cells[position+w+1].alive) neighbours +=1;
-		if (cells[position+w].alive) neighbours +=1;
-		if (cells[position+w-1].alive) neighbours +=1;
-  // Checks nodes in bottom row (excluding corners)
-	} else if (position >= l-w+1 && position <= l-2) {
-		if (cells[position-w-1].alive) neighbours +=1;
-		if (cells[position-w].alive) neighbours +=1;
-		if (cells[position-w+1].alive) neighbours +=1;
-		if (cells[position-1].alive) neighbours +=1;
-		if (cells[position+1].alive) neighbours +=1;
-		if (cells[w-(l-position)-1].alive) neighbours +=1;
-		if (cells[w-(l-position)].alive) neighbours +=1;
-		if (cells[w-(l-position)+1].alive) neighbours +=1;
-  // Checks nodes in the left column (excluding corners)
-	} else if (position % w === 0) {
-		if (cells[position-1].alive) neighbours +=1;
-		if (cells[position-w].alive) neighbours +=1;
-		if (cells[position-w+1].alive) neighbours +=1;
-		if (cells[position+w-1].alive) neighbours +=1;
-		if (cells[position+1].alive) neighbours +=1;
-		if (cells[position+w*2-1].alive) neighbours +=1;
-		if (cells[position+w].alive) neighbours +=1;
-		if (cells[position+w+1].alive) neighbours +=1;
-  // Checks nodes in the right column (excluding corners)
-	} else if (position % w === w-1) {
-		if (cells[position-w-1].alive) neighbours +=1;
-		if (cells[position-w].alive) neighbours +=1;
-		if (cells[position-w*2+1].alive) neighbours +=1;
-		if (cells[position-1].alive) neighbours +=1;
-		if (cells[position-w+1].alive) neighbours +=1;
-		if (cells[position+w-1].alive) neighbours +=1;
-		if (cells[position+w].alive) neighbours +=1;
-		if (cells[position+1].alive) neighbours +=1;
-  // Checks all other nodes in the middle
-	} else {
-		if (cells[position-w-1].alive) neighbours +=1;
-		if (cells[position-w].alive) neighbours +=1;
-		if (cells[position-w+1].alive) neighbours +=1;
-		if (cells[position-1].alive) neighbours +=1;
-		if (cells[position+1].alive) neighbours +=1;
-		if (cells[position+w-1].alive) neighbours +=1;
-		if (cells[position+w].alive) neighbours +=1;
-		if (cells[position+w+1].alive) neighbours +=1;
-	}
-	return neighbours;
-}
+// TODO: Make export a tiny link that can import patterns.
 
 class GameOfLife extends React.Component {
 	constructor() {
 		super();
 
-    // Setup a cells array for creating patterns.
-    const clearedCells = [];
-
-    for (let cellID = 0; cellID < 3500; cellID++) {
-      clearedCells.push(this.createCellNode(cellID, false));
-    }
-
 		this.state = {
+      config: {
+        width: 70,
+        height: 50,
+        totalCells: 3500,
+      },
 			cells: [],
-      clearedCells,
+      clearedCells: [],
 			running: false,
 			generation: 0,
 			speed: 80,
@@ -136,12 +38,49 @@ class GameOfLife extends React.Component {
 
 	componentDidMount() {
     /*
-     * Get custom patterns from storage after mount
-     * to avoid issues with server rendering (no window object).
+     * Perform functions that require window object here to avoid issues with server rendering
      */
+
+    // Function to generate config which dictates height/width of grid based on window width.
+    const config = (function makeConfig() {
+      const windowWidth = window.innerWidth;
+      let width;
+      let height;
+
+      if (windowWidth < 768) {
+        width = 30;
+        height = 45;
+      } else if (windowWidth < 1050) {
+        width = 60;
+        height = 40;
+      } else {
+        width = 70;
+        height = 50;
+      }
+
+      return {
+        width,
+        height,
+        totalCells: width * height,
+      };
+    }())
+
+    // Setup a cells array for creating patterns.
+    const clearedCells = [];
+
+    for (let cellID = 0, totalCells = config.totalCells; cellID < totalCells; cellID++) {
+      clearedCells.push(this.createCellNode(cellID, false));
+    }
+
     this.setState({
-      customPatterns: Object.assign(this.state.customPatterns, this.getLocalStorage())
+      clearedCells,
+      config,
+      customPatterns: Object.assign(this.state.customPatterns, this.getLocalStorage()),
     });
+
+    /*
+     * End functions that require window object.
+     */
 
     const grid = this.refs.grid;
 
@@ -184,13 +123,116 @@ class GameOfLife extends React.Component {
       });
     }
 
-		this.setupCells('random');
-		this.start();
+    setTimeout(() => {
+      this.setupCells('random');
+      this.start();
+    })
 	}
 
 	componentWillUnmount() {
 		this.clearTimer();
 	}
+
+  checkNeighbours = position => {
+    const cells = this.state.cells;
+    const w = this.state.config.width;
+    const l = cells.length;
+
+  	let neighbours = 0;
+
+    // Checks nodes in the top left corner
+  	if (position === 0) {
+  		if (cells[l-1].alive) neighbours +=1;
+  		if (cells[l-w].alive) neighbours +=1;
+  		if (cells[l-w+1].alive) neighbours +=1;
+  		if (cells[w-1].alive) neighbours +=1;
+  		if (cells[1].alive) neighbours +=1;
+  		if (cells[w*2-1].alive) neighbours +=1;
+  		if (cells[w].alive) neighbours +=1;
+  		if (cells[w+1].alive) neighbours +=1;
+    // Checks nodes in the top right corner
+  	} else if (position === w-1) {
+  		if (cells[l-2].alive) neighbours +=1;
+  		if (cells[l-1].alive) neighbours +=1;
+  		if (cells[l-w].alive) neighbours +=1;
+  		if (cells[w-2].alive) neighbours +=1;
+  		if (cells[0].alive) neighbours +=1;
+  		if (cells[w*2-2].alive) neighbours +=1;
+  		if (cells[w*2-1].alive) neighbours +=1;
+  		if (cells[w].alive) neighbours +=1;
+    // Checkes nodes in the bottom left corner
+  	} else if (position === l-w) {
+  		if (cells[l-w-1].alive) neighbours +=1;
+  		if (cells[position-w].alive) neighbours +=1;
+  		if (cells[position-w+1].alive) neighbours +=1;
+  		if (cells[l-1].alive) neighbours +=1;
+  		if (cells[position+1].alive) neighbours +=1;
+  		if (cells[w-1].alive) neighbours +=1;
+  		if (cells[0].alive) neighbours +=1;
+  		if (cells[1].alive) neighbours +=1;
+    // Checks nodes in the bottom right corner
+  	} else if (position === l-1) {
+  		if (cells[l-w-2].alive) neighbours +=1;
+  		if (cells[l-w-1].alive) neighbours +=1;
+  		if (cells[l-w*2].alive) neighbours +=1;
+  		if (cells[l-2].alive) neighbours +=1;
+  		if (cells[l-w].alive) neighbours +=1;
+  		if (cells[w-2].alive) neighbours +=1;
+  		if (cells[w-1].alive) neighbours +=1;
+  		if (cells[0].alive) neighbours +=1;
+    // Checks nodes in top row (excluding the corners)
+  	} else if (position >= 1 && position <= w-2) {
+  		if (cells[l-w+position].alive) neighbours +=1;
+  		if (cells[l-w-1+position].alive) neighbours +=1;
+  		if (cells[l-w+1+position].alive) neighbours +=1;
+  		if (cells[position-1].alive) neighbours +=1;
+  		if (cells[position+1].alive) neighbours +=1;
+  		if (cells[position+w+1].alive) neighbours +=1;
+  		if (cells[position+w].alive) neighbours +=1;
+  		if (cells[position+w-1].alive) neighbours +=1;
+    // Checks nodes in bottom row (excluding corners)
+  	} else if (position >= l-w+1 && position <= l-2) {
+  		if (cells[position-w-1].alive) neighbours +=1;
+  		if (cells[position-w].alive) neighbours +=1;
+  		if (cells[position-w+1].alive) neighbours +=1;
+  		if (cells[position-1].alive) neighbours +=1;
+  		if (cells[position+1].alive) neighbours +=1;
+  		if (cells[w-(l-position)-1].alive) neighbours +=1;
+  		if (cells[w-(l-position)].alive) neighbours +=1;
+  		if (cells[w-(l-position)+1].alive) neighbours +=1;
+    // Checks nodes in the left column (excluding corners)
+  	} else if (position % w === 0) {
+  		if (cells[position-1].alive) neighbours +=1;
+  		if (cells[position-w].alive) neighbours +=1;
+  		if (cells[position-w+1].alive) neighbours +=1;
+  		if (cells[position+w-1].alive) neighbours +=1;
+  		if (cells[position+1].alive) neighbours +=1;
+  		if (cells[position+w*2-1].alive) neighbours +=1;
+  		if (cells[position+w].alive) neighbours +=1;
+  		if (cells[position+w+1].alive) neighbours +=1;
+    // Checks nodes in the right column (excluding corners)
+  	} else if (position % w === w-1) {
+  		if (cells[position-w-1].alive) neighbours +=1;
+  		if (cells[position-w].alive) neighbours +=1;
+  		if (cells[position-w*2+1].alive) neighbours +=1;
+  		if (cells[position-1].alive) neighbours +=1;
+  		if (cells[position-w+1].alive) neighbours +=1;
+  		if (cells[position+w-1].alive) neighbours +=1;
+  		if (cells[position+w].alive) neighbours +=1;
+  		if (cells[position+1].alive) neighbours +=1;
+    // Checks all other nodes in the middle
+  	} else {
+  		if (cells[position-w-1].alive) neighbours +=1;
+  		if (cells[position-w].alive) neighbours +=1;
+  		if (cells[position-w+1].alive) neighbours +=1;
+  		if (cells[position-1].alive) neighbours +=1;
+  		if (cells[position+1].alive) neighbours +=1;
+  		if (cells[position+w-1].alive) neighbours +=1;
+  		if (cells[position+w].alive) neighbours +=1;
+  		if (cells[position+w+1].alive) neighbours +=1;
+  	}
+  	return neighbours;
+  }
 
   updateCanvasGrid = cells => {
     if (this.grid) {
@@ -211,7 +253,7 @@ class GameOfLife extends React.Component {
       let column = 0;
       let row = 0;
 
-      for (let cell = 0; cell < 3500; cell++) {
+      for (let cell = 0; cell < this.state.config.totalCells; cell++) {
         // Draw the cell
         this.grid.fillStyle = getFillStyle(cells[cell]);
         this.grid.fillRect(column, row, 12, 12);
@@ -224,7 +266,7 @@ class GameOfLife extends React.Component {
         column += 12;
 
         // Move to the next row
-        if (column >= 840) {
+        if (column >= this.state.config.width * 12) {
           column = 0;
           row += 12;
         }
@@ -241,7 +283,7 @@ class GameOfLife extends React.Component {
     let row = 0;
     let cellID = 0;
 
-    for (; cellID < 3500; cellID++) {
+    for (; cellID < this.state.config.totalCells; cellID++) {
       if ( x >= column
         && x <= column + 12
         && y >= row
@@ -252,7 +294,7 @@ class GameOfLife extends React.Component {
 
       column += 12;
 
-      if (column >= 840) {
+      if (column >= this.state.config.width * 12) {
         column = 0;
         row += 12;
       }
@@ -282,9 +324,7 @@ class GameOfLife extends React.Component {
           generation: this.state.generation += 1
         });
 
-        if (this.grid) {
-          this.updateCanvasGrid(nextCells);
-        }
+        this.updateCanvasGrid(nextCells);
 
         this.clearTimer();
         this.generationTimer = setTimeout(startFn, this.state.speed);
@@ -342,8 +382,8 @@ class GameOfLife extends React.Component {
     const cells = this.state.cells;
     let nextCells = [];
 
-		for (let cellID = 0; cellID < 3500; cellID++) {
-		  let aliveNeighbours = checkNeighbours(cellID, cells);
+		for (let cellID = 0; cellID < this.state.config.totalCells; cellID++) {
+		  let aliveNeighbours = this.checkNeighbours(cellID);
 
 		  if (cells[cellID].alive) {
 			 if (aliveNeighbours >= 4 || aliveNeighbours <= 1) {
@@ -362,7 +402,7 @@ class GameOfLife extends React.Component {
 	}
 
   checkIfAllCellsDead = () => {
-    for (let cell = 0; cell < 3500; cell++) {
+    for (let cell = 0; cell < this.state.config.totalCells; cell++) {
       if (this.state.cells[cell].alive) {
         return;
       }
@@ -495,10 +535,10 @@ class GameOfLife extends React.Component {
         <canvas
           className="GameOfLife__grid"
           ref="grid"
-          width={70 * 12}
-          height={50 * 12}
+          width={this.state.config.width * 12}
+          height={this.state.config.height * 12}
         >
-          <section className="GameOfLife__grid">
+          <section className="GameOfLife__grid GameOfLife__grid--canvas-backup">
             {this.grid ? null : this.renderCanvasBackup()}
           </section>
         </canvas>
