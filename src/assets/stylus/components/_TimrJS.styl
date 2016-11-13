@@ -1,0 +1,75 @@
+.TimrJS
+
+  pre
+  code
+    background grey-300
+
+  pre
+    margin-bottom vr-block(1)
+    padding vr-block(.5)
+
+
+  blockquote
+    border-left 5px solid blue-500
+    padding-left vr-block(.5)
+
+    a
+      display block
+
+  h5
+    margin 0
+
+  h1
+  h2
+  h3
+  h4
+  h5
+    font-weight 600
+
+  &__start-example
+  &__options-example
+    margin-bottom vr-block(1)
+    z-depth('1')
+
+    &__interactive
+      background grey-300
+
+      &__demo-text
+        background grey-500
+        color body-background-color
+        display inline-block
+        font-weight 600
+        height 100%
+        padding vr-block(.5)
+
+        +below(breakpoints.tablet)
+          display block
+          padding vr-block(.25)
+          text-align center
+
+      &__demo
+        padding vr-block(.5)
+
+        +below(breakpoints.tablet)
+          display block
+
+    &__notes
+      padding vr-block(.5)
+
+    input
+      height vr-block(1)
+      text-align center
+      width vr-block(4)
+
+  &__header
+    background header-color
+    padding 50px
+
+    &__title
+      color body-background-color
+      font-weight 600
+      margin 0
+      text-align center
+
+  &__main
+    padding vr-block(1)
