@@ -3,12 +3,8 @@ import classNames from 'classnames';
 
 import Button from './Button';
 
-// TODO: Refactor checkneighbours?
-// TODO: On mobile, enlarge square on hold to make it easier to select custome patterns
-// TODO: Provide a way to share patterns, export & import
-// TODO: Make it scalable to mobile
 // TODO: Look into the perfomance, its VERY slow when manipulating the dom (Canvas fallback), also its stuttering after macbook been running for a (unknown) period of time, perhaps reduce use of array functions?
-// TODO: Make export a tiny link that can import patterns.
+// TODO: Make export a tiny link that can import patterns / improve export and impoort
 
 class GameOfLife extends React.Component {
 	constructor() {
@@ -142,94 +138,94 @@ class GameOfLife extends React.Component {
 
     // Checks nodes in the top left corner
   	if (position === 0) {
-  		if (cells[l-1].alive) neighbours +=1;
-  		if (cells[l-w].alive) neighbours +=1;
-  		if (cells[l-w+1].alive) neighbours +=1;
-  		if (cells[w-1].alive) neighbours +=1;
-  		if (cells[1].alive) neighbours +=1;
-  		if (cells[w*2-1].alive) neighbours +=1;
-  		if (cells[w].alive) neighbours +=1;
-  		if (cells[w+1].alive) neighbours +=1;
+  		if (cells[l - 1].alive) neighbours += 1;
+  		if (cells[l - w].alive) neighbours += 1;
+  		if (cells[l - w + 1].alive) neighbours += 1;
+  		if (cells[w - 1].alive) neighbours += 1;
+  		if (cells[1].alive) neighbours += 1;
+  		if (cells[w * 2 - 1].alive) neighbours += 1;
+  		if (cells[w].alive) neighbours += 1;
+  		if (cells[w +1 ].alive) neighbours += 1;
     // Checks nodes in the top right corner
-  	} else if (position === w-1) {
-  		if (cells[l-2].alive) neighbours +=1;
-  		if (cells[l-1].alive) neighbours +=1;
-  		if (cells[l-w].alive) neighbours +=1;
-  		if (cells[w-2].alive) neighbours +=1;
-  		if (cells[0].alive) neighbours +=1;
-  		if (cells[w*2-2].alive) neighbours +=1;
-  		if (cells[w*2-1].alive) neighbours +=1;
-  		if (cells[w].alive) neighbours +=1;
+  	} else if (position === w - 1) {
+  		if (cells[l - 2].alive) neighbours += 1;
+  		if (cells[l - 1].alive) neighbours += 1;
+  		if (cells[l - w].alive) neighbours += 1;
+  		if (cells[w - 2].alive) neighbours += 1;
+  		if (cells[0].alive) neighbours += 1;
+  		if (cells[w * 2 - 2].alive) neighbours += 1;
+  		if (cells[w * 2 - 1].alive) neighbours += 1;
+  		if (cells[w].alive) neighbours += 1;
     // Checkes nodes in the bottom left corner
-  	} else if (position === l-w) {
-  		if (cells[l-w-1].alive) neighbours +=1;
-  		if (cells[position-w].alive) neighbours +=1;
-  		if (cells[position-w+1].alive) neighbours +=1;
-  		if (cells[l-1].alive) neighbours +=1;
-  		if (cells[position+1].alive) neighbours +=1;
-  		if (cells[w-1].alive) neighbours +=1;
-  		if (cells[0].alive) neighbours +=1;
-  		if (cells[1].alive) neighbours +=1;
+  	} else if (position === l - w) {
+  		if (cells[l - w - 1].alive) neighbours += 1;
+  		if (cells[position - w].alive) neighbours += 1;
+  		if (cells[position - w + 1].alive) neighbours += 1;
+  		if (cells[l - 1].alive) neighbours += 1;
+  		if (cells[position + 1].alive) neighbours += 1;
+  		if (cells[w - 1].alive) neighbours += 1;
+  		if (cells[0].alive) neighbours += 1;
+  		if (cells[1].alive) neighbours += 1;
     // Checks nodes in the bottom right corner
-  	} else if (position === l-1) {
-  		if (cells[l-w-2].alive) neighbours +=1;
-  		if (cells[l-w-1].alive) neighbours +=1;
-  		if (cells[l-w*2].alive) neighbours +=1;
-  		if (cells[l-2].alive) neighbours +=1;
-  		if (cells[l-w].alive) neighbours +=1;
-  		if (cells[w-2].alive) neighbours +=1;
-  		if (cells[w-1].alive) neighbours +=1;
-  		if (cells[0].alive) neighbours +=1;
+  	} else if (position === l - 1) {
+  		if (cells[l - w - 2].alive) neighbours += 1;
+  		if (cells[l - w - 1].alive) neighbours += 1;
+  		if (cells[l - w * 2].alive) neighbours += 1;
+  		if (cells[l - 2].alive) neighbours += 1;
+  		if (cells[l - w].alive) neighbours += 1;
+  		if (cells[w - 2].alive) neighbours += 1;
+  		if (cells[w - 1].alive) neighbours += 1;
+  		if (cells[0].alive) neighbours += 1;
     // Checks nodes in top row (excluding the corners)
-  	} else if (position >= 1 && position <= w-2) {
-  		if (cells[l-w+position].alive) neighbours +=1;
-  		if (cells[l-w-1+position].alive) neighbours +=1;
-  		if (cells[l-w+1+position].alive) neighbours +=1;
-  		if (cells[position-1].alive) neighbours +=1;
-  		if (cells[position+1].alive) neighbours +=1;
-  		if (cells[position+w+1].alive) neighbours +=1;
-  		if (cells[position+w].alive) neighbours +=1;
-  		if (cells[position+w-1].alive) neighbours +=1;
+  	} else if (position >= 1 && position <= w - 2) {
+  		if (cells[l - w + position].alive) neighbours += 1;
+  		if (cells[l - w - 1 + position].alive) neighbours += 1;
+  		if (cells[l - w + 1 + position].alive) neighbours += 1;
+  		if (cells[position - 1].alive) neighbours += 1;
+  		if (cells[position + 1].alive) neighbours += 1;
+  		if (cells[position + w + 1].alive) neighbours += 1;
+  		if (cells[position + w].alive) neighbours += 1;
+  		if (cells[position + w - 1].alive) neighbours += 1;
     // Checks nodes in bottom row (excluding corners)
-  	} else if (position >= l-w+1 && position <= l-2) {
-  		if (cells[position-w-1].alive) neighbours +=1;
-  		if (cells[position-w].alive) neighbours +=1;
-  		if (cells[position-w+1].alive) neighbours +=1;
-  		if (cells[position-1].alive) neighbours +=1;
-  		if (cells[position+1].alive) neighbours +=1;
-  		if (cells[w-(l-position)-1].alive) neighbours +=1;
-  		if (cells[w-(l-position)].alive) neighbours +=1;
-  		if (cells[w-(l-position)+1].alive) neighbours +=1;
+  	} else if (position >= l - w + 1 && position <= l - 2) {
+  		if (cells[position - w - 1].alive) neighbours += 1;
+  		if (cells[position - w].alive) neighbours += 1;
+  		if (cells[position - w + 1].alive) neighbours += 1;
+  		if (cells[position - 1].alive) neighbours += 1;
+  		if (cells[position + 1].alive) neighbours += 1;
+  		if (cells[w - (l - position) - 1].alive) neighbours += 1;
+  		if (cells[w - (l - position)].alive) neighbours += 1;
+  		if (cells[w - (l - position) + 1].alive) neighbours += 1;
     // Checks nodes in the left column (excluding corners)
   	} else if (position % w === 0) {
-  		if (cells[position-1].alive) neighbours +=1;
-  		if (cells[position-w].alive) neighbours +=1;
-  		if (cells[position-w+1].alive) neighbours +=1;
-  		if (cells[position+w-1].alive) neighbours +=1;
-  		if (cells[position+1].alive) neighbours +=1;
-  		if (cells[position+w*2-1].alive) neighbours +=1;
-  		if (cells[position+w].alive) neighbours +=1;
-  		if (cells[position+w+1].alive) neighbours +=1;
+  		if (cells[position - 1].alive) neighbours += 1;
+  		if (cells[position - w].alive) neighbours += 1;
+  		if (cells[position - w + 1].alive) neighbours += 1;
+  		if (cells[position + w - 1].alive) neighbours += 1;
+  		if (cells[position + 1].alive) neighbours += 1;
+  		if (cells[position + w * 2 - 1].alive) neighbours += 1;
+  		if (cells[position + w].alive) neighbours += 1;
+  		if (cells[position + w + 1].alive) neighbours += 1;
     // Checks nodes in the right column (excluding corners)
-  	} else if (position % w === w-1) {
-  		if (cells[position-w-1].alive) neighbours +=1;
-  		if (cells[position-w].alive) neighbours +=1;
-  		if (cells[position-w*2+1].alive) neighbours +=1;
-  		if (cells[position-1].alive) neighbours +=1;
-  		if (cells[position-w+1].alive) neighbours +=1;
-  		if (cells[position+w-1].alive) neighbours +=1;
-  		if (cells[position+w].alive) neighbours +=1;
-  		if (cells[position+1].alive) neighbours +=1;
+  	} else if (position % w === w - 1) {
+  		if (cells[position - w - 1].alive) neighbours += 1;
+  		if (cells[position - w].alive) neighbours += 1;
+  		if (cells[position - w * 2 + 1].alive) neighbours += 1;
+  		if (cells[position - 1].alive) neighbours += 1;
+  		if (cells[position - w + 1].alive) neighbours += 1;
+  		if (cells[position + w - 1].alive) neighbours += 1;
+  		if (cells[position + w].alive) neighbours += 1;
+  		if (cells[position + 1].alive) neighbours += 1;
     // Checks all other nodes in the middle
   	} else {
-  		if (cells[position-w-1].alive) neighbours +=1;
-  		if (cells[position-w].alive) neighbours +=1;
-  		if (cells[position-w+1].alive) neighbours +=1;
-  		if (cells[position-1].alive) neighbours +=1;
-  		if (cells[position+1].alive) neighbours +=1;
-  		if (cells[position+w-1].alive) neighbours +=1;
-  		if (cells[position+w].alive) neighbours +=1;
-  		if (cells[position+w+1].alive) neighbours +=1;
+  		if (cells[position - w - 1].alive) neighbours += 1;
+  		if (cells[position - w].alive) neighbours += 1;
+  		if (cells[position - w + 1].alive) neighbours += 1;
+  		if (cells[position - 1].alive) neighbours += 1;
+  		if (cells[position + 1].alive) neighbours += 1;
+  		if (cells[position + w - 1].alive) neighbours += 1;
+  		if (cells[position + w].alive) neighbours += 1;
+  		if (cells[position + w + 1].alive) neighbours += 1;
   	}
   	return neighbours;
   }

@@ -5,6 +5,7 @@ import App from '../components/App';
 import Projects from '../components/Projects';
 
 // Projects
+import TimrJS from '../components/TimrJS';
 import SimonGame from '../components/SimonGame';
 import TwitchApp from '../components/TwitchApp';
 import Calculator from '../components/Calculator';
@@ -16,6 +17,7 @@ import GameOfLife from '../components/GameOfLife';
 export default (
   <Route path="/" component={App}>
     <Route path="projects" component={Projects} />
+    <Route path="projects/TimrJS" component={TimrJS} />
     <Route path="projects/SimonGame" component={SimonGame} />
     <Route path="projects/TwitchApp" component={TwitchApp} />
     <Route path="projects/Calculator" component={Calculator} />
