@@ -18,8 +18,8 @@ class StartExample extends React.Component {
   handleChange = ev => {
     try {
       this.setState({ output: Timr(ev.target.value).formatTime() })
-    } catch(e) {
-      this.setState({ output: 'Invalid Syntax' })
+    } catch (e) {
+      this.setState({ output: e.toString() });
     }
   }
 
@@ -46,23 +46,36 @@ class StartExample extends React.Component {
   }
 }
 
+// FIXME: default value doesn't work properly when changing options.
+// TODO: make it bettrer laid out for mobile
+// TODO: use the full error text in a separate (red) banner?
+// TODO: Add multiple outputs for comparison purposes
 class OptionsExample extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      startTime: '10:00',
       output: '10:00',
     };
   }
 
-  updateOutput = optionValue => {
-    this.setState({
-      output: Timr('10:00', { [this.refs.option.value]: optionValue }).formatTime(),
-    });
+  updateOutput = (startTime, option, optionValue) => {
+    try {
+      this.setState({
+        output: Timr(startTime, { [option]: optionValue }).formatTime(),
+      });
+    } catch (e) {
+      this.setState({ output: e.toString() });
+    }
   }
 
-  getDefaultValue = option => {
+  getDefaultOption = () => (
+    this.refs.option
+      ? this.refs.option.value
+      : 'outputFormat'
+  )
+
+  getDefaultOptionValue = option => {
     switch(option) {
       case 'outputFormat': return 'mm:ss';
       case 'formatType': return 'm';
@@ -70,15 +83,40 @@ class OptionsExample extends React.Component {
     }
   }
 
-  generateValueOptions = () => {
-    const defaultOption = this.refs.option
-      ? this.refs.option.value
-      : 'outputFormat';
+  generateOptionValues = () => {
+    const defaultOption = this.getDefaultOption();
 
-    return [{ outputFormat: ['hh:mm:ss', 'mm:ss', 'ss']}, { formatType: ['h', 'm', 's']}, { separator: [':', '-', '/'] }]
-      .filter(option => option.hasOwnProperty(defaultOption))
-      .map(option => option[defaultOption])[0]
-      .map(optionValue => <option key={optionValue}>{optionValue}</option>)
+    if (defaultOption === 'separator') {
+      return (
+        <input
+          ref="optionValue"
+          onChange={ev => this.updateOutput(
+            this.refs.startTime.value,
+            this.refs.option.value,
+            ev.target.value
+          )}
+          defaultValue=":"
+        />
+      )
+    }
+
+    return (
+      <select
+        ref="optionValue"
+        onChange={ev => this.updateOutput(
+          this.refs.startTime.value,
+          this.refs.option.value,
+          ev.target.value
+        )}
+        defaultValue={this.getDefaultOptionValue(this.getDefaultOption())}
+      >
+        {
+          [{ outputFormat: ['hh:mm:ss', 'mm:ss', 'ss']}, { formatType: ['h', 'm', 's']}, { separator: [':', '-', '/'] }]
+            .filter(option => option.hasOwnProperty(defaultOption))[0][defaultOption]
+            .map(optionValue => <option key={optionValue}>{optionValue}</option>)
+        }
+      </select>
+    )
   }
 
   render() {
@@ -92,22 +130,29 @@ class OptionsExample extends React.Component {
           <code className="TimrJS__options-example__interactive__demo">
             {`Timr(`}
               <input
-                onChange={this.handleChange}
+                ref="startTime"
+                onChange={ev => this.updateOutput(
+                  ev.target.value,
+                  this.refs.option.value,
+                  this.refs.optionValue.value
+                )}
                 defaultValue={this.state.output}
               />
             {`, { `}
             <select
-              onChange={ev => this.updateOutput(this.getDefaultValue(ev.target.value))}
               ref="option"
+              onChange={ev => this.updateOutput(
+                this.refs.startTime.value,
+                ev.target.value,
+                this.getDefaultOptionValue(ev.target.value)
+              )}
             >
               <option>outputFormat</option>
               <option>formatType</option>
               <option>separator</option>
             </select>
             {': '}
-            <select onChange={ev => this.updateOutput(ev.target.value)}>
-              {this.generateValueOptions()}
-            </select>
+            {this.generateOptionValues()}
             {' }) '}
             <span>{this.state.output}</span>
           </code>
@@ -117,6 +162,67 @@ class OptionsExample extends React.Component {
   }
 }
 
+class TickerExample extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      formattedTime: '10:00',
+      percentDone: '0',
+      currentTime: '600',
+      startTime: '600',
+    };
+  }
+
+  componentDidMount() {
+    Timr(600)
+      .ticker((formattedTime, percentDone, currentTime, startTime) => {
+        this.setState({
+          formattedTime,
+          percentDone,
+          currentTime,
+          startTime,
+        });
+      })
+      .start()
+  }
+
+  render() {
+    return (
+      <section className="TimrJS__ticker-example">
+        <section className="TimrJS__ticker-example__notes">
+          {this.props.children}
+        </section>
+        <section className="TimrJS__ticker-example__interactive">
+          <span className="TimrJS__ticker-example__interactive__demo-text">DEMO</span>
+          <pre>
+            <code className="TimrJS__ticker-example__interactive__demo">
+{`
+timer.ticker((
+  formattedTime,
+  percentDone,
+  currentTime,
+  startTime
+) => {
+  console.log(formattedTime);
+  // ${this.state.formattedTime}
+  console.log(percentDone);
+  // ${this.state.percentDone}
+  console.log(currentTime);
+  // ${this.state.currentTime}
+  console.log(startTime);
+  // ${this.state.startTime}
+});`}
+            </code>
+          </pre>
+        </section>
+      </section>
+    );
+  }
+}
+
+// TODO: Code highlighting with atom sybtax
+// TODO: nicer looking code background / formatting.
 class TimrJS extends React.Component {
   constructor() {
     super();
@@ -168,11 +274,11 @@ class TimrJS extends React.Component {
           <StartExample defaultValue="10:00">
             <ul>
               <li><code>'10:00'</code> - Time units must be separated by a colon.</li>
-              <li><code>600</code> - Time units must be separated by a colon.</li>
-              <li><code>'50'</code> - Time units must be separated by a colon.</li>
-              <li><code>'25m'</code> - Shorthand for 25:00. Can be 25M.</li>
-              <li><code>'25h'</code> - Shorthand for 25:00:00. Can be 25H.</li>
-              <li><code>0</code> - Sets up a stopwatch style counter, counting up rather than down.</li>
+              <li><code>600</code> - Equivalent to 10:00.</li>
+              <li><code>'50'</code> - Unless a string contains a colon, a number is treated as seconds</li>
+              <li><code>'25m'</code> - Shorthand for 25:00.</li>
+              <li><code>'25h'</code> - Shorthand for 25:00:00.</li>
+              <li><code>0</code> - Sets up a stopwatch rather than a coutdown.</li>
             </ul>
           </StartExample>
           <h5>options</h5>
@@ -182,8 +288,25 @@ class TimrJS extends React.Component {
               <li><code>outputFormat</code> - This option specifies how many 00 should be added to the front of the time string as it counts down from hours to minutes to seconds.</li>
               <li><code>formatType</code> - This option specifies whether to format the time string up to hours, up to minutes or just seconds.</li>
               <li><code>separator</code> - This option specifies how the time string is separated.</li>
+              <li><code>store</code> - Overrides the global store setting if provided. See: {/* TODO: add bookmark link here*/}store.</li>
             </ul>
           </OptionsExample>
+          <h3>Basic Usage</h3>
+          <p>Import Timr into your project.</p>
+          <pre><code>import Timr from 'timrjs';</code></pre>
+          <p>Create a Timr by calling the function with the desired <code>startTime</code> and any <code>options</code>. This will return a new Timr Object.</p>
+          <pre><code>const timer = Timr('10:00');</code></pre>
+          <p>Each Timr emits 2 events: <code>ticker</code> and <code>finish</code>.</p>
+          <p>The <code>ticker</code> function is called every second the timer ticks down and is provided with the following arguments:</p>
+          <TickerExample>
+            <ul>
+              <li><code>formattedTime</code> - The current time formatted into a time string. Customisable with outputFormat, formatType and separator options.</li>
+              <li><code>percentDone</code> - The elapsed time in percent. <em>Useful for making progress bars etc.</em></li>
+              <li><code>currentTime</code> - The current time in seconds.</li>
+              <li><code>startTime</code> - The starting time in seconds.</li>
+              <li><code>self</code> - The original Timr object.</li>
+            </ul>
+          </TickerExample>
         </section>
       </section>
     );
