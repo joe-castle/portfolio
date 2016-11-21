@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import classNames from 'classnames';
 
-// TODO: Add home, contact links
+// TODO: remove home, add contact links
+// FIXME: Generate a different Nav on tablet + sized to go inside the container and make the picutre clickable
 
 function Nav({ navVisible, toggleNav, path }) {
   return (

@@ -38,7 +38,7 @@ class GameOfLife extends React.Component {
      */
 
     // Function to generate config which dictates height/width of grid based on window width.
-    const config = (function makeConfig() {
+    function makeConfig() {
       const windowWidth = window.innerWidth;
       let width;
       let height;
@@ -59,9 +59,35 @@ class GameOfLife extends React.Component {
         height,
         totalCells: width * height,
       };
-    }())
+    }
 
-    // Setup a cells array for creating patterns.
+    const config = makeConfig()
+
+    /**
+     * FIXME: resizing adds a whole host of problems
+     *  - clearedCells array doesnt update with resize
+     *  - using pause doesnt updat cells when scaling up
+     *  - patterns in reset wont work when scaling down
+     */
+    // window.addEventListener('resize', () => {
+    //   const { running } = this.state;
+    //   const config = makeConfig();
+    //
+    //   if (config.width !== this.state.config.width) {
+    //     this.clear();
+    //
+    //     this.setState({
+    //       cells: this.setupCells('random'),
+    //       config: makeConfig(),
+    //     });
+    //
+    //     if (running) {
+    //       this.start();
+    //     }
+    //   }
+    // });
+
+    // Setup a initial cells array for creating patterns.
     const clearedCells = [];
 
     for (let cellID = 0, totalCells = config.totalCells; cellID < totalCells; cellID++) {
@@ -74,10 +100,6 @@ class GameOfLife extends React.Component {
       customPatterns: Object.assign(this.state.customPatterns, this.getLocalStorage()),
     });
 
-    /*
-     * End functions that require window object.
-     */
-
     const grid = this.refs.grid;
 
     if (grid.getContext) {
@@ -89,7 +111,7 @@ class GameOfLife extends React.Component {
        */
       let prevCellID;
 
-      const mouseMoveListener = ev => {
+      const moveListener = ev => {
         const currCellID = this.getCanvasClickedCellID(ev);
 
         if (currCellID === prevCellID) {
@@ -110,12 +132,12 @@ class GameOfLife extends React.Component {
 
         // Drawing only works when game isnt running, to prevent lag.
         if (!this.state.running) {
-          grid.addEventListener('mousemove', mouseMoveListener);
+          grid.addEventListener('mousemove', moveListener);
         }
       });
 
       window.addEventListener('mouseup', ev => {
-        grid.removeEventListener('mousemove', mouseMoveListener);
+        grid.removeEventListener('mousemove', moveListener);
       });
     }
 

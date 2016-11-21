@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 import Frame from 'react-frame-component';
 
 // TODO: Give projects their own full page, or atleast give timr its own page, free of header/ borrder with a simple back/home/projects button.
-// TODO: Store all ajax data from projects into redux, to stop them being fetched on every page change.
+// TODO: Store all ajax data from projects into redux, to stop them being fetched on every page change. - or only use screenshots rather than rendering all projects here.
 
 import TimrJS from './TimrJS';
 import SimonGame from './SimonGame';
@@ -78,8 +78,7 @@ function Project({ project }) {
     </Link>
   );
 }
-// Add some sort of separator between personal and freecodecamp
-// Make it more obvious that the title links to the project and the live preview is just for external links
+// TODO: Add some sort of separator between personal and freecodecamp
 function Projects({ children }) {
   return (
     <section className="Projects">

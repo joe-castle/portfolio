@@ -6,7 +6,7 @@ import TypeWriter from 'react-typewriter'
 function makeHeader(path) {
 
 }
-// TODO: Change front text, seperate front page and headers into seperate elemetns?
+// TODO: Change front text, seperate front page and headers into seperate elemetns? Dont hjave the TypeWriter text?
 function Header({ makeFooterVisible, contentActive, path }) {
   return (
     <header className={classNames({

@@ -2,12 +2,47 @@
 
   pre
   code
+    font-weight 500
+
+  code
     background grey-300
 
   pre
+    background #1b2b34
+    border 3px solid blue-500
+    color body-background-color
     margin-bottom vr-block(1)
+    overflow-x auto
     padding vr-block(.5)
 
+    code
+      background none
+      padding 0
+
+    .storage
+    .keyword
+    .arrow
+      color #C594C5
+
+    .punctuation
+      color #5FB3B3
+
+    .function
+      color #6699CC
+
+    .parameter
+    .number
+      color #F99157
+
+    .console
+    .class
+      color #FAC863
+
+    .comment
+      color #65737e
+
+    .string
+      color #99C794
 
   blockquote
     border-left 5px solid blue-500
@@ -30,35 +65,35 @@
   &__options-example
   &__ticker-example
     margin-bottom vr-block(1)
-    z-depth('1')
-
-    ul
-      margin-bottom 0
 
     &__interactive
-      background grey-300
 
-      &__demo-text
-        background grey-500
+      pre
+        margin-bottom 0
+
+      &__demo-buttons
+        background blue-500
         color body-background-color
-        display inline-block
-        font-weight 600
         height 100%
         padding vr-block(.5)
+        text-align center
+        cf()
 
-        +below(breakpoints.tablet)
-          display block
-          padding vr-block(.25)
-          text-align center
+        button
+          margin-bottom 0
+          col(1/3)
 
       &__demo
         padding vr-block(.5)
 
-        +below(breakpoints.tablet)
-          display block
+      &__error
+        background red-500
+        color body-background-color
+        font-weight 600
+        padding vr-block(.25)
 
     &__notes
-      padding vr-block(.5)
+      padding-left vr-block(1)
 
     input
       height vr-block(1)

@@ -12,16 +12,18 @@
     align()
 
     &__link
-      border-bottom 3px solid header-background-color
-      color header-background-color
+      border 3px solid blue-500
+      color blue-500
       font-size vr-block(1)
+      font-weight 600
       margin vr-block(.5)
       padding vr-block(.25)
       transition all .2s linear
       stack()
 
       +hover-state()
-        border-color header-hover-color
+        background blue-500
+        color body-background-color
 
       &--active
         border-color header-hover-color
@@ -47,9 +49,7 @@
 
       &__link
         unstack()
-        border-color body-background-color
         font-size vr-block(.7)
-        color body-background-color
         margin-right vr-block(1)
 
         &--active
