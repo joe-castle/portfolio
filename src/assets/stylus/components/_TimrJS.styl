@@ -44,6 +44,10 @@
     .string
       color #99C794
 
+    .output
+    ^[0]__main__output-example
+      color #EC5F67
+
   blockquote
     border-left 5px solid blue-500
     padding-left vr-block(.5)
@@ -60,6 +64,9 @@
   h4
   h5
     font-weight 600
+
+  ul > ul
+    margin 0 0 0 10px
 
   &__start-example
   &__options-example
@@ -78,6 +85,9 @@
         padding vr-block(.5)
         text-align center
         cf()
+
+        h3
+          margin 0
 
         button
           margin-bottom 0
@@ -101,7 +111,7 @@
       width vr-block(4)
 
   &__header
-    background header-color
+    background linear-gradient(blue-500, green-500)
     padding 50px
 
     &__title
@@ -112,3 +122,10 @@
 
   &__main
     padding vr-block(1)
+
+    &__output-example
+      font-weight 600
+
+    &__badges
+      a:not(:last-child)
+        margin-right 5px
