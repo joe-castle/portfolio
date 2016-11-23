@@ -100,14 +100,18 @@ class TwitchApp extends React.Component {
 			filter: 'All',
 			fetching: false
 		}
-	};
+	}
 
-	componentDidMount = () => {
+	componentDidMount() {
     ['brunofin', 'comster404', 'freecodecamp',
     'storbeck', 'terakilobyte',
     'habathcx', 'RobotCaleb', 'thomasballinger',
     'noobs2ninjas', 'beohoff', 'medrybw',].forEach(this.getStreamer)
-	};
+	}
+
+  componentWillUnmount() {
+    // TODO: Cancel fetch.
+  }
 
   getStreamer = streamer => {
     // Checks if the streamer already exists in the array.
@@ -124,7 +128,7 @@ class TwitchApp extends React.Component {
     } else {
       this.refs.streamerForm.reset();
     }
-  };
+  }
 
 	fetchStreamer = streamer => {
 		const api = (streamer => url => (
@@ -137,7 +141,7 @@ class TwitchApp extends React.Component {
 		))(streamer);
 
     return Promise.all([api('channels'), api('streams')])
-	};
+	}
 
 	addStreamer = ([channel, stream]) => {
 		this.setState(({ streamers }) => {
@@ -157,7 +161,7 @@ class TwitchApp extends React.Component {
   			]
       }
 		});
-	};
+	}
 
   checkAccountStatus = (message, status) => {
     const extractName = message => message.match(/'(\w+)'/i)[1];
@@ -181,7 +185,7 @@ class TwitchApp extends React.Component {
 		this.setState(({ streamers }) => ({
 			streamers: streamers.filter(streamer => streamer.id !== id)
 		}));
-	};
+	}
 
 	render() {
     return (

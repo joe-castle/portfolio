@@ -4,6 +4,7 @@ import Frame from 'react-frame-component';
 
 // TODO: Give projects their own full page, or atleast give timr its own page, free of header/ borrder with a simple back/home/projects button.
 // TODO: Store all ajax data from projects into redux, to stop them being fetched on every page change. - or only use screenshots rather than rendering all projects here.
+// TODO: Pass a variable that stops automatic running of certain things like gameoflife.
 
 import TimrJS from './TimrJS';
 import SimonGame from './SimonGame';

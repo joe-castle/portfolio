@@ -45,7 +45,7 @@ class StartExample extends React.Component {
                 defaultValue={this.props.defaultValue}
               />
               <span className="punctuation">);</span>{'\n'}
-              <span className="comment">// </span>
+              <span className="comment">// Formatted Output: </span>
               <span className="output">{this.state.output}</span>{'\n'}
             </code>
           </pre>
@@ -59,9 +59,6 @@ class StartExample extends React.Component {
 }
 
 // FIXME: default value doesn't work properly when changing options.
-// TODO: make it bettrer laid out for mobile
-// TODO: use the full error text in a separate (red) banner?
-// TODO: Add multiple outputs for comparison purposes
 class OptionsExample extends React.Component {
   constructor(props) {
     super(props);
@@ -75,16 +72,12 @@ class OptionsExample extends React.Component {
   }
 
   updateOutput = (option, optionValue) => {
-    try {
-      this.setState({
-        hourOutput: Timr('02:00:00', { [option]: optionValue }).formatTime(),
-        minuteOutput: Timr('20:00', { [option]: optionValue }).formatTime(),
-        secondOutput: Timr('20', { [option]: optionValue }).formatTime(),
-        error: '',
-      });
-    } catch (e) {
-      this.setState({ error: e.toString() });
-    }
+    this.setState({
+      hourOutput: Timr('02:00:00', { [option]: optionValue }).formatTime(),
+      minuteOutput: Timr('20:00', { [option]: optionValue }).formatTime(),
+      secondOutput: Timr('20', { [option]: optionValue }).formatTime(),
+      error: '',
+    });
   }
 
   getDefaultOption = () => (
@@ -168,17 +161,14 @@ class OptionsExample extends React.Component {
               <span className="punctuation">: </span>
               {this.generateOptionValues()}
               <span className="punctuation"> });</span>{'\n'}
-              <span className="comment">// </span>
+              <span className="comment">// Hour Example:   </span>
               <span className="output">{this.state.hourOutput}</span>{'\n'}
-              <span className="comment">// </span>
+              <span className="comment">// Minute Example: </span>
               <span className="output">{this.state.minuteOutput}</span>{'\n'}
-              <span className="comment">// </span>
+              <span className="comment">// Second Example: </span>
               <span className="output">{this.state.secondOutput}</span>
             </code>
           </pre>
-          {this.state.error &&
-            <div className="TimrJS__start-example__interactive__error">{this.state.error}</div>
-          }
         </section>
       </section>
     );
@@ -279,33 +269,13 @@ class TickerExample extends React.Component {
               <span className="parameter"> startTime</span>
               <span className="punctuation">)</span>
               <span className="arrow"> => </span>{'{\n'}
-              <span className="console">  console</span>.
-              <span className="function">log</span>
-              <span className="punctuation">(</span>
-              formattedTime
-              <span className="punctuation">);</span>{'\n'}
-              <span className="comment">  // </span>
+              <span className="comment">  // formattedTime: </span>
               <span className="output">{this.state.countdownFormattedTime}</span>{'\n'}
-              <span className="console">  console</span>.
-              <span className="function">log</span>
-              <span className="punctuation">(</span>
-              percentDone
-              <span className="punctuation">);</span>{'\n'}
-              <span className="comment">  // </span>
+              <span className="comment">  // percentDone:   </span>
               <span className="output">{this.state.percentDone}</span>{'\n'}
-              <span className="console">  console</span>.
-              <span className="function">log</span>
-              <span className="punctuation">(</span>
-              currentTime
-              <span className="punctuation">);</span>{'\n'}
-              <span className="comment">  // </span>
+              <span className="comment">  // currentTime:   </span>
               <span className="output">{this.state.countdownCurrentTime}</span>{'\n'}
-              <span className="console">  console</span>.
-              <span className="function">log</span>
-              <span className="punctuation">(</span>
-              startTime
-              <span className="punctuation">);</span>{'\n'}
-              <span className="comment">  // </span>
+              <span className="comment">  // startTime:     </span>
               <span className="output">{this.state.startTime}</span>{'\n'}
               })<span className="punctuation">;</span>{'\n\n'}
               <span className="comment">{'/* \n'}
@@ -323,19 +293,9 @@ class TickerExample extends React.Component {
               <span className="parameter"> currentTime</span>
               <span className="punctuation">)</span>
               <span className="arrow"> => </span>{'{\n'}
-              <span className="console">  console</span>.
-              <span className="function">log</span>
-              <span className="punctuation">(</span>
-              formattedTime
-              <span className="punctuation">);</span>{'\n'}
-              <span className="comment">  // </span>
+              <span className="comment">  // formattedTime: </span>
               <span className="output">{this.state.stopwatchFormattedTime}</span>{'\n'}
-              <span className="console">  console</span>.
-              <span className="function">log</span>
-              <span className="punctuation">(</span>
-              currentTime
-              <span className="punctuation">);</span>{'\n'}
-              <span className="comment">  // </span>
+              <span className="comment">  // currentTime:   </span>
               <span className="output">{this.state.stopwatchCurrentTime}</span>{'\n'}
               })<span className="punctuation">;</span>
             </code>
@@ -352,7 +312,9 @@ class FinishExample extends React.Component {
 
     this.state = {
       countdownFormattedTime: '00:05',
+      countdownFinish: '',
       stopwatchFormattedTime: '999:59:55',
+      stopwatchFinish: '',
     };
   }
 
@@ -362,7 +324,7 @@ class FinishExample extends React.Component {
         this.setState({ countdownFormattedTime });
       })
       .finish(() => {
-        this.setState({ countdownFormattedTime: 'Countdown Finished!' });
+        this.setState({ countdownFinish: 'Countdown Finished!' });
       });
 
     this.stopwatch = Timr(0)
@@ -370,7 +332,7 @@ class FinishExample extends React.Component {
         this.setState({ stopwatchFormattedTime });
       })
       .finish(() => {
-        this.setState({ stopwatchFormattedTime: 'Stopwatch Finished!' });
+        this.setState({ stopwatchFinish: 'Stopwatch Finished!' });
       })
 
     this.stopwatch.currentTime = 3599995;
@@ -398,7 +360,9 @@ class FinishExample extends React.Component {
 
     this.setState({
       countdownFormattedTime: '00:05',
+      countdownFinish: '',
       stopwatchFormattedTime: '999:59:55',
+      stopwatchFinish: '',
     });
   }
 
@@ -422,15 +386,10 @@ class FinishExample extends React.Component {
               <span className="punctuation">(</span>
               <span className="punctuation">)</span>
               <span className="arrow"> => </span>{'{\n'}
-              <span className="console">  console</span>.
-              <span className="function">log</span>
-              <span className="punctuation">(</span>
-              <span className="punctuation">'</span>
-              <span className="string">Countdown Finished!</span>
-              <span className="punctuation">'</span>
-              <span className="punctuation">);</span>{'\n'}
-              <span className="comment">  // </span>
+              <span className="comment">  // ticker: </span>
               <span className="output">{this.state.countdownFormattedTime}</span>{'\n'}
+              <span className="comment">  // finish: </span>
+              <span className="output">{this.state.countdownFinish}</span>{'\n'}
               })<span className="punctuation">;</span>{'\n\n'}
               <span className="comment">{'/* \n'}
               {' * '}If the Timr has been setup as a stopwatch, the timer will stop{'\n'}
@@ -446,15 +405,10 @@ class FinishExample extends React.Component {
               (<span className="punctuation">(</span>
               <span className="punctuation">)</span>
               <span className="arrow"> => </span>{'{\n'}
-              <span className="console">  console</span>.
-              <span className="function">log</span>
-              <span className="punctuation">(</span>
-                <span className="punctuation">'</span>
-                <span className="string">Stopwatch Finished!</span>
-                <span className="punctuation">'</span>
-              <span className="punctuation">);</span>{'\n'}
-              <span className="comment">  // </span>
+              <span className="comment">  // ticker: </span>
               <span className="output">{this.state.stopwatchFormattedTime}</span>{'\n'}
+              <span className="comment">  // finish: </span>
+              <span className="output">{this.state.stopwatchFinish}</span>{'\n'}
               })<span className="punctuation">;</span>
             </code>
           </pre>
@@ -491,10 +445,10 @@ class ControlExample extends React.Component {
     this.timer.stop();
     this.delayTimer.stop();
     this.setState({ mainOutput: '00:05' });
-    // FIXME: any hundredth value gets round up and it acts as a stopwatch.
+
     if (delay / 1000 > 0) {
       try {
-        this.delayTimer.setStartTime(delay / 1000);
+        this.delayTimer.setStartTime(Math.ceil(delay / 1000));
         this.setState({ delayOutput: `${delay / 1000}s` })
         this.delayTimer.start();
       } catch (e) {
@@ -524,9 +478,9 @@ class ControlExample extends React.Component {
               <span className="punctuation">(</span>
               <input onChange={this.handleChange} placeholder="Delay..."/>
               <span className="punctuation">);</span>{'\n'}
-              <span className="comment"> // Delay: </span>
-              <span className="output">{this.state.delayOutput}</span>
-              <span className="comment"> Output: </span>
+              <span className="comment">// Delay:  </span>
+              <span className="output">{this.state.delayOutput}</span>{'\n'}
+              <span className="comment">// Output: </span>
               <span className="output">{this.state.mainOutput}</span>{'\n'}
               timer.
               <span className="function">pause</span>
@@ -661,11 +615,78 @@ class StoreExample extends React.Component {
   }
 }
 
-// TODO: Code highlighting with atom sybtax
-// TODO: nicer looking code background / formatting.
+class UtilitiesExample extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      validate: '600',
+      timeToSeconds: '600',
+      correctFormat: 'true',
+    };
+  }
+
+  handleChange = (fn, value) => {
+    try {
+      this.setState({ [fn]: Timr[fn](value).toString() });
+    } catch (e) {
+      this.setState({ [fn]: e.toString() });
+    }
+  }
+
+  render() {
+    return (
+      <section className="TimrJS__ticker-example">
+        <section className="TimrJS__ticker-example__interactive">
+          <pre>
+            <code className="TimrJS__ticker-example__interactive__demo">
+              <span className="comment">{'/*\n'}
+              {' * '}FormatTime essentially takes the same arguments as{'\n'}
+              {' * '}Timr instantiation, except it returns a string rather than{'\n'}
+              {' * '}a Timr object. For example, see:{' '}
+              <a href="#options">options</a>{'\n'}
+              {' */\n\n'}</span>
+              Timr.
+              <span className="function">validate</span>
+              <span className="punctuation">(</span>
+              <input
+                defaultValue="10:00"
+                onChange={ev => this.handleChange('validate', ev.target.value)}
+              />
+              <span className="punctuation">);</span>{'\n'}
+              <span className="comment">// </span>
+              <span className="output">{this.state.validate}</span>{'\n'}
+              Timr.
+              <span className="function">timeToSeconds</span>
+              <span className="punctuation">(</span>
+              <input
+                defaultValue="10:00"
+                onChange={ev => this.handleChange('timeToSeconds', ev.target.value)}
+              />
+              <span className="punctuation">);</span>{'\n'}
+              <span className="comment">// </span>
+              <span className="output">{this.state.timeToSeconds}</span>{'\n'}
+              Timr.
+              <span className="function">correctFormat</span>
+              <span className="punctuation">(</span>
+              <input
+                defaultValue="10:00"
+                onChange={ev => this.handleChange('correctFormat', ev.target.value)}
+              />
+              <span className="punctuation">);</span>{'\n'}
+              <span className="comment">// </span><span className="output">{this.state.correctFormat}</span>
+            </code>
+          </pre>
+        </section>
+      </section>
+    );
+  }
+}
+
 // TODO: at beginning - The purpose of this page is to provide interactgive exmples, see github for full docs.
 // TODO: at beginning - Meaning of m = minutes etc...
 // TODO: at beginning - How interactive examples work on the page
+// TODO: slim code, avoid dry, generate bits?
 class TimrJS extends React.Component {
   constructor() {
     super();
@@ -753,7 +774,7 @@ class TimrJS extends React.Component {
               <li><code>0</code> - Sets up a stopwatch rather than a coutdown.</li>
             </ul>
           </StartExample>
-          <h5>options</h5>
+          <h5 id="options">options</h5>
           <p>Optional. Object which accepts:</p>
           <OptionsExample>
             <ul>
@@ -808,7 +829,7 @@ class TimrJS extends React.Component {
             <li><code>ticker(fn)</code> - The provided function executes every second the timer ticks down.</li>
             <li><code>finish(fn)</code> - The provided function executes once the timer finishes.</li>
             <li><code>formatTime(['startTime'])</code> - Returns the currentTime, formatted. Optionally accepts the string 'startTime', which will return the startTime formatted.</li>
-            <li><code>changeOptions(options)</code> - Merges the provided options into the existing ones. See: {/*TODO: Provide bookmark foro ptions*/}options for available options.</li>
+            <li><code>changeOptions(options)</code> - Merges the provided options into the existing ones. See: <a href="#options">options</a> for available options.</li>
             <li><code>setStartTime(newStartTime)</code> - Changes the startTime to the one provided and returns it formatted. Will stop the timer if its running. It's also subject to validation, so will throw an error if the provided time is invalid.</li>
             <li><code>getStartTime()</code> - Returns the startTime in seconds.</li>
             <li><code>getCurrentTime()</code> - Returns the currentTime in seconds.</li>
@@ -857,11 +878,12 @@ class TimrJS extends React.Component {
             <li><code>Timr.formatTime(seconds, options)</code> - Converts seconds into a time string. Used by Timrs when outputting their formattedTime.</li>
             <ul>
               <li><code>seconds</code> - Required. The seconds to be converted.</li>
-              <li><code>options</code> - See: {/*TODO: ADd bookark*/}parameters > options</li>
+              <li><code>options</code> - See: <a href="#options">parameters > options</a></li>
             </ul>
             <li><code>Timr.timeToSeconds(time)</code> -  Converts a time string into seconds. Must be separated by a colon, e.g. '10:00'. Used in the validate method.</li>
             <li><code>Timr.correctFormat(time)</code> - Checks the format of a time string. Must be separated by a colon, e.g. '10:00'. Used in the validate method.</li>
           </ul>
+          <UtilitiesExample />
           <h3>Bugs</h3>
           <p>This is my first contribution to the Open Source community so I fully expect there to be bugs.</p>
           <p>If you find any and fancy helping me out, <a href="https://github.com/joesmith100/timrjs/issues" target="_blank">create an issue</a>, or send a <a href="https://github.com/joesmith100/timrjs/pulls" target="_blank">pull request</a>.</p>
