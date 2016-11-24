@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 // TODO: remove home, add contact links
 // FIXME: Generate a different Nav on tablet + sized to go inside the container and make the picutre clickable
+// FIXME: active links not working deep into projects.
 
 function Nav({ navVisible, toggleNav, path }) {
   return (

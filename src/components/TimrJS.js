@@ -1,10 +1,6 @@
-// Have own page /timrjs
-// Have the header be a coutdown before changing to TimrJS
-// Loads of interactive examples
-// Link to readme on github for FULL documentation / API
-
 import React from 'react';
 import Timr from 'timrjs';
+import { Link } from 'react-router';
 
 import Button from './Button';
 
@@ -33,8 +29,16 @@ class StartExample extends React.Component {
     return (
       <section className="TimrJS__start-example">
         <section className="TimrJS__start-example__notes">
-          {this.props.children}
+          <ul>
+            <li><code>'10:00'</code> - Time units must be separated by a colon.</li>
+            <li><code>600</code> - Equivalent to 10:00.</li>
+            <li><code>'50'</code> - Unless a string contains a colon, a number is treated as seconds</li>
+            <li><code>'25m'</code> - Shorthand for 25:00.</li>
+            <li><code>'25h'</code> - Shorthand for 25:00:00.</li>
+            <li><code>0</code> - Sets up a stopwatch rather than a coutdown.</li>
+          </ul>
         </section>
+        <p>If the provided startTime is invalid an error will be thrown. Times up to 999:59:59 are supported.</p>
         <section className="TimrJS__start-example__interactive">
           <pre>
             <code className="TimrJS__start-example__interactive__demo">
@@ -42,7 +46,7 @@ class StartExample extends React.Component {
               <span className="punctuation">(</span>
               <input
                 onChange={this.handleChange}
-                defaultValue={this.props.defaultValue}
+                defaultValue="10:00"
               />
               <span className="punctuation">);</span>{'\n'}
               <span className="comment">// Formatted Output: </span>
@@ -136,7 +140,11 @@ class OptionsExample extends React.Component {
     return (
       <section className="TimrJS__options-example">
         <section className="TimrJS__options-example__notes">
-          {this.props.children}
+          <ul>
+            <li><code>outputFormat</code> - This option specifies how many 00 should be added to the front of the time string as it counts down from hours to minutes to seconds. Defaults to <code>'mm:ss'</code></li>
+            <li><code>formatType</code> - This option specifies whether to format the time string up to hours, up to minutes or just seconds. Defaults to <code>'h'</code></li>
+            <li><code>separator</code> - This option specifies how the time string is separated. Defaults to <code>':'</code></li>
+          </ul>
         </section>
         <section className="TimrJS__options-example__interactive">
           <pre>
@@ -242,7 +250,13 @@ class TickerExample extends React.Component {
     return (
       <section className="TimrJS__ticker-example">
         <section className="TimrJS__ticker-example__notes">
-          {this.props.children}
+          <ul>
+            <li><code>formattedTime</code> - The current time formatted into a time string. Customisable with outputFormat, formatType and separator options.</li>
+            <li><code>percentDone</code> - The elapsed time in percent. <em>Useful for making something like a progress bar.</em></li>
+            <li><code>currentTime</code> - The current time in seconds.</li>
+            <li><code>startTime</code> - The starting time in seconds.</li>
+            <li><code>self</code> - The original Timr object.</li>
+          </ul>
         </section>
         <section className="TimrJS__ticker-example__interactive">
           <section className="TimrJS__ticker-example__interactive__demo-buttons">
@@ -280,7 +294,7 @@ class TickerExample extends React.Component {
               })<span className="punctuation">;</span>{'\n\n'}
               <span className="comment">{'/* \n'}
               {' * '}If the Timr has been setup as a stopwatch, ticker will only be provided{'\n'}
-              {' * '}with 3 arguments.{'\n'}
+              {' * '}with 3 arguments: formattedTime, currentTime and self.{'\n'}
               {' */ '}</span>{'\n'}
               <span className="function">Timr</span>
               <span className="punctuation">(</span>
@@ -713,29 +727,24 @@ class TimrJS extends React.Component {
     return (
       <section className="TimrJS">
         <header className="TimrJS__header">
-          <h1 className="TimrJS__header__title">{title}</h1>
-        </header>
-        <section className="TimrJS__main">
-          <p>Timr is a simple, event driven utility for creating timers in JavaScript.</p>
-          <p>Compatible with Browsers and Node.js.</p>
-          <p>Additionally, the compiled versions support RequireJS.</p>
-          <section className="TimrJS__main__badges">
-            <a href="https://travis-ci.org/joesmith100/timrjs">
-              <img src="https://img.shields.io/travis/joesmith100/timrjs.svg?style=flat-square" />
-            </a>
-            <a href="https://coveralls.io/github/joesmith100/timrjs?branch=master">
-              <img src="https://img.shields.io/coveralls/joesmith100/timrjs/master.svg?style=flat-square" />
-            </a>
-            <a href="https://www.npmjs.com/package/timrjs">
-              <img src="https://img.shields.io/npm/v/timrjs.svg?style=flat-square" />
-            </a>
-            <a href="https://www.npmjs.com/package/timrjs">
-              <img src="https://img.shields.io/npm/dm/timrjs.svg?style=flat-square" />
-            </a>
-            <a href="https://www.npmjs.com/package/timrjs">
-              <img src="https://img.shields.io/npm/l/timrjs.svg?style=flat-square" />
+          <section className="TimrJS__header__container container">
+            <Link className="TimrJS__header__projects-link" to="/projects">
+              <i className="TimrJS__header__projects-link__icon material-icons">keyboard_arrow_left</i> projects
+            </Link>
+            <h1 className="TimrJS__header__title">{title}</h1>
+            <h4>A simple, event driven, utility for creating timers in JavaScript.</h4>
+            <a
+              className="TimrJS__header__github Button Button--all-blue"
+              href="https://github.com/joesmith100/timrjs"
+              target="_blank"
+            >
+              Github Docs
             </a>
           </section>
+        </header>
+        <section className="TimrJS__main container">
+          <p>Compatible with Browsers and Node.js.</p>
+          <p>Additionally, the compiled versions support RequireJS.</p>
           <h4>Interactive Examples</h4>
           <p>This page has a number of interactive examples on it to help you better visualise how some of the functions and methods work. If you see a code block with text using <em className="TimrJS__main__output-example">this</em> color, than it will be the output from that example.</p>
           <h3>Installation</h3>
@@ -764,25 +773,10 @@ class TimrJS extends React.Component {
           <h4>Parameters</h4>
           <h5>startTime</h5>
           <p>Accepts a string or a number; a number is treated as seconds. Examples of accepted syntax:</p>
-          <StartExample defaultValue="10:00">
-            <ul>
-              <li><code>'10:00'</code> - Time units must be separated by a colon.</li>
-              <li><code>600</code> - Equivalent to 10:00.</li>
-              <li><code>'50'</code> - Unless a string contains a colon, a number is treated as seconds</li>
-              <li><code>'25m'</code> - Shorthand for 25:00.</li>
-              <li><code>'25h'</code> - Shorthand for 25:00:00.</li>
-              <li><code>0</code> - Sets up a stopwatch rather than a coutdown.</li>
-            </ul>
-          </StartExample>
+          <StartExample />
           <h5 id="options">options</h5>
           <p>Optional. Object which accepts:</p>
-          <OptionsExample>
-            <ul>
-              <li><code>outputFormat</code> - This option specifies how many 00 should be added to the front of the time string as it counts down from hours to minutes to seconds.</li>
-              <li><code>formatType</code> - This option specifies whether to format the time string up to hours, up to minutes or just seconds.</li>
-              <li><code>separator</code> - This option specifies how the time string is separated.</li>
-            </ul>
-          </OptionsExample>
+          <OptionsExample />
           <h3>Basic Usage</h3>
           <p>Import Timr into your project.</p>
           <pre><code>
@@ -805,15 +799,7 @@ class TimrJS extends React.Component {
           </code></pre>
           <p>Each Timr emits 2 events: <code>ticker</code> and <code>finish</code>.</p>
           <p>The <code>ticker</code> function is called every second the timer ticks down and is provided with the following arguments:</p>
-          <TickerExample>
-            <ul>
-              <li><code>formattedTime</code> - The current time formatted into a time string. Customisable with outputFormat, formatType and separator options.</li>
-              <li><code>percentDone</code> - The elapsed time in percent. <em>Useful for making something like a progress bar</em></li>
-              <li><code>currentTime</code> - The current time in seconds.</li>
-              <li><code>startTime</code> - The starting time in seconds.</li>
-              <li><code>self</code> - The original Timr object.</li>
-            </ul>
-          </TickerExample>
+          <TickerExample />
           <p>The <code>finish</code> method is called once, when the timer hits 0. Only 1 argument is provided into the function, the original Timr object.</p>
           <FinishExample />
           <p>To control the Timr, you use the <code>start</code>, <code>pause</code> and <code>start</code> methods.</p>
@@ -853,7 +839,7 @@ class TimrJS extends React.Component {
           <p>If any non-Timr arguments are provided, they will be removed from the array. If a Timr object also exists in another store, they won't be added to a new one.</p>
           <StoreExample />
           <h5>API</h5>
-          <p>The following methods are available to all store objects:</p>
+          <p>When createStore is called, it will return an object with the following methods:</p>
           <ul>
             <li><code>add(timr)</code> - Adds the provided Timr to the store. If it already exits in a store, then it won't add it. Returns the provided Timr.</li>
             <li><code>getAll()</code> - Returns the array of all stored Timrs.</li>

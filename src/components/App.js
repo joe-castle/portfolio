@@ -21,28 +21,41 @@ function App({
   makeFooterVisible,
 }) {
   const contentActive = !/^\/$/i.test(location.pathname);
+  const fullPage = do {
+    if (
+      /^\/projects/i.test(location.pathname)
+      || /^\/about/i.test(location.pathname)
+      || !contentActive
+    ) {
+      false;
+    } else {
+      true;
+    }
+  }
 
   return (
     <div className={classNames({
       'App': true,
       'App--content-active': contentActive,
     })}>
-      <Nav
+      {fullPage || <Nav
         navVisible={navVisible}
         toggleNav={toggleNav}
         path={location.pathname}
-      />
-      <NavButton
+      />}
+      {fullPage || <NavButton
         navVisible={navVisible}
         toggleNav={toggleNav}
-      />
-      <Header
+      />}
+      {fullPage || <Header
         makeFooterVisible={makeFooterVisible}
         contentActive={contentActive}
         path={location.pathname}
-      />
+      />}
       <main>
-        <div className="container">
+        <div className={classNames({
+          container: !fullPage
+        })}>
           {children}
         </div>
       </main>

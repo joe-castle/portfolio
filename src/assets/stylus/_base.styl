@@ -73,11 +73,13 @@ body
   position relative
   width 100%
 
+// FIXME: Some projkects (gameoflife) dontdisaply properly with this container,
+// need to make one that works on text but not projects
 main
   .container
     +below(breakpoints.mobile)
-      padding-left 0
-      padding-right 0
+      padding-left vr-block(container-padding / 2)
+      padding-right vr-block(container-padding / 2)
 
 // Pre-loader animation
 @keyframes load7

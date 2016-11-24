@@ -1,4 +1,8 @@
-make-hover(color)
+make-hover(color, all = false)
+  if all
+    border-color color
+    color color
+    
   +hover-state()
     background color
     border-color color
@@ -22,6 +26,9 @@ make-hover(color)
 
   &--blue
     make-hover(blue-500)
+
+  &--all-blue
+    make-hover(blue-500, true)
 
   &--green
     make-hover(green-500)

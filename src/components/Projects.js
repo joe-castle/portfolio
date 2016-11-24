@@ -53,9 +53,12 @@ const fccProjects = [
   },
 ];
 
-function Project({ project }) {
+function Project({ project, personal }) {
   return (
-    <Link className="Projects__project" to={`/projects/${project.title.replace(/\s/g, '')}`}>
+    <Link
+      className="Projects__project"
+      to={`/${personal ? '' : 'projects/'}${project.title.replace(/\s/g, '')}`}
+    >
       <section className="Projects__project__content-wrapper">
         <section className="Projects__project__live-preview">
           <Frame
@@ -87,7 +90,7 @@ function Projects({ children }) {
       <p>The following projects are my own personal projects.</p>
       <section className="Projects__wrapper">
         {personalProjects.map(project => (
-          <Project key={project.title} project={project} />
+          <Project key={project.title} project={project} personal />
         ))}
       </section>
       <h2>freeCodeCamp</h2>

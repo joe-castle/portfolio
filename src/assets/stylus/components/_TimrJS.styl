@@ -68,6 +68,40 @@
   ul > ul
     margin 0 0 0 10px
 
+  &__header
+    color body-background-color
+    background header-background-color
+    font-weight 600
+    padding-bottom vr-block(2)
+    padding-top vr-block(2)
+    text-align center
+
+    &__container
+      relative()
+
+    &__title
+      font-size vr-block(2)
+
+    &__projects-link
+      absolute top vr-block(container-padding) left vr-block(container-padding)
+
+      &__icon
+        padding-bottom 3px
+        vertical-align bottom
+
+    &__github
+      text-decoration none
+
+  &__main
+    padding vr-block(1)
+
+    &__output-example
+      font-weight 600
+
+    &__badges
+      a:not(:last-child)
+        margin-right 5px
+
   &__start-example
   &__options-example
   &__ticker-example
@@ -109,23 +143,3 @@
       height vr-block(1)
       text-align center
       width vr-block(4)
-
-  &__header
-    background linear-gradient(blue-500, green-500)
-    padding 50px
-
-    &__title
-      color body-background-color
-      font-weight 600
-      margin 0
-      text-align center
-
-  &__main
-    padding vr-block(1)
-
-    &__output-example
-      font-weight 600
-
-    &__badges
-      a:not(:last-child)
-        margin-right 5px
