@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import ProjectNotes from './ProjectNotes';
+
 // TODO: Call to action on mobile, show which button starts the game,
 // with an animation?
 // TODO: Finetune html5 audio problems
@@ -285,63 +287,81 @@ class SimonGame extends React.Component {
     } = this.state;
 
 		return (
-			<section className={classNames({
-        'SimonGame': true,
-        'SimonGame--on': power,
-        'SimonGame--off': !power,
-      })}>
-				<div className='SimonGame__settings'>
-          <div
-            onClick={this.strict}
-            className={classNames({
-              'SimonGame__settings__strict': true,
-              'SimonGame__settings__strict--active': strict,
-            })}
-          >
-            Strict
-          </div>
-          <div
-            onClick={() => running ? this.reset() : this.start()}
-            className={classNames({
-              'SimonGame__settings__steps': true,
-              'SimonGame__settings__steps--running': running,
-              'SimonGame__settings__steps--flash': stepsFlash,
-            })}
-          >
-            {this.zeroPad(steps)}
-          </div>
-					<div
-            onClick={this.power}
-						className='SimonGame__settings__switch'
-					>
-            {power ? 'On' : 'Off'}
-          </div>
-				</div>
-        {Object.keys(activePieces).map(piece =>
-          <GamePiece
-            key={piece}
-            color={piece}
-            playing={playing}
-            flash={winFlash === piece}
-            active={activePieces[piece] && 'active'}
-            userInput={() => this.userInput(piece)}
-          >
-            <audio
-              ref={piece}
-              type='audio/mp3'
-              src={`http://cpres.herokuapp.com/simon-game/${piece}.mp3`}
-            />
-          </GamePiece>
-        )}
-				{['win', 'fail'].map(sound =>
-					<audio
-            key={sound}
-						ref={sound}
-						type='audio/wav'
-						src={`http://cpres.herokuapp.com/simon-game/${sound}.wav`}
-					/>
-				)}
-			</section>
+      <section className="SimonGame__wrapper">
+        <section className={classNames({
+          'SimonGame': true,
+          'SimonGame--on': power,
+          'SimonGame--off': !power,
+        })}>
+  				<div className='SimonGame__settings'>
+            <div
+              onClick={this.strict}
+              className={classNames({
+                'SimonGame__settings__strict': true,
+                'SimonGame__settings__strict--active': strict,
+              })}
+            >
+              Strict
+            </div>
+            <div
+              onClick={() => running ? this.reset() : this.start()}
+              className={classNames({
+                'SimonGame__settings__steps': true,
+                'SimonGame__settings__steps--running': running,
+                'SimonGame__settings__steps--flash': stepsFlash,
+              })}
+            >
+              {this.zeroPad(steps)}
+            </div>
+  					<div
+              onClick={this.power}
+  						className='SimonGame__settings__switch'
+  					>
+              {power ? 'On' : 'Off'}
+            </div>
+  				</div>
+          {Object.keys(activePieces).map(piece =>
+            <GamePiece
+              key={piece}
+              color={piece}
+              playing={playing}
+              flash={winFlash === piece}
+              active={activePieces[piece] && 'active'}
+              userInput={() => this.userInput(piece)}
+            >
+              <audio
+                ref={piece}
+                type='audio/mp3'
+                src={`http://cpres.herokuapp.com/simon-game/${piece}.mp3`}
+              />
+            </GamePiece>
+          )}
+  				{['win', 'fail'].map(sound =>
+  					<audio
+              key={sound}
+  						ref={sound}
+  						type='audio/wav'
+  						src={`http://cpres.herokuapp.com/simon-game/${sound}.wav`}
+  					/>
+  				)}
+  			</section>
+        <ProjectNotes
+          title="Simon Game"
+          titleLink="https://www.freecodecamp.com/challenges/build-a-simon-game"
+          objective="Build a working Simon Game app that is functionally similar to: "
+          objectiveLink="http://codepen.io/FreeCodeCamp/full/bELRjV"
+          userStories={[
+            'I am presented with a random series of button presses.',
+            'Each time I input a series of button presses correctly, I see the same series of button presses but with an additional step.',
+            'I hear a sound that corresponds to each button both when the series of button presses plays, and when I personally press a button.',
+            'If I press the wrong button, I am notified that I have done so, and that series of button presses starts again to remind me of the pattern so I can try again.',
+            'I can see how many steps are in the current series of button presses.',
+            'If I want to restart, I can hit a button to do so, and the game will return to a single step.',
+            'I can play in strict mode where if I get a button press wrong, it notifies me that I have done so, and the game restarts at a new random series of button presses.',
+            'I can win the game by getting a series of 20 steps correct. I am notified of my victory, then the game starts over.'
+          ]}
+        />
+      </section>
 		);
 	};
 }

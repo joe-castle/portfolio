@@ -2,6 +2,26 @@ import React from 'react';
 import classNames from 'classnames';
 import { generate } from 'shortid';
 
+//TODO Make cancel work.
+function makePromiseCancelable(promise) {
+  let _hasCancelled = false;
+
+  const cancelablePromise = new Promise((resolve, reject) => {
+    promise
+      .then(data => {
+        _hasCancelled ? reject('Promise Cancelled') : resolve(data)
+      })
+      .then(error => {
+        _hasCancelled ? reject('Promise Cancelled') : resolve(error)
+      });
+  });
+
+  return {
+    promise: cancelablePromise,
+    cancel: () => _hasCancelled = true,
+  };
+}
+
 function Nav({
 	filter,
 	setFilter

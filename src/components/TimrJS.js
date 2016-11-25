@@ -2,6 +2,7 @@ import React from 'react';
 import Timr from 'timrjs';
 import { Link } from 'react-router';
 
+import Code from './Code';
 import Button from './Button';
 
 class StartExample extends React.Component {
@@ -40,19 +41,17 @@ class StartExample extends React.Component {
         </section>
         <p>If the provided startTime is invalid an error will be thrown. Times up to 999:59:59 are supported.</p>
         <section className="TimrJS__start-example__interactive">
-          <pre>
-            <code className="TimrJS__start-example__interactive__demo">
-              <span className="function">Timr</span>
-              <span className="punctuation">(</span>
-              <input
-                onChange={this.handleChange}
-                defaultValue="10:00"
-              />
-              <span className="punctuation">);</span>{'\n'}
-              <span className="comment">// Formatted Output: </span>
-              <span className="output">{this.state.output}</span>{'\n'}
-            </code>
-          </pre>
+          <Code>
+            <span className="function">Timr</span>
+            <span className="punctuation">(</span>
+            <input
+              onChange={this.handleChange}
+              defaultValue="10:00"
+            />
+            <span className="punctuation">);</span>{'\n'}
+            <span className="comment">// Formatted Output: </span>
+            <span className="output">{this.state.output}</span>{'\n'}
+          </Code>
           {this.state.error &&
             <div className="TimrJS__start-example__interactive__error">{this.state.error}</div>
           }
@@ -147,36 +146,34 @@ class OptionsExample extends React.Component {
           </ul>
         </section>
         <section className="TimrJS__options-example__interactive">
-          <pre>
-            <code className="TimrJS__options-example__interactive__demo">
-              <span className="function">Timr</span>
-              <span className="punctuation">(</span>
-              <span className="punctuation">'</span>
-              <span className="string">20:00</span>
-              <span className="punctuation">'</span>
-              <span className="punctuation">{', { '}</span>
-              <select
-                ref="option"
-                onChange={ev => this.updateOutput(
-                  ev.target.value,
-                  this.getDefaultOptionValue(ev.target.value)
-                )}
-              >
-                <option>outputFormat</option>
-                <option>formatType</option>
-                <option>separator</option>
-              </select>
-              <span className="punctuation">: </span>
-              {this.generateOptionValues()}
-              <span className="punctuation"> });</span>{'\n'}
-              <span className="comment">// Hour Example:   </span>
-              <span className="output">{this.state.hourOutput}</span>{'\n'}
-              <span className="comment">// Minute Example: </span>
-              <span className="output">{this.state.minuteOutput}</span>{'\n'}
-              <span className="comment">// Second Example: </span>
-              <span className="output">{this.state.secondOutput}</span>
-            </code>
-          </pre>
+          <Code>
+            <span className="function">Timr</span>
+            <span className="punctuation">(</span>
+            <span className="punctuation">'</span>
+            <span className="string">20:00</span>
+            <span className="punctuation">'</span>
+            <span className="punctuation">{', { '}</span>
+            <select
+              ref="option"
+              onChange={ev => this.updateOutput(
+                ev.target.value,
+                this.getDefaultOptionValue(ev.target.value)
+              )}
+            >
+              <option>outputFormat</option>
+              <option>formatType</option>
+              <option>separator</option>
+            </select>
+            <span className="punctuation">: </span>
+            {this.generateOptionValues()}
+            <span className="punctuation"> });</span>{'\n'}
+            <span className="comment">// Hour Example:   </span>
+            <span className="output">{this.state.hourOutput}</span>{'\n'}
+            <span className="comment">// Minute Example: </span>
+            <span className="output">{this.state.minuteOutput}</span>{'\n'}
+            <span className="comment">// Second Example: </span>
+            <span className="output">{this.state.secondOutput}</span>
+          </Code>
         </section>
       </section>
     );
@@ -264,56 +261,54 @@ class TickerExample extends React.Component {
             <Button onClick={this.pause}>Pause</Button>
             <Button onClick={this.stop}>Stop</Button>
           </section>
-          <pre>
-            <code className="TimrJS__ticker-example__interactive__demo">
-              <span className="comment">{'/* \n'}
-              {' * '}Tickers first call will be 1 second after the timer has started.{'\n'}
-              {' * '}In our current example, the first call will emit '09:59'.{'\n'}
-              {' *\n'}
-              {' * '}To display the timers startTime before starting the timer, you can call{'\n'}
-              {' * '}timer.formatTime() which will return, in this case, '10:00'.{'\n'}
-              {' */ '}</span>{'\n'}
-              timer.
-              <span className="function">ticker</span>
-              (
-              <span className="punctuation">(</span>
-              <span className="parameter">formattedTime</span>,
-              <span className="parameter"> percentDone</span>,
-              <span className="parameter"> currentTime</span>,
-              <span className="parameter"> startTime</span>
-              <span className="punctuation">)</span>
-              <span className="arrow"> => </span>{'{\n'}
-              <span className="comment">  // formattedTime: </span>
-              <span className="output">{this.state.countdownFormattedTime}</span>{'\n'}
-              <span className="comment">  // percentDone:   </span>
-              <span className="output">{this.state.percentDone}</span>{'\n'}
-              <span className="comment">  // currentTime:   </span>
-              <span className="output">{this.state.countdownCurrentTime}</span>{'\n'}
-              <span className="comment">  // startTime:     </span>
-              <span className="output">{this.state.startTime}</span>{'\n'}
-              })<span className="punctuation">;</span>{'\n\n'}
-              <span className="comment">{'/* \n'}
-              {' * '}If the Timr has been setup as a stopwatch, ticker will only be provided{'\n'}
-              {' * '}with 3 arguments: formattedTime, currentTime and self.{'\n'}
-              {' */ '}</span>{'\n'}
-              <span className="function">Timr</span>
-              <span className="punctuation">(</span>
-              <span className="number">0</span>
-              <span className="punctuation">)</span>
-              .
-              <span className="function">ticker</span>
-              (<span className="punctuation">(</span>
-              <span className="parameter">formattedTime</span>,
-              <span className="parameter"> currentTime</span>
-              <span className="punctuation">)</span>
-              <span className="arrow"> => </span>{'{\n'}
-              <span className="comment">  // formattedTime: </span>
-              <span className="output">{this.state.stopwatchFormattedTime}</span>{'\n'}
-              <span className="comment">  // currentTime:   </span>
-              <span className="output">{this.state.stopwatchCurrentTime}</span>{'\n'}
-              })<span className="punctuation">;</span>
-            </code>
-          </pre>
+          <Code>
+            <span className="comment">{'/* \n'}
+            {' * '}Tickers first call will be 1 second after the timer has started.{'\n'}
+            {' * '}In our current example, the first call will emit '09:59'.{'\n'}
+            {' *\n'}
+            {' * '}To display the timers startTime before starting the timer, you can call{'\n'}
+            {' * '}timer.formatTime() which will return, in this case, '10:00'.{'\n'}
+            {' */ '}</span>{'\n'}
+            timer.
+            <span className="function">ticker</span>
+            (
+            <span className="punctuation">(</span>
+            <span className="parameter">formattedTime</span>,
+            <span className="parameter"> percentDone</span>,
+            <span className="parameter"> currentTime</span>,
+            <span className="parameter"> startTime</span>
+            <span className="punctuation">)</span>
+            <span className="arrow"> => </span>{'{\n'}
+            <span className="comment">  // formattedTime: </span>
+            <span className="output">{this.state.countdownFormattedTime}</span>{'\n'}
+            <span className="comment">  // percentDone:   </span>
+            <span className="output">{this.state.percentDone}</span>{'\n'}
+            <span className="comment">  // currentTime:   </span>
+            <span className="output">{this.state.countdownCurrentTime}</span>{'\n'}
+            <span className="comment">  // startTime:     </span>
+            <span className="output">{this.state.startTime}</span>{'\n'}
+            })<span className="punctuation">;</span>{'\n\n'}
+            <span className="comment">{'/* \n'}
+            {' * '}If the Timr has been setup as a stopwatch, ticker will only be provided{'\n'}
+            {' * '}with 3 arguments: formattedTime, currentTime and self.{'\n'}
+            {' */ '}</span>{'\n'}
+            <span className="function">Timr</span>
+            <span className="punctuation">(</span>
+            <span className="number">0</span>
+            <span className="punctuation">)</span>
+            .
+            <span className="function">ticker</span>
+            (<span className="punctuation">(</span>
+            <span className="parameter">formattedTime</span>,
+            <span className="parameter"> currentTime</span>
+            <span className="punctuation">)</span>
+            <span className="arrow"> => </span>{'{\n'}
+            <span className="comment">  // formattedTime: </span>
+            <span className="output">{this.state.stopwatchFormattedTime}</span>{'\n'}
+            <span className="comment">  // currentTime:   </span>
+            <span className="output">{this.state.stopwatchCurrentTime}</span>{'\n'}
+            })<span className="punctuation">;</span>
+          </Code>
         </section>
       </section>
     );
@@ -392,40 +387,38 @@ class FinishExample extends React.Component {
             <Button onClick={this.pause}>Pause</Button>
             <Button onClick={this.stop}>Stop</Button>
           </section>
-          <pre>
-            <code className="TimrJS__ticker-example__interactive__demo">
-              timer.
-              <span className="function">finish</span>
-              (
-              <span className="punctuation">(</span>
-              <span className="punctuation">)</span>
-              <span className="arrow"> => </span>{'{\n'}
-              <span className="comment">  // ticker: </span>
-              <span className="output">{this.state.countdownFormattedTime}</span>{'\n'}
-              <span className="comment">  // finish: </span>
-              <span className="output">{this.state.countdownFinish}</span>{'\n'}
-              })<span className="punctuation">;</span>{'\n\n'}
-              <span className="comment">{'/* \n'}
-              {' * '}If the Timr has been setup as a stopwatch, the timer will stop{'\n'}
-              {' * '}and the finish function will fire when the time reaches the{'\n'}
-              {' * '}maximum supported time of '999:59:59'.{'\n'}
-              {' */ '}</span>{'\n'}
-              <span className="function">Timr</span>
-              <span className="punctuation">(</span>
-              <span className="number">0</span>
-              <span className="punctuation">)</span>
-              .
-              <span className="function">finish</span>
-              (<span className="punctuation">(</span>
-              <span className="punctuation">)</span>
-              <span className="arrow"> => </span>{'{\n'}
-              <span className="comment">  // ticker: </span>
-              <span className="output">{this.state.stopwatchFormattedTime}</span>{'\n'}
-              <span className="comment">  // finish: </span>
-              <span className="output">{this.state.stopwatchFinish}</span>{'\n'}
-              })<span className="punctuation">;</span>
-            </code>
-          </pre>
+          <Code>
+            timer.
+            <span className="function">finish</span>
+            (
+            <span className="punctuation">(</span>
+            <span className="punctuation">)</span>
+            <span className="arrow"> => </span>{'{\n'}
+            <span className="comment">  // ticker: </span>
+            <span className="output">{this.state.countdownFormattedTime}</span>{'\n'}
+            <span className="comment">  // finish: </span>
+            <span className="output">{this.state.countdownFinish}</span>{'\n'}
+            })<span className="punctuation">;</span>{'\n\n'}
+            <span className="comment">{'/* \n'}
+            {' * '}If the Timr has been setup as a stopwatch, the timer will stop{'\n'}
+            {' * '}and the finish function will fire when the time reaches the{'\n'}
+            {' * '}maximum supported time of '999:59:59'.{'\n'}
+            {' */ '}</span>{'\n'}
+            <span className="function">Timr</span>
+            <span className="punctuation">(</span>
+            <span className="number">0</span>
+            <span className="punctuation">)</span>
+            .
+            <span className="function">finish</span>
+            (<span className="punctuation">(</span>
+            <span className="punctuation">)</span>
+            <span className="arrow"> => </span>{'{\n'}
+            <span className="comment">  // ticker: </span>
+            <span className="output">{this.state.stopwatchFormattedTime}</span>{'\n'}
+            <span className="comment">  // finish: </span>
+            <span className="output">{this.state.stopwatchFinish}</span>{'\n'}
+            })<span className="punctuation">;</span>
+          </Code>
         </section>
       </section>
     );
@@ -481,31 +474,29 @@ class ControlExample extends React.Component {
           {this.props.children}
         </section>
         <section className="TimrJS__ticker-example__interactive">
-          <pre>
-            <code className="TimrJS__ticker-example__interactive__demo">
-              <span className="comment">{'/* \n'}
-              {' * '}Start takes an optional number (in ms) argument that will{'\n'}
-              {' * '}delay the start of the timer.{'\n'}
-              {' */ '}</span>{'\n'}
-              timer.
-              <span className="function">start</span>
-              <span className="punctuation">(</span>
-              <input onChange={this.handleChange} placeholder="Delay..."/>
-              <span className="punctuation">);</span>{'\n'}
-              <span className="comment">// Delay:  </span>
-              <span className="output">{this.state.delayOutput}</span>{'\n'}
-              <span className="comment">// Output: </span>
-              <span className="output">{this.state.mainOutput}</span>{'\n'}
-              timer.
-              <span className="function">pause</span>
-              <span className="punctuation">(</span>
-              <span className="punctuation">);</span>{'\n'}
-              timer.
-              <span className="function">stop</span>
-              <span className="punctuation">(</span>
-              <span className="punctuation">);</span>{'\n'}
-            </code>
-          </pre>
+          <Code>
+            <span className="comment">{'/* \n'}
+            {' * '}Start takes an optional number (in ms) argument that will{'\n'}
+            {' * '}delay the start of the timer.{'\n'}
+            {' */ '}</span>{'\n'}
+            timer.
+            <span className="function">start</span>
+            <span className="punctuation">(</span>
+            <input onChange={this.handleChange} placeholder="Delay..."/>
+            <span className="punctuation">);</span>{'\n'}
+            <span className="comment">// Delay:  </span>
+            <span className="output">{this.state.delayOutput}</span>{'\n'}
+            <span className="comment">// Output: </span>
+            <span className="output">{this.state.mainOutput}</span>{'\n'}
+            timer.
+            <span className="function">pause</span>
+            <span className="punctuation">(</span>
+            <span className="punctuation">);</span>{'\n'}
+            timer.
+            <span className="function">stop</span>
+            <span className="punctuation">(</span>
+            <span className="punctuation">);</span>{'\n'}
+          </Code>
         </section>
       </section>
     );
@@ -566,63 +557,61 @@ class StoreExample extends React.Component {
             <Button onClick={() => this.store2.pauseAll()}>Pause</Button>
             <Button onClick={() => this.stop('store2')}>Stop</Button>
           </section>
-          <pre>
-            <code className="TimrJS__ticker-example__interactive__demo">
-              <span className="storage">const </span>
-              timer1
-              <span className="punctuation"> = </span>
-              <span className="function">Timr</span>
-              <span className="punctuation">(</span>
-              <span className="string">'20:00'</span>
-              <span className="punctuation">);</span>{'\n'}
-              <span className="comment">// </span>
-              <span className="output">{this.state.timer1}</span>{'\n'}
-              <span className="storage">const </span>
-              timer2
-              <span className="punctuation"> = </span>
-              <span className="function">Timr</span>
-              <span className="punctuation">(</span>
-              <span className="string">'15:00'</span>
-              <span className="punctuation">);</span>{'\n'}
-              <span className="comment">// </span>
-              <span className="output">{this.state.timer2}</span>{'\n'}
-              <span className="storage">const </span>
-              timer3
-              <span className="punctuation"> = </span>
-              <span className="function">Timr</span>
-              <span className="punctuation">(</span>
-              <span className="string">'10:00'</span>
-              <span className="punctuation">);</span>{'\n'}
-              <span className="comment">// </span>
-              <span className="output">{this.state.timer3}</span>{'\n'}
-              <span className="storage">const </span>
-              timer4
-              <span className="punctuation"> = </span>
-              <span className="function">Timr</span>
-              <span className="punctuation">(</span>
-              <span className="string">'5:00'</span>
-              <span className="punctuation">);</span>{'\n'}
-              <span className="comment">// </span>
-              <span className="output">{this.state.timer4}</span>{'\n\n'}
-              <span className="storage">const </span>
-              store1
-              <span className="punctuation"> = </span>
-              Timr.
-              <span className="function">createStore</span>
-              <span className="punctuation">(</span>
-              timer1, timer2
-              <span className="punctuation">);</span>{'\n'}
-              <span className="storage">const </span>
-              store2
-              <span className="punctuation"> = </span>
-              Timr.
-              <span className="function">createStore</span>
-              <span className="punctuation">([</span>
-              timer2, timer3, timer4
-              <span className="punctuation">]);</span>{'\n'}
-              <span className="comment">// Because timer2 already exists in store1, it won't be added to store2.</span>
-            </code>
-          </pre>
+          <Code>
+            <span className="storage">const </span>
+            timer1
+            <span className="punctuation"> = </span>
+            <span className="function">Timr</span>
+            <span className="punctuation">(</span>
+            <span className="string">'20:00'</span>
+            <span className="punctuation">);</span>{'\n'}
+            <span className="comment">// </span>
+            <span className="output">{this.state.timer1}</span>{'\n'}
+            <span className="storage">const </span>
+            timer2
+            <span className="punctuation"> = </span>
+            <span className="function">Timr</span>
+            <span className="punctuation">(</span>
+            <span className="string">'15:00'</span>
+            <span className="punctuation">);</span>{'\n'}
+            <span className="comment">// </span>
+            <span className="output">{this.state.timer2}</span>{'\n'}
+            <span className="storage">const </span>
+            timer3
+            <span className="punctuation"> = </span>
+            <span className="function">Timr</span>
+            <span className="punctuation">(</span>
+            <span className="string">'10:00'</span>
+            <span className="punctuation">);</span>{'\n'}
+            <span className="comment">// </span>
+            <span className="output">{this.state.timer3}</span>{'\n'}
+            <span className="storage">const </span>
+            timer4
+            <span className="punctuation"> = </span>
+            <span className="function">Timr</span>
+            <span className="punctuation">(</span>
+            <span className="string">'5:00'</span>
+            <span className="punctuation">);</span>{'\n'}
+            <span className="comment">// </span>
+            <span className="output">{this.state.timer4}</span>{'\n\n'}
+            <span className="storage">const </span>
+            store1
+            <span className="punctuation"> = </span>
+            Timr.
+            <span className="function">createStore</span>
+            <span className="punctuation">(</span>
+            timer1, timer2
+            <span className="punctuation">);</span>{'\n'}
+            <span className="storage">const </span>
+            store2
+            <span className="punctuation"> = </span>
+            Timr.
+            <span className="function">createStore</span>
+            <span className="punctuation">([</span>
+            timer2, timer3, timer4
+            <span className="punctuation">]);</span>{'\n'}
+            <span className="comment">// Because timer2 already exists in store1, it won't be added to store2.</span>
+          </Code>
         </section>
       </section>
     );
@@ -652,54 +641,49 @@ class UtilitiesExample extends React.Component {
     return (
       <section className="TimrJS__ticker-example">
         <section className="TimrJS__ticker-example__interactive">
-          <pre>
-            <code className="TimrJS__ticker-example__interactive__demo">
-              <span className="comment">{'/*\n'}
-              {' * '}FormatTime essentially takes the same arguments as{'\n'}
-              {' * '}Timr instantiation, except it returns a string rather than{'\n'}
-              {' * '}a Timr object. For example, see:{' '}
-              <a href="#options">options</a>{'\n'}
-              {' */\n\n'}</span>
-              Timr.
-              <span className="function">validate</span>
-              <span className="punctuation">(</span>
-              <input
-                defaultValue="10:00"
-                onChange={ev => this.handleChange('validate', ev.target.value)}
-              />
-              <span className="punctuation">);</span>{'\n'}
-              <span className="comment">// </span>
-              <span className="output">{this.state.validate}</span>{'\n'}
-              Timr.
-              <span className="function">timeToSeconds</span>
-              <span className="punctuation">(</span>
-              <input
-                defaultValue="10:00"
-                onChange={ev => this.handleChange('timeToSeconds', ev.target.value)}
-              />
-              <span className="punctuation">);</span>{'\n'}
-              <span className="comment">// </span>
-              <span className="output">{this.state.timeToSeconds}</span>{'\n'}
-              Timr.
-              <span className="function">correctFormat</span>
-              <span className="punctuation">(</span>
-              <input
-                defaultValue="10:00"
-                onChange={ev => this.handleChange('correctFormat', ev.target.value)}
-              />
-              <span className="punctuation">);</span>{'\n'}
-              <span className="comment">// </span><span className="output">{this.state.correctFormat}</span>
-            </code>
-          </pre>
+          <Code>
+            <span className="comment">{'/*\n'}
+            {' * '}FormatTime essentially takes the same arguments as{'\n'}
+            {' * '}Timr instantiation, except it returns a string rather than{'\n'}
+            {' * '}a Timr object. For example, see:{' '}
+            <a href="#options">options</a>{'\n'}
+            {' */\n\n'}</span>
+            Timr.
+            <span className="function">validate</span>
+            <span className="punctuation">(</span>
+            <input
+              defaultValue="10:00"
+              onChange={ev => this.handleChange('validate', ev.target.value)}
+            />
+            <span className="punctuation">);</span>{'\n'}
+            <span className="comment">// </span>
+            <span className="output">{this.state.validate}</span>{'\n'}
+            Timr.
+            <span className="function">timeToSeconds</span>
+            <span className="punctuation">(</span>
+            <input
+              defaultValue="10:00"
+              onChange={ev => this.handleChange('timeToSeconds', ev.target.value)}
+            />
+            <span className="punctuation">);</span>{'\n'}
+            <span className="comment">// </span>
+            <span className="output">{this.state.timeToSeconds}</span>{'\n'}
+            Timr.
+            <span className="function">correctFormat</span>
+            <span className="punctuation">(</span>
+            <input
+              defaultValue="10:00"
+              onChange={ev => this.handleChange('correctFormat', ev.target.value)}
+            />
+            <span className="punctuation">);</span>{'\n'}
+            <span className="comment">// </span><span className="output">{this.state.correctFormat}</span>
+          </Code>
         </section>
       </section>
     );
   }
 }
 
-// TODO: at beginning - The purpose of this page is to provide interactgive exmples, see github for full docs.
-// TODO: at beginning - Meaning of m = minutes etc...
-// TODO: at beginning - How interactive examples work on the page
 // TODO: slim code, avoid dry, generate bits?
 class TimrJS extends React.Component {
   constructor() {
@@ -744,32 +728,38 @@ class TimrJS extends React.Component {
         </header>
         <section className="TimrJS__main container">
           <p>Compatible with Browsers and Node.js.</p>
-          <p>Additionally, the compiled versions support RequireJS.</p>
+          <p>The compiled versions also support RequireJS.</p>
           <h4>Interactive Examples</h4>
-          <p>This page has a number of interactive examples on it to help you better visualise how some of the functions and methods work. If you see a code block with text using <em className="TimrJS__main__output-example">this</em> color, than it will be the output from that example.</p>
+          <p>To help you better visualise how some of the functions and methods work, this page has a number of interactive examples. When you see a code block, text using <em className="TimrJS__main__output-example">this color</em> denotes the output from that example.</p>
           <h3>Installation</h3>
           <p>Install with npm or bower.</p>
-          <pre><code>npm install --save timrjs</code></pre>
+          <Code>npm install --save timrjs</Code>
           <p>Alternatively, include the following CDN in your project:</p>
           <blockquote>
-            <a href="https://cdn.jsdelivr.net/timrjs/latest/timr.js">
+            <a
+              href="https://cdn.jsdelivr.net/timrjs/latest/timr.js"
+              target="_blank"
+            >
               https://cdn.jsdelivr.net/timrjs/latest/timr.js
             </a>
-            <a href="https://cdn.jsdelivr.net/timrjs/latest/timr.min.js">
+            <a
+              href="https://cdn.jsdelivr.net/timrjs/latest/timr.min.js"
+              target="_blank"
+            >
               https://cdn.jsdelivr.net/timrjs/latest/timr.min.js
             </a>
           </blockquote>
           <p>Or include <code>node_modules/dist/timr.min.js</code> on your page with a standalone <code>{'<script>'}</code> tag.</p>
           <p>Both of these will expose a single global method <code>Timr</code>. Alternatively, they will define a module if you are using RequireJS: <code>require(['Timr'])</code>.</p>
           <h3>Syntax</h3>
-          <pre><code>
+          <Code>
             <span className="function">Timr</span>
             <span className="punctuation">(</span>
             <span className="parameter">startTime</span>
             <span className="punctuation">[,</span>
             <span className="parameter"> options</span>
             <span className="punctuation">]);</span>
-          </code></pre>
+          </Code>
           <h4>Parameters</h4>
           <h5>startTime</h5>
           <p>Accepts a string or a number; a number is treated as seconds. Examples of accepted syntax:</p>
@@ -779,16 +769,16 @@ class TimrJS extends React.Component {
           <OptionsExample />
           <h3>Basic Usage</h3>
           <p>Import Timr into your project.</p>
-          <pre><code>
+          <Code>
             <span className="keyword">import </span>
             Timr
             <span className="keyword"> from </span>
             <span className="punctuation">'</span>
             <span className="string">timrjs</span>
             <span className="punctuation">';</span>
-          </code></pre>
+          </Code>
           <p>Start by calling the Timr function with the desired <code>startTime</code> and any <code>options</code>. This will return a new Timr Object.</p>
-          <pre><code>
+          <Code>
             <span className="storage">const </span>
             timer
             <span className="punctuation"> = </span>
@@ -796,7 +786,7 @@ class TimrJS extends React.Component {
             <span className="punctuation">('</span>
             <span className="string">10:00</span>
             <span className="punctuation">');</span>
-          </code></pre>
+          </Code>
           <p>Each Timr emits 2 events: <code>ticker</code> and <code>finish</code>.</p>
           <p>The <code>ticker</code> function is called every second the timer ticks down and is provided with the following arguments:</p>
           <TickerExample />
@@ -825,16 +815,14 @@ class TimrJS extends React.Component {
           <h4>createStore</h4>
           <p>The createStore function provides a way to easily store multiple timrs together and perform various operations on all of them at the same time.</p>
           <p>It is available on the imported Timr Object.</p>
-          <pre>
-            <code>
-              <span className="keyword">const </span>
-              store
-              <span className="punctuation"> = </span>
-              Timr.
-              <span className="function">createStore</span>
-              <span className="punctuation">();</span>
-            </code>
-          </pre>
+          <Code>
+            <span className="keyword">const </span>
+            store
+            <span className="punctuation"> = </span>
+            Timr.
+            <span className="function">createStore</span>
+            <span className="punctuation">();</span>
+          </Code>
           <p>It also accepts Timr objects; these can be as separate arguments or together in an Array.</p>
           <p>If any non-Timr arguments are provided, they will be removed from the array. If a Timr object also exists in another store, they won't be added to a new one.</p>
           <StoreExample />

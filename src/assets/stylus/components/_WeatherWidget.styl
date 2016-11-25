@@ -1,0 +1,35 @@
+.WeatherWidget
+
+  &__wrapper
+    background red-900
+    color body-background-color
+    margin 0 auto
+    max-width 500px
+    cf()
+
+  &__day
+  &__temp
+  &__wind
+  &__icon
+    // span(1/4)
+
+  &__day
+    display inline-block
+    font-size vr-block(1.25)
+    width vr-block(1.2)
+
+  &__icon
+    height 50px
+    width 50px
+
+  &__current
+  &__four-day-forecast__days
+    border 2px solid red-a700
+    padding vr-block(.25)
+    cf()
+
+  &__current ^[0]__day
+      font-size vr-block(2)
+
+  &__four-day-forecast
+    stack()

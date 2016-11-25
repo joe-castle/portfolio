@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import ProjectNotes from './ProjectNotes';
 import Button from './Button';
 
 // TODO: Look into the perfomance, its VERY slow when manipulating the dom (Canvas fallback), also its stuttering after macbook been running for a (unknown) period of time, perhaps reduce use of array functions?
