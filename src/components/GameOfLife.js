@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import ProjectNotes from './ProjectNotes';
 import Button from './Button';
 
-// TODO: Look into the perfomance, its VERY slow when manipulating the dom (Canvas fallback), also its stuttering after macbook been running for a (unknown) period of time, perhaps reduce use of array functions?
-// TODO: Make export a tiny link that can import patterns / improve export and impoort
+// TODO: Look into the perfomance, it can be slow when manipulating the dom (Canvas fallback), also its stuttering after its running for a (unknown) period of time, perhaps reduce use of array functions?
+// TODO: Make export a tiny link that can import patterns / improve export and import (currently turned off)
 
 class GameOfLife extends React.Component {
 	constructor() {
@@ -65,7 +65,7 @@ class GameOfLife extends React.Component {
     const config = makeConfig()
 
     /**
-     * FIXME: resizing adds a whole host of problems
+     * FIXME: dynamically resizing canvas adds a whole host of problems
      *  - clearedCells array doesnt update with resize
      *  - using pause doesnt updat cells when scaling up
      *  - patterns in reset wont work when scaling down
@@ -142,9 +142,9 @@ class GameOfLife extends React.Component {
       });
     }
 
+    // Allows clearedCells array to be put into state before random cells are setup
     setTimeout(() => {
       this.setupCells('random');
-      this.start();
     })
 	}
 
@@ -549,88 +549,105 @@ class GameOfLife extends React.Component {
 
 	render() {
     return (
-      <section className="GameOfLife">
-        <h1 className="GameOfLife__generation">Generations: {this.state.generation}</h1>
-        <canvas
-          className="GameOfLife__grid"
-          ref="grid"
-          width={this.state.config.width * 12}
-          height={this.state.config.height * 12}
-        >
-          <section className="GameOfLife__grid GameOfLife__grid--canvas-backup">
-            {this.grid ? null : this.renderCanvasBackup()}
-          </section>
-        </canvas>
-        <section className="GameOfLife__options">
-          <section className="GameOfLife__options__controls">
-            <Button onClick={this.start} className="GameOfLife__options__controls__start">Start</Button>
-            <Button onClick={this.pause} className="GameOfLife__options__controls__pause">Pause</Button>
-            <Button onClick={this.reset} className="GameOfLife__options__controls__reset">Reset</Button>
-            <Button onClick={this.clear} className="GameOfLife__options__controls__clear">Clear</Button>
-            <label htmlFor="speed-input">
-              <span className="title">Speed</span>
-              <span className="speed">{`${this.state.speed}ms`}</span>
-            </label>
-            <div>
+      <section>
+        <section className="GameOfLife">
+          <h1 className="GameOfLife__generation">Generations: {this.state.generation}</h1>
+          <canvas
+            className="GameOfLife__grid"
+            ref="grid"
+            width={this.state.config.width * 12}
+            height={this.state.config.height * 12}
+          >
+            <section className="GameOfLife__grid GameOfLife__grid--canvas-backup">
+              {this.grid ? null : this.renderCanvasBackup()}
+            </section>
+          </canvas>
+          <section className="GameOfLife__options">
+            <section className="GameOfLife__options__controls">
+              <Button onClick={this.start} className="GameOfLife__options__controls__start">Start</Button>
+              <Button onClick={this.pause} className="GameOfLife__options__controls__pause">Pause</Button>
+              <Button onClick={this.reset} className="GameOfLife__options__controls__reset">Reset</Button>
+              <Button onClick={this.clear} className="GameOfLife__options__controls__clear">Clear</Button>
+              <label htmlFor="speed-input">
+                <span className="title">Speed</span>
+                <span className="speed">{`${this.state.speed}ms`}</span>
+              </label>
+              <div>
+                <input
+                  id="speed-input"
+                  onChange={ev => this.setState({ speed: ev.target.value })}
+                  value={this.state.speed}
+                  min={10}
+                  max={150}
+                  type="range"
+                />
+              </div>
+            </section>
+            <section className="GameOfLife__options__draw">
+              <i
+                onClick={() => this.setState({ drawMode: 'draw' })}
+                className={classNames({
+                  'material-icons': true,
+                  'GameOfLife__options__draw__mode': true,
+                  'GameOfLife__options__draw__mode--active': this.state.drawMode === 'draw',
+                })}
+              >
+                create
+              </i>
+              <i
+                onClick={() => this.setState({ drawMode: 'erase' })}
+                className={classNames({
+                  'material-icons': true,
+                  'GameOfLife__options__draw__mode': true,
+                  'GameOfLife__options__draw__mode--active': this.state.drawMode === 'erase',
+                })}
+              >
+                brightness_1
+              </i>
+            </section>
+            <section className="GameOfLife__options__patterns">
+              <select ref="patternSelector" onChange={ev => this.changeGridPattern(ev.target.value)}>
+                <option value="" disabled selected>Please select a pattern</option>
+                <option value="random">Random</option>
+                {Object.keys(this.state.customPatterns).map(pattern => (
+                  <option key={pattern} value={pattern}>{this.unCamelCase(pattern)}</option>
+                ))}
+              </select>
+              <i
+                onClick={this.deletePattern}
+                className="material-icons GameOfLife__options__patterns__delete"
+              >
+                delete
+              </i>
               <input
-                id="speed-input"
-                onChange={ev => this.setState({ speed: ev.target.value })}
-                value={this.state.speed}
-                min={10}
-                max={150}
-                type="range"
+                className="GameOfLife__options__patterns__name-input"
+                ref="patternNameInput"
+                placeholder="Enter pattern name..."
               />
-            </div>
-          </section>
-          <section className="GameOfLife__options__draw">
-            <i
-              onClick={() => this.setState({ drawMode: 'draw' })}
-              className={classNames({
-                'material-icons': true,
-                'GameOfLife__options__draw__mode': true,
-                'GameOfLife__options__draw__mode--active': this.state.drawMode === 'draw',
-              })}
-            >
-              create
-            </i>
-            <i
-              onClick={() => this.setState({ drawMode: 'erase' })}
-              className={classNames({
-                'material-icons': true,
-                'GameOfLife__options__draw__mode': true,
-                'GameOfLife__options__draw__mode--active': this.state.drawMode === 'erase',
-              })}
-            >
-              brightness_1
-            </i>
-          </section>
-          <section className="GameOfLife__options__patterns">
-            <select ref="patternSelector" onChange={ev => this.changeGridPattern(ev.target.value)}>
-              <option value="" disabled selected>Please select a pattern</option>
-              <option value="random">Random</option>
-              {Object.keys(this.state.customPatterns).map(pattern => (
-                <option key={pattern} value={pattern}>{this.unCamelCase(pattern)}</option>
-              ))}
-            </select>
-            <i
-              onClick={this.deletePattern}
-              className="material-icons GameOfLife__options__patterns__delete"
-            >
-              delete
-            </i>
-            <input
-              className="GameOfLife__options__patterns__name-input"
-              ref="patternNameInput"
-              placeholder="Enter pattern name..."
-            />
-            <Button onClick={this.savePattern}>Save</Button>
-            <section className="GameOfLife__options__patterns__import-export">
-              <Button onClick={this.importPattern}>Import</Button>
-              <Button onClick={this.exportPattern}>Export</Button>
+              <Button onClick={this.savePattern}>Save</Button>
+              {/* <section className="GameOfLife__options__patterns__import-export">
+                <Button onClick={this.importPattern}>Import</Button>
+                <Button onClick={this.exportPattern}>Export</Button>
+              </section> */}
             </section>
           </section>
         </section>
+        <ProjectNotes
+          title="Game of Life"
+          codeHash="qbYWeq"
+          titleLink="https://www.freecodecamp.com/challenges/build-the-game-of-life"
+          objective="Build a working version of John Conway's Game of Life. It should be functionally similar to: "
+          objectiveLink="https://codepen.io/FreeCodeCamp/full/reGdqx/"
+          userStories={[
+            'I can start and stop the board.',
+            'I can set up the board.',
+            'I can clear the board.',
+            'When I press start, the game will play out.',
+            'Each time the board changes, I can see how many generations have gone by.'
+          ]}
+        />
       </section>
+
     );
   }
 }

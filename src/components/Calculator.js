@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import ProjectNotes from './ProjectNotes';
+
 class Calculator extends React.Component {
 	constructor() {
 		super();
@@ -96,31 +98,45 @@ class Calculator extends React.Component {
 
 	render() {
     return (
-      <section className='Calculator'>
-        <section className='Calculator__window'>
-          <span className='Calculator__window__calc'>
-            {this.state.calc.map(this.convertSymbols).join(' ')}
-          </span>
-          <span className='Calculator__window__entry'>{this.state.entry || 0}</span>
+      <section className="Calculator__wrapper">
+        <section className='Calculator'>
+          <section className='Calculator__window'>
+            <span className='Calculator__window__calc'>
+              {this.state.calc.map(this.convertSymbols).join(' ')}
+            </span>
+            <span className='Calculator__window__entry'>{this.state.entry || 0}</span>
+          </section>
+          <section className='Calculator__keys'>
+            {[
+              'AC', 'CE', '+', '/', '7', '8', '9', '*',
+              '4', '5', '6', '-', '1', '2', '3', '=',
+              '0', '.', '%'
+            ].map(key => (
+              <section
+                key={key}
+                onClick={() => this.key(key)}
+                className={classNames({
+                  'Calculator__keys__key': true,
+                  'Calculator__keys__key--equals': key === '='
+                })}
+                >
+                  {this.convertSymbols(key)}
+                </section>
+              ))}
+          </section>
         </section>
-        <section className='Calculator__keys'>
-          {[
-            'AC', 'CE', '+', '/', '7', '8', '9', '*',
-            '4', '5', '6', '-', '1', '2', '3', '=',
-            '0', '.', '%'
-          ].map(key => (
-            <section
-              key={key}
-              onClick={() => this.key(key)}
-              className={classNames({
-                'Calculator__keys__key': true,
-                'Calculator__keys__key--equals': key === '='
-              })}
-            >
-              {this.convertSymbols(key)}
-            </section>
-          ))}
-        </section>
+        <ProjectNotes
+          title="Calculator"
+          codeHash="EKRpLQ"
+          titleLink="https://www.freecodecamp.com/challenges/build-a-javascript-calculator"
+          objective="Build a working calculator. It should be functionally similar to: "
+          objectiveLink="https://codepen.io/FreeCodeCamp/full/rLJZrA/"
+          userStories={[
+            'I can add, subtract, multiply and divide two numbers.',
+            'I can clear the input field with a clear button.',
+            'I can keep chaining mathematical operations together until I hit the equal button, and the calculator will tell me the correct output.'
+          ]}
+        />
       </section>
     );
   }

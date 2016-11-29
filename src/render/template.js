@@ -10,9 +10,8 @@ export default (el, state) => (
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="UPDATE_DESCRIPTION">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-    rel="stylesheet">
     <link href="/assets/bundle.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>UPDATE_TITLE</title>
   </head>
   <body>

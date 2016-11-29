@@ -5,6 +5,7 @@ import Frame from 'react-frame-component';
 // TODO: Give projects their own full page, or atleast give timr its own page, free of header/ borrder with a simple back/home/projects button.
 // TODO: Store all ajax data from projects into redux, to stop them being fetched on every page change. - or only use screenshots rather than rendering all projects here.
 // TODO: Pass a variable that stops automatic running of certain things like gameoflife.
+// TODO: Update Codepen Apps
 
 import TimrJS from './TimrJS';
 import SimonGame from './SimonGame';
@@ -85,15 +86,13 @@ function Project({ project, personal }) {
 // TODO: Add some sort of separator between personal and freecodecamp
 function Projects({ children }) {
   return (
-    <section className="Projects">
-      <h2>Personal</h2>
-      <p>The following projects are my own personal projects.</p>
+    <section className="Projects container">
       <section className="Projects__wrapper">
         {personalProjects.map(project => (
           <Project key={project.title} project={project} personal />
         ))}
       </section>
-      <h2>freeCodeCamp</h2>
+      <h2>Free Code Camp</h2>
       <p>
         The following projects were built as part of the
           <a href="http://www.freecodecamp.com" target="_blank"> freeCodeCamp.com </a>

@@ -2,6 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 import { generate } from 'shortid';
 
+import ProjectNotes from './ProjectNotes';
+
 //TODO Make cancel work.
 function makePromiseCancelable(promise) {
   let _hasCancelled = false;
@@ -209,40 +211,55 @@ class TwitchApp extends React.Component {
 
 	render() {
     return (
-      <section className='TwitchApp'>
-        <header className="TwitchApp__header">
-          <section className="TwitchApp__header__inputs">
-    				<input
-              className='TwitchApp__header__inputs__search-input'
-              placeholder='Search...'
-              onChange={ev => this.setState({ searchString: ev.target.value })}
-    				/>
-            <form
-              onSubmit={ev => {
-                ev.preventDefault();
-                this.getStreamer(this.refs.streamerInput.value)
-              }}
-              ref='streamerForm'
-            >
-    					<input
-                ref='streamerInput'
-    						className='TwitchApp__header__inputs__new-streamer-input'
-    						placeholder='Add a streamer...'
-    					/>
-      			</form>
-    			</section>
-          <Nav
-            filter={this.state.filter}
-            setFilter={filter => this.setState({ filter })}
-          />
-        {this.state.fetching && <div className="TwitchApp__header__loading" />}
-        </header>
-  			<StreamersBox
-  				filter={this.state.filter}
-  				searchString={this.state.searchString}
-  				streamers={this.state.streamers}
-  				deleteStreamer={this.deleteStreamer}
-  			/>
+      <section className="TwitchApp__wrapper">
+        <section className='TwitchApp'>
+          <header className="TwitchApp__header">
+            <section className="TwitchApp__header__inputs">
+      				<input
+                className='TwitchApp__header__inputs__search-input'
+                placeholder='Search...'
+                onChange={ev => this.setState({ searchString: ev.target.value })}
+      				/>
+              <form
+                onSubmit={ev => {
+                  ev.preventDefault();
+                  this.getStreamer(this.refs.streamerInput.value)
+                }}
+                ref='streamerForm'
+              >
+      					<input
+                  ref='streamerInput'
+      						className='TwitchApp__header__inputs__new-streamer-input'
+      						placeholder='Add a streamer...'
+      					/>
+        			</form>
+      			</section>
+            <Nav
+              filter={this.state.filter}
+              setFilter={filter => this.setState({ filter })}
+            />
+          {this.state.fetching && <div className="TwitchApp__header__loading" />}
+          </header>
+    			<StreamersBox
+    				filter={this.state.filter}
+    				searchString={this.state.searchString}
+    				streamers={this.state.streamers}
+    				deleteStreamer={this.deleteStreamer}
+    			/>
+        </section>
+        <ProjectNotes
+          title="Twitch App"
+          codeHash="yeLKRJ"
+          titleLink="https://www.freecodecamp.com/challenges/use-the-twitchtv-json-api"
+          objective="Build an app that retrieves a list of twitch streamers and their status. It should be functionally similar to:  "
+          objectiveLink="https://codepen.io/FreeCodeCamp/full/Myvqmo/"
+          userStories={[
+            'I can see whether Free Code Camp is currently streaming on Twitch.tv.',
+            'I can click the status output and be sent directly to the Free Code Camp\'s Twitch.tv channel.',
+            'If a Twitch user is currently streaming, I can see additional details about what they are streaming.',
+            'I will see a placeholder notification if a streamer has closed their Twitch account (or the account never existed). You can verify this works by adding brunofin and comster404 to your array of Twitch streamers.',
+          ]}
+        />
       </section>
     );
   }

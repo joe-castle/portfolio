@@ -53,11 +53,7 @@ function App({
         path={location.pathname}
       />}
       <main>
-        <div className={classNames({
-          container: !fullPage
-        })}>
-          {children}
-        </div>
+        {children}
       </main>
       <Footer
         footerVisible={footerVisible}
@@ -68,7 +64,7 @@ function App({
 }
 
 export default connect(
-  ({ navVisible, footerVisible, routing }) => ({
+  ({ navVisible, footerVisible }) => ({
     navVisible,
     footerVisible,
   }),

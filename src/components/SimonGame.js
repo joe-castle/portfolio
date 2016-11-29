@@ -347,6 +347,7 @@ class SimonGame extends React.Component {
   			</section>
         <ProjectNotes
           title="Simon Game"
+          codeHash="ZWmaWP"
           titleLink="https://www.freecodecamp.com/challenges/build-a-simon-game"
           objective="Build a working Simon Game app that is functionally similar to: "
           objectiveLink="http://codepen.io/FreeCodeCamp/full/bELRjV"

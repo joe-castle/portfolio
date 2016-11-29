@@ -1,6 +1,9 @@
 import React from 'react';
 import Timr from 'timrjs';
 import classNames from 'classnames';
+
+import ProjectNotes from './ProjectNotes';
+
 // TODO: Better hover animation for clicking, and a call to action to make it clear that clicking
 // starts the timer.
 function RangeInput({ time, changeFn, session }) {
@@ -92,38 +95,51 @@ class PomodoroTimer extends React.Component {
     const { session, finish, sessionTime, breakTime, fillHeight, time, running } = this.state;
 
     return (
-      <section className='PomodoroTimer'>
-        <section
-          className={
-            `PomodoroTimer__timer PomodoroTimer__timer--${session}`
-          }
-          onClick={() => {
-            !running && !finish ? this.timer.start() : this.timer.pause();
+      <section className="PomodoroTimer__wrapper">
+        <section className='PomodoroTimer'>
+          <section
+            className={
+              `PomodoroTimer__timer PomodoroTimer__timer--${session}`
+            }
+            onClick={() => {
+              !running && !finish ? this.timer.start() : this.timer.pause();
 
-            this.setState({ running: !running })
-          }
-        }>
-          <span
-            className={classNames({
-              'PomodoroTimer__timer__fill': true,
-              'PomodoroTimer__timer__fill--finish': finish,
-            })}
-            style={{height: `${fillHeight}%`}}
+              this.setState({ running: !running })
+            }
+          }>
+            <span
+              className={classNames({
+                'PomodoroTimer__timer__fill': true,
+                'PomodoroTimer__timer__fill--finish': finish,
+              })}
+              style={{height: `${fillHeight}%`}}
+            />
+            <span className="PomodoroTimer__timer__cta material-icons">
+              {running ? 'pause' : 'play_arrow'}
+            </span>
+            <span className={`PomodoroTimer__timer__time`}>{time}</span>
+          </section>
+          <RangeInput
+            time={sessionTime}
+            changeFn={this.changeSessionLength}
+            session="session"
           />
-          <span className="PomodoroTimer__timer__cta material-icons">
-            {running ? 'pause' : 'play_arrow'}
-          </span>
-          <span className={`PomodoroTimer__timer__time`}>{time}</span>
+          <RangeInput
+            time={breakTime}
+            changeFn={this.changeBreakLength}
+            session="break"
+          />
         </section>
-        <RangeInput
-          time={sessionTime}
-          changeFn={this.changeSessionLength}
-          session="session"
-        />
-        <RangeInput
-          time={breakTime}
-          changeFn={this.changeBreakLength}
-          session="break"
+        <ProjectNotes
+          title="Quote Generator"
+          codeHash="bEGRyN"
+          titleLink="https://www.freecodecamp.com/challenges/build-a-random-quote-machine"
+          objective="Build an app that randomly generates a quote. It should be functionally similar to: "
+          objectiveLink="https://codepen.io/FreeCodeCamp/full/ONjoLe/"
+          userStories={[
+            'I can click a button to show me a new random quote.',
+            'I can press a button to tweet out a quote.'
+          ]}
         />
       </section>
     );
