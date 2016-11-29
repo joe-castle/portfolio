@@ -2,8 +2,14 @@ make-hover(color, all = false)
   if all
     border-color color
     color color
-    
+
   +hover-state()
+    background color
+    border-color color
+    color body-background-color
+    outline none
+
+  &--active
     background color
     border-color color
     color body-background-color

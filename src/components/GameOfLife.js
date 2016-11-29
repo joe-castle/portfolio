@@ -634,7 +634,8 @@ class GameOfLife extends React.Component {
         </section>
         <ProjectNotes
           title="Game of Life"
-          codeHash="qbYWeq"
+          js="abdf881648a7528e5c0dbf9574cda692"
+          css="40e5b740742fec49259b55dd230658df"
           titleLink="https://www.freecodecamp.com/challenges/build-the-game-of-life"
           objective="Build a working version of John Conway's Game of Life. It should be functionally similar to: "
           objectiveLink="https://codepen.io/FreeCodeCamp/full/reGdqx/"

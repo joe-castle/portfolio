@@ -7,6 +7,7 @@ function Button(props) {
       {...props}
       className={classNames({
         Button: true,
+        'Button--active': props.active,
         [`Button--${props.color}`]: props.color,
         [`Button--all-${props.color}`]: props.all,
         [props.className]: props.className,
