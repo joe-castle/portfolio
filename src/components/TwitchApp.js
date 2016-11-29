@@ -249,7 +249,8 @@ class TwitchApp extends React.Component {
         </section>
         <ProjectNotes
           title="Twitch App"
-          codeHash="yeLKRJ"
+          js="d6a55ccf2aca2b58bf4482fde79f65be"
+          css="2b18c58a41aae6c0df2a92a86255201d"
           titleLink="https://www.freecodecamp.com/challenges/use-the-twitchtv-json-api"
           objective="Build an app that retrieves a list of twitch streamers and their status. It should be functionally similar to:  "
           objectiveLink="https://codepen.io/FreeCodeCamp/full/Myvqmo/"

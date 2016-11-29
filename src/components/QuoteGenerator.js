@@ -43,9 +43,10 @@ class QuoteGenerator extends React.Component {
               New Quote
             </Button>
             <Button
+              onClick={() => window.open(
+                `https://twitter.com/intent/tweet?text="${this.state.quote.quote}" - ${this.state.quote.author}`
+              )}
               color="blue"
-              href={`https://twitter.com/intent/tweet?text="${this.state.quote.quote}" - ${this.state.quote.author}`}
-              target="_blank"
               className="QuoteGenerator__actions__tweet"
             >
               Tweet
@@ -62,7 +63,8 @@ class QuoteGenerator extends React.Component {
         </section>
         <ProjectNotes
           title="Pomodoro Timer"
-          codeHash="KzoaLe"
+          js="77208ccb6b8867f89f7a754ccfbebcd0"
+          css="4e5ef65ebbaabe6fc10da1e41ee42139"
           titleLink="https://www.freecodecamp.com/challenges/build-a-pomodoro-clock"
           objective="Build a working Pomodoro timer. It should be functionally similar to: "
           objectiveLink="https://codepen.io/FreeCodeCamp/full/aNyxXR/"

@@ -25,12 +25,16 @@ const personalProjects = [
 
 const fccProjects = [
   {
+    livePreview: GameOfLife,
+    title: 'Game Of Life',
+  },
+  {
     livePreview: SimonGame,
     title: 'Simon Game',
   },
   {
-    livePreview: TwitchApp,
-    title: 'Twitch App',
+    livePreview: PomodoroTimer,
+    title: 'Pomodoro Timer',
   },
   {
     livePreview: Calculator,
@@ -41,16 +45,12 @@ const fccProjects = [
     title: 'Quote Generator',
   },
   {
-    livePreview: PomodoroTimer,
-    title: 'Pomodoro Timer',
+    livePreview: TwitchApp,
+    title: 'Twitch App',
   },
   {
     livePreview: WeatherWidget,
     title: 'Weather Widget',
-  },
-  {
-    livePreview: GameOfLife,
-    title: 'Game Of Life',
   },
 ];
 
@@ -94,7 +94,7 @@ function Projects({ children }) {
       </section>
       <h2>Free Code Camp</h2>
       <p>
-        The following projects were built as part of the
+        The following are just some of the projects that were built as part of the
           <a href="http://www.freecodecamp.com" target="_blank"> freeCodeCamp.com </a>
         curriculum.
       </p>

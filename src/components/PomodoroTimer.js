@@ -4,8 +4,8 @@ import classNames from 'classnames';
 
 import ProjectNotes from './ProjectNotes';
 
-// TODO: Better hover animation for clicking, and a call to action to make it clear that clicking
-// starts the timer.
+// TODO: Better hover animation for clicking, and a call to action to make
+// it clear that clicking starts the timer.
 function RangeInput({ time, changeFn, session }) {
   return (
     <section className={`PomodoroTimer__input PomodoroTimer__input--${session}`}>
@@ -132,7 +132,8 @@ class PomodoroTimer extends React.Component {
         </section>
         <ProjectNotes
           title="Quote Generator"
-          codeHash="bEGRyN"
+          js="cb3a0322449ebe2d0f6dfa07842147b8"
+          css="f8e14138ac1625b8a11979642d3e69a9"
           titleLink="https://www.freecodecamp.com/challenges/build-a-random-quote-machine"
           objective="Build an app that randomly generates a quote. It should be functionally similar to: "
           objectiveLink="https://codepen.io/FreeCodeCamp/full/ONjoLe/"

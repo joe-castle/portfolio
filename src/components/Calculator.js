@@ -127,7 +127,8 @@ class Calculator extends React.Component {
         </section>
         <ProjectNotes
           title="Calculator"
-          codeHash="EKRpLQ"
+          js="379844b642c4ebb593ac723923eff70b"
+          css="4b54b60efe209448f678425f8ba02370"
           titleLink="https://www.freecodecamp.com/challenges/build-a-javascript-calculator"
           objective="Build a working calculator. It should be functionally similar to: "
           objectiveLink="https://codepen.io/FreeCodeCamp/full/rLJZrA/"

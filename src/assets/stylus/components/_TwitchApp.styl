@@ -15,7 +15,6 @@
     margin-bottom 15px
     padding 20px
     position relative
-    // z-depth('2')
 
     &__nav
 
@@ -32,13 +31,9 @@
         transition all 0.2s linear
         user-select none
         width 30%
-        // z-depth('1')
 
         &:not(:last-child)
           margin-right 5%
-
-        +hover-state()
-          // z-depth('1.5')
 
         &--active
           background green-a100
@@ -49,7 +44,6 @@
 
       &__search-input
       &__new-streamer-input
-        // z-depth('1')
         border 0
         margin-top 10px
         font-size 16px
@@ -69,11 +63,11 @@
 
     &__streamer
       background blue-50
+      border 3px solid blue-500
       height 150px
       line-height 22px
       position relative
       margin-bottom 15px
-      // z-depth('1.5')
 
       figure
         margin 0
