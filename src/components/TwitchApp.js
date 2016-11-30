@@ -4,7 +4,6 @@ import { generate } from 'shortid';
 
 import ProjectNotes from './ProjectNotes';
 
-//TODO Make cancel work.
 function makePromiseCancelable(promise) {
   let _hasCancelled = false;
 
@@ -13,7 +12,7 @@ function makePromiseCancelable(promise) {
       .then(data => {
         _hasCancelled ? reject('Promise Cancelled') : resolve(data)
       })
-      .then(error => {
+      .catch(error => {
         _hasCancelled ? reject('Promise Cancelled') : resolve(error)
       });
   });
@@ -122,6 +121,8 @@ class TwitchApp extends React.Component {
 			filter: 'All',
 			fetching: false
 		}
+
+    this.streamerFetchs = [];
 	}
 
 	componentDidMount() {
@@ -132,7 +133,7 @@ class TwitchApp extends React.Component {
 	}
 
   componentWillUnmount() {
-    // TODO: Cancel fetch.
+    this.streamerFetchs.forEach(streamerFetch => { streamerFetch.cancel(); });
   }
 
   getStreamer = streamer => {
@@ -141,12 +142,18 @@ class TwitchApp extends React.Component {
     if (!this.state.streamers.some(({ name }) => name.toLowerCase() === streamer)) {
       this.setState({ fetching: true });
 
-      this.fetchStreamer(streamer)
+      const streamerFetch = makePromiseCancelable(this.fetchStreamer(streamer));
+
+      this.streamerFetchs.push(streamerFetch);
+
+      streamerFetch
+        .promise
         .then(this.addStreamer)
         .then(() => {
           this.setState({ fetching: false })
           this.refs.streamerForm.reset();
         })
+        .catch(() => { console.log('Cancelled fetching streamer:', streamer)});
     } else {
       this.refs.streamerForm.reset();
     }

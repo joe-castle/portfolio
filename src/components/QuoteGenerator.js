@@ -62,16 +62,15 @@ class QuoteGenerator extends React.Component {
           </article>
         </section>
         <ProjectNotes
-          title="Pomodoro Timer"
+          title="Quote Generator"
           js="77208ccb6b8867f89f7a754ccfbebcd0"
           css="4e5ef65ebbaabe6fc10da1e41ee42139"
-          titleLink="https://www.freecodecamp.com/challenges/build-a-pomodoro-clock"
-          objective="Build a working Pomodoro timer. It should be functionally similar to: "
-          objectiveLink="https://codepen.io/FreeCodeCamp/full/aNyxXR/"
+          titleLink="https://www.freecodecamp.com/challenges/build-a-random-quote-machine"
+          objective="Build an app that randomly generates a quote. It should be functionally similar to: "
+          objectiveLink="https://codepen.io/FreeCodeCamp/full/ONjoLe/"
           userStories={[
-            'I can start a 25 minute pomodoro, and the timer will go off once 25 minutes has elapsed.',
-            'I can reset the clock for my next pomodoro.',
-            'I can customize the length of each pomodoro.'
+            'I can click a button to show me a new random quote.',
+            'I can press a button to tweet out a quote.'
           ]}
         />
       </section>

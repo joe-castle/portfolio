@@ -28,7 +28,9 @@ class Calculator extends React.Component {
 	convertSymbols = key => key === '/' ? '÷' : key === '*' ? 'x' : key;
 
 	appendCalc = key => {
-		this.setState(({ entry, calc }) => {
+		this.setState(state => {
+      const { entry, calc } = this.state;
+      
 			if (entry && calc.join('').length <= 24) {
 				return {
 					calc: [

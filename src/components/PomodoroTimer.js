@@ -131,17 +131,19 @@ class PomodoroTimer extends React.Component {
           />
         </section>
         <ProjectNotes
-          title="Quote Generator"
+          title="Pomodoro Timer"
           js="cb3a0322449ebe2d0f6dfa07842147b8"
           css="f8e14138ac1625b8a11979642d3e69a9"
-          titleLink="https://www.freecodecamp.com/challenges/build-a-random-quote-machine"
-          objective="Build an app that randomly generates a quote. It should be functionally similar to: "
-          objectiveLink="https://codepen.io/FreeCodeCamp/full/ONjoLe/"
+          titleLink="https://www.freecodecamp.com/challenges/build-a-pomodoro-clock"
+          objective="Build a working Pomodoro timer. It should be functionally similar to: "
+          objectiveLink="https://codepen.io/FreeCodeCamp/full/aNyxXR/"
           userStories={[
-            'I can click a button to show me a new random quote.',
-            'I can press a button to tweet out a quote.'
+            'I can start a 25 minute pomodoro, and the timer will go off once 25 minutes has elapsed.',
+            'I can reset the clock for my next pomodoro.',
+            'I can customize the length of each pomodoro.'
           ]}
         />
+
       </section>
     );
   }

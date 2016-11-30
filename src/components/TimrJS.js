@@ -717,13 +717,14 @@ class TimrJS extends React.Component {
             </Link>
             <h1 className="TimrJS__header__title">{title}</h1>
             <h4>A simple, event driven, utility for creating timers in JavaScript.</h4>
-            <a
-              className="TimrJS__header__github Button Button--all-blue"
-              href="https://github.com/joesmith100/timrjs"
-              target="_blank"
+            <Button
+              color="blue"
+              all
+              className="TimrJS__header__github"
+              onClick={() => window.open('https://github.com/joesmith100/timrjs')}
             >
               Github Docs
-            </a>
+            </Button>
           </section>
         </header>
         <section className="TimrJS__main container">
