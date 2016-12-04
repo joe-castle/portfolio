@@ -145,6 +145,7 @@ class GameOfLife extends React.Component {
     // Allows clearedCells array to be put into state before random cells are setup
     setTimeout(() => {
       this.setupCells('random');
+      this.props.livePreview || this.start();
     })
 	}
 

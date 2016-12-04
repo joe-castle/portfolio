@@ -1,7 +1,7 @@
 frame-color = blue-grey-900
 settings-shadow-color = #400a0a
 settings-highlight-color = red-700
-// FIXME: Don't use veiport settings for mobile version, use percentage?
+
 centerPos()
   bottom 0
   left 0
@@ -26,6 +26,10 @@ stepsShadow(color)
     opacity 1
   50%
     opacity 0
+
+@keyframes bounce
+  70%
+    font-size 150%
 
 .SimonGame
   background frame-color
@@ -171,6 +175,9 @@ stepsShadow(color)
       &__steps
         color settings-highlight-color
         cursor pointer
+
+        // &--not-running
+        //
 
         &--flash
           animation stepsFlash 0.5s linear infinite

@@ -4,8 +4,6 @@ import classNames from 'classnames';
 
 import ProjectNotes from './ProjectNotes';
 
-// TODO: Better hover animation for clicking, and a call to action to make
-// it clear that clicking starts the timer.
 function RangeInput({ time, changeFn, session }) {
   return (
     <section className={`PomodoroTimer__input PomodoroTimer__input--${session}`}>

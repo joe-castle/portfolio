@@ -126,7 +126,7 @@ class TwitchApp extends React.Component {
 	}
 
 	componentDidMount() {
-    ['brunofin', 'comster404', 'freecodecamp',
+    this.props.livePreview || ['brunofin', 'comster404', 'freecodecamp',
     'storbeck', 'terakilobyte',
     'habathcx', 'RobotCaleb', 'thomasballinger',
     'noobs2ninjas', 'beohoff', 'medrybw',].forEach(this.getStreamer)

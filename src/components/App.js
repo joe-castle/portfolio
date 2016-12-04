@@ -10,8 +10,6 @@ import NavButton from './NavButton';
 import Header from './Header';
 import Footer from './Footer';
 
-// TODO: Extract similar code into react components
-
 function App({
   children,
   location,

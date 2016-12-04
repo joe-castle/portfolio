@@ -47,8 +47,6 @@ icons = {
   npm: '\0047'
 }
 
-// TODO: Extrapolate all the properts that rely on another, e.g. img size and nav padding into variables
-
 // ---------------------------------------------
 // ------ Functions
 // ---------------------------------------------
@@ -68,7 +66,6 @@ z-depth(grade, hover = false)
       box-shadow: unquote(z-depth-grades[grade].hover)
 
 // Save having to right hover, active and focus on all links.
-// TODO: Provide a transition for all hoverstates ?
 hover-state()
   &:hover
   &:active

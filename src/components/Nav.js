@@ -3,9 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import classNames from 'classnames';
 
-// TODO: remove home, add contact links
-// FIXME: Generate a different Nav on tablet + sized to go inside the container and make the picutre clickable
-// FIXME: active links not working deep into projects.
+// FIXME: Generate a different Nav on tablet + sized to go inside the container and make the picutre clickable: TODO: remove home, add contact links
 
 function Nav({ navVisible, toggleNav, path }) {
   return (
@@ -22,7 +20,11 @@ function Nav({ navVisible, toggleNav, path }) {
               to={link[0]}
               className={classNames({
                 'Nav__links__link': true,
-                'Nav__links__link--active': new RegExp('^\\' + link[0] + '$').test(path)
+                'Nav__links__link--active': new RegExp(
+                  link[0] === '/'
+                  ? '^\\' + link[0] + "$"
+                  : '^\\' + link[0]
+                ).test(path)
               })}
             >
               {link[1]}

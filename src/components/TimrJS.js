@@ -124,8 +124,8 @@ class OptionsExample extends React.Component {
       >
         {
           [
-            { outputFormat: ['hh:mm:ss', 'mm:ss', 'ss']},
-            { formatType: ['h', 'm', 's']},
+            { outputFormat: ['hh:mm:ss', 'mm:ss', 'ss'] },
+            { formatType: ['h', 'm', 's'] },
             { separator: [':', '-', '/'] }
           ]
             .filter(option => option.hasOwnProperty(defaultOption))[0][defaultOption]
@@ -684,7 +684,6 @@ class UtilitiesExample extends React.Component {
   }
 }
 
-// TODO: slim code, avoid dry, generate bits?
 class TimrJS extends React.Component {
   constructor() {
     super();
@@ -723,7 +722,7 @@ class TimrJS extends React.Component {
               className="TimrJS__header__github"
               onClick={() => window.open('https://github.com/joesmith100/timrjs')}
             >
-              Github Docs
+              Github
             </Button>
           </section>
         </header>

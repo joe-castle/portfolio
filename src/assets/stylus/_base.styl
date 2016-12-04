@@ -67,7 +67,6 @@ body
   height 100%
 
 // Container class to keep content inline
-// TODO: MAke as a mixin and apply to require components?
 .container
   height 100%
   padding vr-block(container-padding)
@@ -76,8 +75,6 @@ body
   position relative
   width 100%
 
-// FIXME: Some projkects (gameoflife) dontdisaply properly with this container,
-// need to make one that works on text but not projects
 main
   .container
     +below(breakpoints.mobile)
@@ -127,7 +124,6 @@ main
 // ------ Basic Styles
 // ---------------------------------------------
 
-// TODO: Make awesome anchor hoverstatte
 a
   color header-color
   font-weight 600

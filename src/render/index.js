@@ -7,8 +7,6 @@ import rootReducer from '../reducers';
 import routes from './routes';
 import template from './template';
 
-// TODO: provide INITIAL_STATE
-
 const store = createStore(rootReducer);
 
 export default (req, res) => {

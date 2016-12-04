@@ -308,6 +308,7 @@ class SimonGame extends React.Component {
               className={classNames({
                 'SimonGame__settings__steps': true,
                 'SimonGame__settings__steps--running': running,
+                'SimonGame__settings__steps--not-running': !running,
                 'SimonGame__settings__steps--flash': stepsFlash,
               })}
             >

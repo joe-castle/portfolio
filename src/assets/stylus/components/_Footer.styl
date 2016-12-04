@@ -33,14 +33,6 @@
 
           &:before
             content content
-          // Provides text to icons at desktop widths
-          // +above(breakpoints.desktop)
-          //   &:after
-          //     content icon
-          //     font-family text-font-stack
-          //     font-size vr-block(.3)
-          //     margin-left 10px
-          //     vertical-align middle
 
     // Zoom in effect of footer for frontpage, when text has finished typing
     &--visible
@@ -52,8 +44,6 @@
       margin-top vr-block(.25)
       text-align center
 
-  // FIXME: Footers height doesn't expand on mobile, when icons collapse because they dont fit.
-  // Setting min-height makes it toooo big
   &--content-active
     border-top border-size solid header-color
     bottom -(vr-block(footer-height))
