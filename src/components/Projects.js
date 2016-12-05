@@ -64,6 +64,7 @@ function Project({ project, personal }) {
             initialContent={
               `<!DOCTYPE html><html><head>
               <link href="/assets/bundle.css" rel="stylesheet">
+              <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
               </head><body><div></div></body></html>`
             }
           >
