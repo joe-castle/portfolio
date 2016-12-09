@@ -39,21 +39,32 @@ class GameOfLife extends React.Component {
      */
 
     // Function to generate config which dictates height/width of grid based on window width.
-    function makeConfig() {
-      const windowWidth = window.innerWidth;
+    const makeConfig = () => {
+      let windowWidth = window.innerWidth;
       let width;
       let height;
 
-      if (windowWidth < 768) {
-        width = 30;
-        height = 45;
-      } else if (windowWidth < 1050) {
+      if (this.props.livePreview) {
         width = 60;
         height = 40;
+        
+        if (windowWidth < 433) {
+          width = 30;
+          height = 45;
+        }
       } else {
-        width = 70;
-        height = 50;
+        if (windowWidth < 768) {
+          width = 30;
+          height = 45;
+        } else if (windowWidth < 1050) {
+          width = 60;
+          height = 40;
+        } else {
+          width = 70;
+          height = 50;
+        }
       }
+
 
       return {
         width,
