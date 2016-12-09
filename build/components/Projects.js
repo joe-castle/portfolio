@@ -98,7 +98,7 @@ function Project(_ref) {
             id: 'test',
             frameBorder: 0,
             scrolling: 'no',
-            initialContent: '<!DOCTYPE html><html><head>\n              <link href="/assets/bundle.css" rel="stylesheet">\n              </head><body><div></div></body></html>'
+            initialContent: '<!DOCTYPE html><html><head>\n              <link href="/assets/bundle.css" rel="stylesheet">\n              <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">\n              </head><body><div></div></body></html>'
           },
           _react2.default.createElement(project.livePreview, { livePreview: true })
         ),

@@ -19,7 +19,7 @@ var links = {
   Codepen: 'http://codepen.io/joesmith/',
   FCC: 'https://www.freecodecamp.com/joesmith100',
   Linkedin: 'https://uk.linkedin.com/in/joe-smith-42b06749',
-  Facebook: 'https://www.facebook.com/joesmith04'
+  Email: 'mailto:joesmith0488@gmail.com'
 };
 
 function Footer(_ref) {
