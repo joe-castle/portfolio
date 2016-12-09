@@ -91,8 +91,20 @@ class GameOfLife extends React.Component {
     // Setup a initial cells array for creating patterns.
     const clearedCells = [];
 
+    let x = 0;
+    let y = 0;
+
     for (let cellID = 0, totalCells = config.totalCells; cellID < totalCells; cellID++) {
-      clearedCells.push(this.createCellNode(cellID, false));
+      clearedCells.push(this.createCellNode(cellID, false, undefined, x, y));
+
+      // Move to the next cell
+      x += 12;
+
+      // Move to the next row
+      if (x >= config.width * 12) {
+        x = 0;
+        y += 12;
+      }
     }
 
     this.setState({
@@ -270,26 +282,17 @@ class GameOfLife extends React.Component {
         }
       }
 
-      let column = 0;
-      let row = 0;
+      for (let cell = 0, length = cells.length; cell < length; cell++) {
+        let x = cells[cell].x;
+        let y = cells[cell].y;
 
-      for (let cell = 0; cell < this.state.config.totalCells; cell++) {
         // Draw the cell
         this.grid.fillStyle = getFillStyle(cells[cell]);
-        this.grid.fillRect(column, row, 12, 12);
+        this.grid.fillRect(x, y, 12, 12);
 
         // Give the cell a border
         this.grid.strokeStyle = '#263238';
-        this.grid.strokeRect(column, row, 12, 12);
-
-        // Move to the next cell
-        column += 12;
-
-        // Move to the next row
-        if (column >= this.state.config.width * 12) {
-          column = 0;
-          row += 12;
-        }
+        this.grid.strokeRect(x, y, 12, 12);
       }
     }
   }
@@ -303,7 +306,7 @@ class GameOfLife extends React.Component {
     let row = 0;
     let cellID = 0;
 
-    for (; cellID < this.state.config.totalCells; cellID++) {
+    for (let length = this.state.config.totalCells; cellID < length; cellID++) {
       if ( x >= column
         && x <= column + 12
         && y >= row
@@ -337,14 +340,14 @@ class GameOfLife extends React.Component {
           return this.clear();
         }
 
-        const nextCells = this.changeCells();
+        const { nextCells, changedCells } = this.changeCells();
 
         this.setState({
           cells: nextCells,
           generation: this.state.generation += 1
         });
 
-        this.updateCanvasGrid(nextCells);
+        this.updateCanvasGrid(changedCells);
 
         this.clearTimer();
         this.generationTimer = setTimeout(startFn, this.state.speed);
@@ -401,28 +404,35 @@ class GameOfLife extends React.Component {
 	changeCells = () => {
     const cells = this.state.cells;
     let nextCells = [];
+    let changedCells = [];
 
-		for (let cellID = 0; cellID < this.state.config.totalCells; cellID++) {
+		for (let cellID = 0, length = this.state.config.totalCells; cellID < length; cellID++) {
 		  let aliveNeighbours = this.checkNeighbours(cellID);
 
-		  if (cells[cellID].alive) {
-			 if (aliveNeighbours >= 4 || aliveNeighbours <= 1) {
-				nextCells.push(this.createCellNode(cellID, false));
-			 } else {
-				nextCells.push(this.createCellNode(cellID, true, true));
-			 }
-		  } else if (aliveNeighbours === 3) {
-			 nextCells.push(this.createCellNode(cellID, true));
-		  } else {
-			 nextCells.push(cells[cellID]);
-		  }
-		}
+      if (cells[cellID].alive) {
+        if (aliveNeighbours >= 4 || aliveNeighbours <= 1) {
+          let cell = this.createCellNode(cellID, false);
+          nextCells.push(cell);
+          changedCells.push(cell);
+        } else {
+          let cell = this.createCellNode(cellID, true, true);
+          nextCells.push(cell);
+          changedCells.push(cell);
+        }
+      } else if (aliveNeighbours === 3) {
+          let cell = this.createCellNode(cellID, true);
+          nextCells.push(cell);
+          changedCells.push(cell);
+        } else {
+          nextCells.push(cells[cellID]);
+        }
+      }
 
-		return nextCells;
+		return { nextCells, changedCells };
 	}
 
   checkIfAllCellsDead = () => {
-    for (let cell = 0; cell < this.state.config.totalCells; cell++) {
+    for (let cell = 0, length = this.state.config.totalCells; cell < length; cell++) {
       if (this.state.cells[cell].alive) {
         return;
       }
@@ -440,11 +450,18 @@ class GameOfLife extends React.Component {
     );
   }
 
-	createCellNode = (id, alive, old = false) => ({
-    id,
-    alive,
-    old,
-	})
+	createCellNode = (id, alive, old = false, x, y) => {
+    x = x !== undefined ? x : this.state.clearedCells[id].x;
+    y = y !== undefined ? y : this.state.clearedCells[id].y;
+
+    return {
+      id,
+      alive,
+      old,
+      x,
+      y,
+    };
+	}
 
   getPatternIDS = () => (
   	this.state.cells
@@ -520,15 +537,16 @@ class GameOfLife extends React.Component {
   handleCellClick = cellID => {
     // Only runs if the click/drag is within the canvas borders
     if (cellID) {
+      const cell = this.createCellNode(cellID, this.state.drawMode === 'draw' || false);
       const nextCells = [
         ...this.state.cells.slice(0, cellID),
-        this.createCellNode(cellID, this.state.drawMode === 'draw' || false),
+        cell,
         ...this.state.cells.slice(cellID + 1)
       ]
 
       this.setState({ cells: nextCells });
 
-      this.updateCanvasGrid(nextCells)
+      this.updateCanvasGrid([cell]);
     }
   }
 
