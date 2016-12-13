@@ -14,66 +14,73 @@ var _reactFrameComponent = require('react-frame-component');
 
 var _reactFrameComponent2 = _interopRequireDefault(_reactFrameComponent);
 
-var _TimrJS = require('./TimrJS');
-
-var _TimrJS2 = _interopRequireDefault(_TimrJS);
-
-var _SimonGame = require('./SimonGame');
-
-var _SimonGame2 = _interopRequireDefault(_SimonGame);
-
-var _Calculator = require('./Calculator');
-
-var _Calculator2 = _interopRequireDefault(_Calculator);
-
-var _TwitchApp = require('./TwitchApp');
-
-var _TwitchApp2 = _interopRequireDefault(_TwitchApp);
-
-var _QuoteGenerator = require('./QuoteGenerator');
-
-var _QuoteGenerator2 = _interopRequireDefault(_QuoteGenerator);
-
-var _PomodoroTimer = require('./PomodoroTimer');
-
-var _PomodoroTimer2 = _interopRequireDefault(_PomodoroTimer);
-
-var _WeatherWidget = require('./WeatherWidget');
-
-var _WeatherWidget2 = _interopRequireDefault(_WeatherWidget);
-
-var _GameOfLife = require('./GameOfLife');
-
-var _GameOfLife2 = _interopRequireDefault(_GameOfLife);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+// import TimrJS from './TimrJS';
+// import SimonGame from './SimonGame';
+// import Calculator from './Calculator';
+// import TwitchApp from './TwitchApp';
+// import QuoteGenerator from './QuoteGenerator';
+// import PomodoroTimer from './PomodoroTimer';
+// import WeatherWidget from './WeatherWidget';
+// import GameOfLife from './GameOfLife';
+
 var personalProjects = [{
-  livePreview: _TimrJS2.default,
-  title: 'TimrJS'
+  imgUrl: 'timrjs',
+  title: 'TimrJS',
+  description: 'TimrJS tries to simplify the use of timers by providing a friendly api with a customisable outpout'
 }];
 
-var fccProjects = [{
-  livePreview: _GameOfLife2.default,
+var fullStack = [{
+  imgUrl: 'pollingvote',
+  title: 'The Polling Vote',
+  externalLink: 'http://the-polling-vote.herokuapp.com/',
+  github: 'https://github.com/joesmith100/the-polling-vote'
+}, {
+  imgUrl: 'booktraders',
+  title: 'Book Traders',
+  externalLink: 'http://fcc-books-trading-club2.herokuapp.com/',
+  github: 'https://github.com/joesmith100/fcc-book-trading-club'
+}, {
+  imgUrl: 'nightlife',
+  title: 'Nightlife App',
+  externalLink: 'http://fcc-nightlife2-app.herokuapp.com/',
+  github: 'https://github.com/joesmith100/fcc-nightlife-app'
+}];
+
+var frontEnd = [{
+  imgUrl: 'gameoflife',
   title: 'Game Of Life'
 }, {
-  livePreview: _SimonGame2.default,
+  imgUrl: 'simongame',
   title: 'Simon Game'
 }, {
-  livePreview: _PomodoroTimer2.default,
+  imgUrl: 'pomodorotimer',
   title: 'Pomodoro Timer'
 }, {
-  livePreview: _Calculator2.default,
+  imgUrl: 'calculator',
   title: 'Calculator'
 }, {
-  livePreview: _QuoteGenerator2.default,
+  imgUrl: 'quotegenerator',
   title: 'Quote Generator'
 }, {
-  livePreview: _TwitchApp2.default,
+  imgUrl: 'twitchapp',
   title: 'Twitch App'
 }, {
-  livePreview: _WeatherWidget2.default,
+  imgUrl: 'weatherwidget',
   title: 'Weather Widget'
+}];
+
+var backEnd = [{
+  imgUrl: 'urlshortener',
+  title: 'Url Shortener',
+  externalLink: 'https://fccurl.herokuapp.com/',
+  github: 'https://github.com/joesmith100/fcc-url-shortener'
+}, {
+  imgUrl: 'imageabstracter',
+  title: 'Image Abstracter',
+  externalLink: 'https://fcc-image.herokuapp.com/',
+  github: 'https://github.com/joesmith100/fcc-image-abstracter'
 }];
 
 function Project(_ref) {
@@ -84,7 +91,8 @@ function Project(_ref) {
     _reactRouter.Link,
     {
       className: 'Projects__project',
-      to: '/' + (personal ? '' : 'projects/') + project.title.replace(/\s/g, '')
+      to: !project.externalLink ? '/' + (personal ? '' : 'projects/') + project.title.replace(/\s/g, '') : project.externalLink,
+      target: project.externalLink && '_blank'
     },
     _react2.default.createElement(
       'section',
@@ -92,17 +100,14 @@ function Project(_ref) {
       _react2.default.createElement(
         'section',
         { className: 'Projects__project__live-preview' },
-        _react2.default.createElement(
-          _reactFrameComponent2.default,
-          {
-            id: 'test',
-            frameBorder: 0,
-            scrolling: 'no',
-            initialContent: '<!DOCTYPE html><html><head>\n              <link href="/assets/bundle.css" rel="stylesheet">\n              <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">\n              </head><body><div></div></body></html>'
-          },
-          _react2.default.createElement(project.livePreview, { livePreview: true })
-        ),
-        _react2.default.createElement('section', null)
+        _react2.default.createElement('img', { src: '../assets/images/projects_' + project.imgUrl + '.png' }),
+        !!project.externalLink && _react2.default.createElement(
+          'div',
+          null,
+          _react2.default.createElement('i', { onClick: function onClick() {
+              return window.open(project.github, '_blank');
+            } })
+        )
       ),
       _react2.default.createElement(
         'section',
@@ -147,9 +152,38 @@ function Projects(_ref2) {
       'curriculum.'
     ),
     _react2.default.createElement(
+      'h4',
+      null,
+      'Full-Stack'
+    ),
+    _react2.default.createElement(
       'section',
       { className: 'Projects__wrapper' },
-      fccProjects.map(function (project) {
+      fullStack.map(function (project) {
+        return _react2.default.createElement(Project, { key: project.title, project: project });
+      })
+    ),
+    _react2.default.createElement(
+      'h4',
+      null,
+      'Front-End'
+    ),
+    _react2.default.createElement(
+      'section',
+      { className: 'Projects__wrapper' },
+      frontEnd.map(function (project) {
+        return _react2.default.createElement(Project, { key: project.title, project: project });
+      })
+    ),
+    _react2.default.createElement(
+      'h4',
+      null,
+      'Back-End'
+    ),
+    _react2.default.createElement(
+      'section',
+      { className: 'Projects__wrapper' },
+      backEnd.map(function (project) {
         return _react2.default.createElement(Project, { key: project.title, project: project });
       })
     )
@@ -167,7 +201,11 @@ var _temp = function () {
 
   __REACT_HOT_LOADER__.register(personalProjects, 'personalProjects', '/Users/Joe/Dropbox/Projects/portfolio/src/components/Projects.js');
 
-  __REACT_HOT_LOADER__.register(fccProjects, 'fccProjects', '/Users/Joe/Dropbox/Projects/portfolio/src/components/Projects.js');
+  __REACT_HOT_LOADER__.register(fullStack, 'fullStack', '/Users/Joe/Dropbox/Projects/portfolio/src/components/Projects.js');
+
+  __REACT_HOT_LOADER__.register(frontEnd, 'frontEnd', '/Users/Joe/Dropbox/Projects/portfolio/src/components/Projects.js');
+
+  __REACT_HOT_LOADER__.register(backEnd, 'backEnd', '/Users/Joe/Dropbox/Projects/portfolio/src/components/Projects.js');
 
   __REACT_HOT_LOADER__.register(Project, 'Project', '/Users/Joe/Dropbox/Projects/portfolio/src/components/Projects.js');
 

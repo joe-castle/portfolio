@@ -37,7 +37,7 @@ function Header(_ref) {
       _react2.default.createElement(
         _reactRouter.Link,
         { to: '/' },
-        _react2.default.createElement('img', { className: 'Header__img', src: 'http://placehold.it/200x200' })
+        _react2.default.createElement('img', { className: 'Header__img', src: '../assets/images/profile_img_small.jpg' })
       ),
       // Typed text only on home page
       contentActive || _react2.default.createElement(

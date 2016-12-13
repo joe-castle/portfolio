@@ -18,7 +18,7 @@ function About() {
     { className: 'About container' },
     _react2.default.createElement('img', {
       className: 'About__header-img',
-      src: 'https://placehold.it/250x250'
+      src: '../assets/images/profile_img_small.jpg'
     }),
     _react2.default.createElement(
       'p',
@@ -93,7 +93,7 @@ function About() {
         { to: '/projects' },
         'here'
       ),
-      ', source code included.'
+      '.'
     ),
     _react2.default.createElement(
       'p',

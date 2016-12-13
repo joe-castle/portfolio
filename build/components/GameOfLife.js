@@ -34,7 +34,6 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-// TODO: Look into the perfomance, it can be slow when manipulating the dom (Canvas fallback), also its stuttering after its running for a (unknown) period of time, perhaps reduce use of array functions?
 // TODO: Make export a tiny link that can import patterns / improve export and import (currently turned off)
 
 var GameOfLife = function (_React$Component) {
@@ -174,20 +173,30 @@ var GameOfLife = function (_React$Component) {
        */
 
       // Function to generate config which dictates height/width of grid based on window width.
-      function makeConfig() {
+      var makeConfig = function makeConfig() {
         var windowWidth = window.innerWidth;
         var width = void 0;
         var height = void 0;
 
-        if (windowWidth < 768) {
-          width = 30;
-          height = 45;
-        } else if (windowWidth < 1050) {
+        if (_this2.props.livePreview) {
           width = 60;
           height = 40;
+
+          if (windowWidth < 433) {
+            width = 30;
+            height = 45;
+          }
         } else {
-          width = 70;
-          height = 50;
+          if (windowWidth < 768) {
+            width = 30;
+            height = 45;
+          } else if (windowWidth < 1050) {
+            width = 60;
+            height = 40;
+          } else {
+            width = 70;
+            height = 50;
+          }
         }
 
         return {
@@ -195,7 +204,7 @@ var GameOfLife = function (_React$Component) {
           height: height,
           totalCells: width * height
         };
-      }
+      };
 
       var config = makeConfig();
 
@@ -443,22 +452,9 @@ var GameOfLife = function (_React$Component) {
       var x = ev.clientX - rect.left;
       var y = ev.clientY - rect.top;
 
-      var column = 0;
-      var row = 0;
-      var cellID = 0;
-
-      for (var length = this.state.config.totalCells; cellID < length; cellID++) {
-        if (x >= column && x <= column + 12 && y >= row && y <= row + 12) {
-          return cellID;
-        }
-
-        column += 12;
-
-        if (column >= this.state.config.width * 12) {
-          column = 0;
-          row += 12;
-        }
-      }
+      return this.state.cells.findIndex(function (cell) {
+        return x >= cell.x && x <= cell.x + 12 && y >= cell.y && y <= cell.y + 12;
+      });
     }
   }, {
     key: '__getLocalStorage__REACT_HOT_LOADER__',

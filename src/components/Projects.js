@@ -2,20 +2,10 @@ import React from 'react';
 import { Link } from 'react-router';
 import Frame from 'react-frame-component';
 
-// import TimrJS from './TimrJS';
-// import SimonGame from './SimonGame';
-// import Calculator from './Calculator';
-// import TwitchApp from './TwitchApp';
-// import QuoteGenerator from './QuoteGenerator';
-// import PomodoroTimer from './PomodoroTimer';
-// import WeatherWidget from './WeatherWidget';
-// import GameOfLife from './GameOfLife';
-
 const personalProjects = [
   {
     imgUrl: 'timrjs',
     title: 'TimrJS',
-    description: 'TimrJS tries to simplify the use of timers by providing a friendly api with a customisable outpout',
   },
 ];
 
