@@ -16,19 +16,9 @@ var _reactFrameComponent2 = _interopRequireDefault(_reactFrameComponent);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import TimrJS from './TimrJS';
-// import SimonGame from './SimonGame';
-// import Calculator from './Calculator';
-// import TwitchApp from './TwitchApp';
-// import QuoteGenerator from './QuoteGenerator';
-// import PomodoroTimer from './PomodoroTimer';
-// import WeatherWidget from './WeatherWidget';
-// import GameOfLife from './GameOfLife';
-
 var personalProjects = [{
   imgUrl: 'timrjs',
-  title: 'TimrJS',
-  description: 'TimrJS tries to simplify the use of timers by providing a friendly api with a customisable outpout'
+  title: 'TimrJS'
 }];
 
 var fullStack = [{
@@ -150,6 +140,11 @@ function Projects(_ref2) {
         ' freeCodeCamp.com '
       ),
       'curriculum.'
+    ),
+    _react2.default.createElement(
+      'p',
+      null,
+      'Note: The full-stack and back-end projects are deployed to heroku; they may take a few seconds load as the dyno spins up.'
     ),
     _react2.default.createElement(
       'h4',

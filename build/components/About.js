@@ -23,7 +23,7 @@ function About() {
     _react2.default.createElement(
       'p',
       null,
-      'Hi, I\'m Joe. I am an aspiring web developer.'
+      'Hi, I\'m Joe. I am a web developer.'
     ),
     _react2.default.createElement(
       'p',
