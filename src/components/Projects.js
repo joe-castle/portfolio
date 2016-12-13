@@ -32,6 +32,12 @@ const fullStack = [
     externalLink: 'http://fcc-books-trading-club2.herokuapp.com/',
     github: 'https://github.com/joesmith100/fcc-book-trading-club',
   },
+  {
+    imgUrl: 'nightlife',
+    title: 'Nightlife App',
+    externalLink: 'http://fcc-nightlife2-app.herokuapp.com/',
+    github: 'https://github.com/joesmith100/fcc-nightlife-app',
+  },
 ];
 
 const frontEnd = [
