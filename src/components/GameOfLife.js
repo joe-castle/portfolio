@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import ProjectNotes from './ProjectNotes';
 import Button from './Button';
 
-// TODO: Look into the perfomance, it can be slow when manipulating the dom (Canvas fallback), also its stuttering after its running for a (unknown) period of time, perhaps reduce use of array functions?
 // TODO: Make export a tiny link that can import patterns / improve export and import (currently turned off)
 
 class GameOfLife extends React.Component {
@@ -172,109 +171,109 @@ class GameOfLife extends React.Component {
     })
 	}
 
-	componentWillUnmount() {
-		this.clearTimer();
-	}
+  componentWillUnmount() {
+    this.clearTimer();
+  }
 
   checkNeighbours = position => {
     const cells = this.state.cells;
     const w = this.state.config.width;
     const l = cells.length;
 
-  	let neighbours = 0;
+    let neighbours = 0;
 
     // Checks nodes in the top left corner
-  	if (position === 0) {
-  		if (cells[l - 1].alive) neighbours += 1;
-  		if (cells[l - w].alive) neighbours += 1;
-  		if (cells[l - w + 1].alive) neighbours += 1;
-  		if (cells[w - 1].alive) neighbours += 1;
-  		if (cells[1].alive) neighbours += 1;
-  		if (cells[w * 2 - 1].alive) neighbours += 1;
-  		if (cells[w].alive) neighbours += 1;
-  		if (cells[w +1 ].alive) neighbours += 1;
+    if (position === 0) {
+      if (cells[l - 1].alive) neighbours += 1;
+      if (cells[l - w].alive) neighbours += 1;
+      if (cells[l - w + 1].alive) neighbours += 1;
+      if (cells[w - 1].alive) neighbours += 1;
+      if (cells[1].alive) neighbours += 1;
+      if (cells[w * 2 - 1].alive) neighbours += 1;
+      if (cells[w].alive) neighbours += 1;
+      if (cells[w + 1].alive) neighbours += 1;
     // Checks nodes in the top right corner
-  	} else if (position === w - 1) {
-  		if (cells[l - 2].alive) neighbours += 1;
-  		if (cells[l - 1].alive) neighbours += 1;
-  		if (cells[l - w].alive) neighbours += 1;
-  		if (cells[w - 2].alive) neighbours += 1;
-  		if (cells[0].alive) neighbours += 1;
-  		if (cells[w * 2 - 2].alive) neighbours += 1;
-  		if (cells[w * 2 - 1].alive) neighbours += 1;
-  		if (cells[w].alive) neighbours += 1;
+    } else if (position === w - 1) {
+      if (cells[l - 2].alive) neighbours += 1;
+      if (cells[l - 1].alive) neighbours += 1;
+      if (cells[l - w].alive) neighbours += 1;
+      if (cells[w - 2].alive) neighbours += 1;
+      if (cells[0].alive) neighbours += 1;
+      if (cells[w * 2 - 2].alive) neighbours += 1;
+      if (cells[w * 2 - 1].alive) neighbours += 1;
+      if (cells[w].alive) neighbours += 1;
     // Checkes nodes in the bottom left corner
-  	} else if (position === l - w) {
-  		if (cells[l - w - 1].alive) neighbours += 1;
-  		if (cells[position - w].alive) neighbours += 1;
-  		if (cells[position - w + 1].alive) neighbours += 1;
-  		if (cells[l - 1].alive) neighbours += 1;
-  		if (cells[position + 1].alive) neighbours += 1;
-  		if (cells[w - 1].alive) neighbours += 1;
-  		if (cells[0].alive) neighbours += 1;
-  		if (cells[1].alive) neighbours += 1;
+    } else if (position === l - w) {
+      if (cells[l - w - 1].alive) neighbours += 1;
+      if (cells[position - w].alive) neighbours += 1;
+      if (cells[position - w + 1].alive) neighbours += 1;
+      if (cells[l - 1].alive) neighbours += 1;
+      if (cells[position + 1].alive) neighbours += 1;
+      if (cells[w - 1].alive) neighbours += 1;
+      if (cells[0].alive) neighbours += 1;
+      if (cells[1].alive) neighbours += 1;
     // Checks nodes in the bottom right corner
-  	} else if (position === l - 1) {
-  		if (cells[l - w - 2].alive) neighbours += 1;
-  		if (cells[l - w - 1].alive) neighbours += 1;
-  		if (cells[l - w * 2].alive) neighbours += 1;
-  		if (cells[l - 2].alive) neighbours += 1;
-  		if (cells[l - w].alive) neighbours += 1;
-  		if (cells[w - 2].alive) neighbours += 1;
-  		if (cells[w - 1].alive) neighbours += 1;
-  		if (cells[0].alive) neighbours += 1;
+    } else if (position === l - 1) {
+      if (cells[l - w - 2].alive) neighbours += 1;
+      if (cells[l - w - 1].alive) neighbours += 1;
+      if (cells[l - w * 2].alive) neighbours += 1;
+      if (cells[l - 2].alive) neighbours += 1;
+      if (cells[l - w].alive) neighbours += 1;
+      if (cells[w - 2].alive) neighbours += 1;
+      if (cells[w - 1].alive) neighbours += 1;
+      if (cells[0].alive) neighbours += 1;
     // Checks nodes in top row (excluding the corners)
-  	} else if (position >= 1 && position <= w - 2) {
-  		if (cells[l - w + position].alive) neighbours += 1;
-  		if (cells[l - w - 1 + position].alive) neighbours += 1;
-  		if (cells[l - w + 1 + position].alive) neighbours += 1;
-  		if (cells[position - 1].alive) neighbours += 1;
-  		if (cells[position + 1].alive) neighbours += 1;
-  		if (cells[position + w + 1].alive) neighbours += 1;
-  		if (cells[position + w].alive) neighbours += 1;
-  		if (cells[position + w - 1].alive) neighbours += 1;
+    } else if (position >= 1 && position <= w - 2) {
+      if (cells[l - w + position].alive) neighbours += 1;
+      if (cells[l - w - 1 + position].alive) neighbours += 1;
+      if (cells[l - w + 1 + position].alive) neighbours += 1;
+      if (cells[position - 1].alive) neighbours += 1;
+      if (cells[position + 1].alive) neighbours += 1;
+      if (cells[position + w + 1].alive) neighbours += 1;
+      if (cells[position + w].alive) neighbours += 1;
+      if (cells[position + w - 1].alive) neighbours += 1;
     // Checks nodes in bottom row (excluding corners)
-  	} else if (position >= l - w + 1 && position <= l - 2) {
-  		if (cells[position - w - 1].alive) neighbours += 1;
-  		if (cells[position - w].alive) neighbours += 1;
-  		if (cells[position - w + 1].alive) neighbours += 1;
-  		if (cells[position - 1].alive) neighbours += 1;
-  		if (cells[position + 1].alive) neighbours += 1;
-  		if (cells[w - (l - position) - 1].alive) neighbours += 1;
-  		if (cells[w - (l - position)].alive) neighbours += 1;
-  		if (cells[w - (l - position) + 1].alive) neighbours += 1;
+    } else if (position >= l - w + 1 && position <= l - 2) {
+      if (cells[position - w - 1].alive) neighbours += 1;
+      if (cells[position - w].alive) neighbours += 1;
+      if (cells[position - w + 1].alive) neighbours += 1;
+      if (cells[position - 1].alive) neighbours += 1;
+      if (cells[position + 1].alive) neighbours += 1;
+      if (cells[w - (l - position) - 1].alive) neighbours += 1;
+      if (cells[w - (l - position)].alive) neighbours += 1;
+      if (cells[w - (l - position) + 1].alive) neighbours += 1;
     // Checks nodes in the left column (excluding corners)
-  	} else if (position % w === 0) {
-  		if (cells[position - 1].alive) neighbours += 1;
-  		if (cells[position - w].alive) neighbours += 1;
-  		if (cells[position - w + 1].alive) neighbours += 1;
-  		if (cells[position + w - 1].alive) neighbours += 1;
-  		if (cells[position + 1].alive) neighbours += 1;
-  		if (cells[position + w * 2 - 1].alive) neighbours += 1;
-  		if (cells[position + w].alive) neighbours += 1;
-  		if (cells[position + w + 1].alive) neighbours += 1;
+    } else if (position % w === 0) {
+      if (cells[position - 1].alive) neighbours += 1;
+      if (cells[position - w].alive) neighbours += 1;
+      if (cells[position - w + 1].alive) neighbours += 1;
+      if (cells[position + w - 1].alive) neighbours += 1;
+      if (cells[position + 1].alive) neighbours += 1;
+      if (cells[position + w * 2 - 1].alive) neighbours += 1;
+      if (cells[position + w].alive) neighbours += 1;
+      if (cells[position + w + 1].alive) neighbours += 1;
     // Checks nodes in the right column (excluding corners)
-  	} else if (position % w === w - 1) {
-  		if (cells[position - w - 1].alive) neighbours += 1;
-  		if (cells[position - w].alive) neighbours += 1;
-  		if (cells[position - w * 2 + 1].alive) neighbours += 1;
-  		if (cells[position - 1].alive) neighbours += 1;
-  		if (cells[position - w + 1].alive) neighbours += 1;
-  		if (cells[position + w - 1].alive) neighbours += 1;
-  		if (cells[position + w].alive) neighbours += 1;
-  		if (cells[position + 1].alive) neighbours += 1;
+    } else if (position % w === w - 1) {
+      if (cells[position - w - 1].alive) neighbours += 1;
+      if (cells[position - w].alive) neighbours += 1;
+      if (cells[position - w * 2 + 1].alive) neighbours += 1;
+      if (cells[position - 1].alive) neighbours += 1;
+      if (cells[position - w + 1].alive) neighbours += 1;
+      if (cells[position + w - 1].alive) neighbours += 1;
+      if (cells[position + w].alive) neighbours += 1;
+      if (cells[position + 1].alive) neighbours += 1;
     // Checks all other nodes in the middle
-  	} else {
-  		if (cells[position - w - 1].alive) neighbours += 1;
-  		if (cells[position - w].alive) neighbours += 1;
-  		if (cells[position - w + 1].alive) neighbours += 1;
-  		if (cells[position - 1].alive) neighbours += 1;
-  		if (cells[position + 1].alive) neighbours += 1;
-  		if (cells[position + w - 1].alive) neighbours += 1;
-  		if (cells[position + w].alive) neighbours += 1;
-  		if (cells[position + w + 1].alive) neighbours += 1;
-  	}
-  	return neighbours;
+    } else {
+      if (cells[position - w - 1].alive) neighbours += 1;
+      if (cells[position - w].alive) neighbours += 1;
+      if (cells[position - w + 1].alive) neighbours += 1;
+      if (cells[position - 1].alive) neighbours += 1;
+      if (cells[position + 1].alive) neighbours += 1;
+      if (cells[position + w - 1].alive) neighbours += 1;
+      if (cells[position + w].alive) neighbours += 1;
+      if (cells[position + w + 1].alive) neighbours += 1;
+    }
+    return neighbours;
   }
 
   updateCanvasGrid = cells => {
@@ -313,26 +312,12 @@ class GameOfLife extends React.Component {
     const x = ev.clientX - rect.left;
     const y = ev.clientY - rect.top;
 
-    let column = 0;
-    let row = 0;
-    let cellID = 0;
-
-    for (let length = this.state.config.totalCells; cellID < length; cellID++) {
-      if ( x >= column
-        && x <= column + 12
-        && y >= row
-        && y <= row + 12
-      ) {
-        return cellID;
-      }
-
-      column += 12;
-
-      if (column >= this.state.config.width * 12) {
-        column = 0;
-        row += 12;
-      }
-    }
+    return this.state.cells.findIndex((cell) => (
+      x >= cell.x
+      && x <= cell.x + 12
+      && y >= cell.y
+      && y <= cell.y + 12
+    ));
   }
 
   getLocalStorage = () => (
