@@ -8,7 +8,7 @@ function About() {
         className="About__header-img"
         src="../assets/images/profile_img_small.jpg"
       />
-      <p>Hi, I'm Joe. I am an aspiring web developer.</p>
+      <p>Hi, I'm Joe. I am a web developer.</p>
       <p>I started teaching myself to code last year (2015), after developing a passion for it whilst studying at The Open University. I focused on web based technologies, such as: JavaScript, CSS & HTML.</p>
       <p className="About__no-margin-p">I used a variety of online resources including:</p>
       <ul>

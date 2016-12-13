@@ -17,7 +17,7 @@ function Header({ makeFooterVisible, contentActive, path }) {
           contentActive ||
             <TypeWriter typing={1} onTypingEnd={makeFooterVisible}>
               <h1 className="Header__title">
-                Hi, I'm Joe. I am an aspiring web developer.
+                Hi, I'm Joe. I am a web developer.
               </h1>
             </TypeWriter>
         }

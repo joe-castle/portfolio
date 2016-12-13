@@ -115,6 +115,7 @@ function Projects({ children }) {
           <a href="http://www.freecodecamp.com" target="_blank"> freeCodeCamp.com </a>
         curriculum.
       </p>
+      <p>Note: The full-stack and back-end projects are deployed to heroku; they may take a few seconds load as the dyno spins up.</p>
       <h4>Full-Stack</h4>
       <section className="Projects__wrapper">
         {fullStack.map(project => (
