@@ -2,50 +2,81 @@ import React from 'react';
 import { Link } from 'react-router';
 import Frame from 'react-frame-component';
 
-import TimrJS from './TimrJS';
-import SimonGame from './SimonGame';
-import Calculator from './Calculator';
-import TwitchApp from './TwitchApp';
-import QuoteGenerator from './QuoteGenerator';
-import PomodoroTimer from './PomodoroTimer';
-import WeatherWidget from './WeatherWidget';
-import GameOfLife from './GameOfLife';
+// import TimrJS from './TimrJS';
+// import SimonGame from './SimonGame';
+// import Calculator from './Calculator';
+// import TwitchApp from './TwitchApp';
+// import QuoteGenerator from './QuoteGenerator';
+// import PomodoroTimer from './PomodoroTimer';
+// import WeatherWidget from './WeatherWidget';
+// import GameOfLife from './GameOfLife';
 
 const personalProjects = [
   {
-    livePreview: TimrJS,
+    imgUrl: 'timrjs',
     title: 'TimrJS',
+    description: 'TimrJS tries to simplify the use of timers by providing a friendly api with a customisable outpout',
   },
 ];
 
-const fccProjects = [
+const fullStack = [
   {
-    livePreview: GameOfLife,
+    imgUrl: 'pollingvote',
+    title: 'The Polling Vote',
+    externalLink: 'http://the-polling-vote.herokuapp.com/',
+    github: 'https://github.com/joesmith100/the-polling-vote',
+  },
+  {
+    imgUrl: 'booktraders',
+    title: 'Book Traders',
+    externalLink: 'http://fcc-books-trading-club2.herokuapp.com/',
+    github: 'https://github.com/joesmith100/fcc-book-trading-club',
+  },
+];
+
+const frontEnd = [
+  {
+    imgUrl: 'gameoflife',
     title: 'Game Of Life',
   },
   {
-    livePreview: SimonGame,
+    imgUrl: 'simongame',
     title: 'Simon Game',
   },
   {
-    livePreview: PomodoroTimer,
+    imgUrl: 'pomodorotimer',
     title: 'Pomodoro Timer',
   },
   {
-    livePreview: Calculator,
+    imgUrl: 'calculator',
     title: 'Calculator',
   },
   {
-    livePreview: QuoteGenerator,
+    imgUrl: 'quotegenerator',
     title: 'Quote Generator',
   },
   {
-    livePreview: TwitchApp,
+    imgUrl: 'twitchapp',
     title: 'Twitch App',
   },
   {
-    livePreview: WeatherWidget,
+    imgUrl: 'weatherwidget',
     title: 'Weather Widget',
+  },
+];
+
+const backEnd = [
+  {
+    imgUrl: 'urlshortener',
+    title: 'Url Shortener',
+    externalLink: 'https://fccurl.herokuapp.com/',
+    github: 'https://github.com/joesmith100/fcc-url-shortener',
+  },
+  {
+    imgUrl: 'imageabstracter',
+    title: 'Image Abstracter',
+    externalLink: 'https://fcc-image.herokuapp.com/',
+    github: 'https://github.com/joesmith100/fcc-image-abstracter',
   },
 ];
 
@@ -53,24 +84,18 @@ function Project({ project, personal }) {
   return (
     <Link
       className="Projects__project"
-      to={`/${personal ? '' : 'projects/'}${project.title.replace(/\s/g, '')}`}
+      to={!project.externalLink
+        ? `/${personal ? '' : 'projects/'}${project.title.replace(/\s/g, '')}`
+        : project.externalLink
+      }
+      target={project.externalLink && '_blank'}
     >
       <section className="Projects__project__content-wrapper">
         <section className="Projects__project__live-preview">
-          <Frame
-            id="test"
-            frameBorder={0}
-            scrolling="no"
-            initialContent={
-              `<!DOCTYPE html><html><head>
-              <link href="/assets/bundle.css" rel="stylesheet">
-              <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-              </head><body><div></div></body></html>`
-            }
-          >
-            {React.createElement(project.livePreview, { livePreview: true })}
-          </Frame>
-          <section></section>
+          <img src={`../assets/images/projects_${project.imgUrl}.png`} />
+          {!!project.externalLink &&
+            <div><i onClick={() => window.open(project.github, '_blank')} /></div>
+          }
         </section>
         <section className="Projects__project__title-wrapper">
           <span className="Projects__project__title-wrapper__title">{project.title}</span>
@@ -94,8 +119,21 @@ function Projects({ children }) {
           <a href="http://www.freecodecamp.com" target="_blank"> freeCodeCamp.com </a>
         curriculum.
       </p>
+      <h4>Full-Stack</h4>
       <section className="Projects__wrapper">
-        {fccProjects.map(project => (
+        {fullStack.map(project => (
+          <Project key={project.title} project={project} />
+        ))}
+      </section>
+      <h4>Front-End</h4>
+      <section className="Projects__wrapper">
+        {frontEnd.map(project => (
+          <Project key={project.title} project={project} />
+        ))}
+      </section>
+      <h4>Back-End</h4>
+      <section className="Projects__wrapper">
+        {backEnd.map(project => (
           <Project key={project.title} project={project} />
         ))}
       </section>

@@ -41,7 +41,8 @@ module.exports = {
       { test: /\.js$/, loader: 'babel', exclude: /node_modules/ },
       { test: /\.styl$/, loader: cssLoader },
       { test: /\.(woff2?|svg)$/, loader: 'url?limit=10000' },
-      { test: /\.(ttf|eot)$/, loader: 'file' }
+      { test: /\.(ttf|eot)$/, loader: 'file' },
+      { test: /\.(png|jpg)$/, loader: 'file' },
     ]
   },
   postcss: [require('autoprefixer')],

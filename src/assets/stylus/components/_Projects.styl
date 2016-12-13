@@ -4,7 +4,7 @@
     cf()
 
   &__project
-    aspect-ratio 16 9
+    aspect-ratio 16 10
     border border-size solid content-color
     display block
     margin vr-block(1) auto 0 auto
@@ -16,24 +16,27 @@
       overflow hidden
       position relative
 
-      > iframe
-        absolute top left
-        height 201%
-        transform scale(.5)
-        transform-origin top left
-        width @height
-
-      > section
-        absolute top left
-        background rgba(black, 0.6)
-        content ''
+      > img
         height 100%
-        opacity 0
-        width @height
-        transition opacity .2s linear
+        width 100%
+      
+      > div
+        absolute bottom
+        background rgba(0%, 0%, 0%, 0.5)
+        height vr-block(2)
+        width 100%
 
-        +hover-state()
-          opacity 1
+        i
+          absolute bottom 10% right 10px
+          color body-background-color
+          font normal vr-block(1.5) Flaticon
+          transition .2s linear
+
+          &:before
+            content: '\0041'
+
+          +hover-state()
+            color blue-300
 
     &__title-wrapper
       background content-color

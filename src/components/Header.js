@@ -11,7 +11,7 @@ function Header({ makeFooterVisible, contentActive, path }) {
     })}>
       <div className="container">
         <Link to="/">
-          <img className="Header__img" src="http://placehold.it/200x200" />
+          <img className="Header__img" src="../assets/images/profile_img_small.jpg" />
         </Link>
         { // Typed text only on home page
           contentActive ||
