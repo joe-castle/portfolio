@@ -82,38 +82,40 @@ class WeatherWidget extends React.Component {
   }
 
   getWeather = location => {
-    const searchString = (
-      `http://api.openweathermap.org/data/2.5/forecast?${location}` + '&units=metric&appid=61573140cac722bdbfd9eb0b2f1a6b50'
-    );
+    const api = (location => url => (
+      fetch(
+        `http://api.openweathermap.org/data/2.5/${url}?${location}` +
+        '&units=metric&appid=61573140cac722bdbfd9eb0b2f1a6b50'
+      ).then(res => res.json())
+    ))(location);
 
     this.setState({ location: 'Loading...' });
 
-    fetch(searchString)
-      .then(res => res.json())
-      .then(json => {
-        const current = this.makeWeatherObject(json.list[0]);
-        const forecast = json.list
+    Promise
+      .all([api('weather'), api('forecast')])
+      .then(([current, forecast]) => {
+        const newForecast = forecast.list
           .reduce((prev, curr) => {
             if (
               /12:00:00/ig.test(curr['dt_txt'])
               && this.getDay(curr.dt) !== this.getDay(Date.now() / 1000)
             ) {
-              prev.push(this.makeWeatherObject(curr));
+              return [...prev, this.makeWeatherObject(curr)];
             }
 
             return prev;
-          }, [this.makeWeatherObject(json.list[0])])
+          }, [this.makeWeatherObject(current)])
           .slice(0, 5);
 
-          this.setState({
-            location: `${json.city.name}, ${json.city.country}`,
-            current: this.getCurrent(this.state.selectedDay, forecast),
-            forecast,
-          });
+        this.setState({
+          location: `${forecast.city.name}, ${forecast.city.country}`,
+          current: this.getCurrent(this.state.selectedDay, newForecast),
+          forecast: newForecast,
+        });
       })
       .catch(error => {
         this.setState({ location: 'Unable to find city' });
-      })
+      });
   }
 
   makeWeatherObject = json => ({
