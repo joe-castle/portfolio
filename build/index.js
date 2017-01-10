@@ -58,7 +58,7 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(store, 'store', '/Users/Joe/Dropbox/Projects/portfolio/src/index.js');
+  __REACT_HOT_LOADER__.register(store, 'store', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/index.js');
 }();
 
 ;

@@ -18,7 +18,7 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(port, 'port', '/Users/Joe/Dropbox/Projects/portfolio/src/server.js');
+  __REACT_HOT_LOADER__.register(port, 'port', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/server.js');
 }();
 
 ;

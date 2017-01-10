@@ -906,9 +906,9 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(GameOfLife, 'GameOfLife', '/Users/Joe/Dropbox/Projects/portfolio/src/components/GameOfLife.js');
+  __REACT_HOT_LOADER__.register(GameOfLife, 'GameOfLife', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/GameOfLife.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/portfolio/src/components/GameOfLife.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/GameOfLife.js');
 }();
 
 ;

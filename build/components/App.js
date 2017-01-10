@@ -98,9 +98,9 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(App, 'App', '/Users/Joe/Dropbox/Projects/portfolio/src/components/App.js');
+  __REACT_HOT_LOADER__.register(App, 'App', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/App.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/portfolio/src/components/App.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/App.js');
 }();
 
 ;

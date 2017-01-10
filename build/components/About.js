@@ -146,9 +146,9 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(About, 'About', '/Users/Joe/Dropbox/Projects/portfolio/src/components/About.js');
+  __REACT_HOT_LOADER__.register(About, 'About', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/About.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/portfolio/src/components/About.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/About.js');
 }();
 
 ;

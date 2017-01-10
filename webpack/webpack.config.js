@@ -2,6 +2,7 @@
 
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 let entry = './src/index';
 let cssLoader = ExtractTextPlugin.extract('style', '!css!postcss!stylus');
@@ -10,6 +11,7 @@ let plugins = [
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
   }),
+  new CopyWebpackPlugin([{ from: 'src/assets/images', to: 'images' }]),
 ];
 
 if (process.env.NODE_ENV === 'production') {

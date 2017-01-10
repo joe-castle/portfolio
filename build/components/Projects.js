@@ -10,10 +10,6 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouter = require('react-router');
 
-var _reactFrameComponent = require('react-frame-component');
-
-var _reactFrameComponent2 = _interopRequireDefault(_reactFrameComponent);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var personalProjects = [{
@@ -133,30 +129,18 @@ function Projects(_ref2) {
     _react2.default.createElement(
       'p',
       null,
-      'The following are just some of the projects that were built as part of the',
+      'The following are just some of the projects that I built as part of the',
       _react2.default.createElement(
         'a',
         { href: 'http://www.freecodecamp.com', target: '_blank' },
-        ' freeCodeCamp.com '
+        ' freecodecamp.com '
       ),
       'curriculum.'
     ),
     _react2.default.createElement(
       'p',
       null,
-      'Note: The full-stack and back-end projects are deployed to heroku; they may take a few seconds load as the dyno spins up.'
-    ),
-    _react2.default.createElement(
-      'h4',
-      null,
-      'Full-Stack'
-    ),
-    _react2.default.createElement(
-      'section',
-      { className: 'Projects__wrapper' },
-      fullStack.map(function (project) {
-        return _react2.default.createElement(Project, { key: project.title, project: project });
-      })
+      'Note: The full-stack and back-end projects are deployed to heroku; they may take a few seconds to load up.'
     ),
     _react2.default.createElement(
       'h4',
@@ -167,6 +151,18 @@ function Projects(_ref2) {
       'section',
       { className: 'Projects__wrapper' },
       frontEnd.map(function (project) {
+        return _react2.default.createElement(Project, { key: project.title, project: project });
+      })
+    ),
+    _react2.default.createElement(
+      'h4',
+      null,
+      'Full-Stack'
+    ),
+    _react2.default.createElement(
+      'section',
+      { className: 'Projects__wrapper' },
+      fullStack.map(function (project) {
         return _react2.default.createElement(Project, { key: project.title, project: project });
       })
     ),
@@ -194,19 +190,19 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(personalProjects, 'personalProjects', '/Users/Joe/Dropbox/Projects/portfolio/src/components/Projects.js');
+  __REACT_HOT_LOADER__.register(personalProjects, 'personalProjects', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/Projects.js');
 
-  __REACT_HOT_LOADER__.register(fullStack, 'fullStack', '/Users/Joe/Dropbox/Projects/portfolio/src/components/Projects.js');
+  __REACT_HOT_LOADER__.register(fullStack, 'fullStack', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/Projects.js');
 
-  __REACT_HOT_LOADER__.register(frontEnd, 'frontEnd', '/Users/Joe/Dropbox/Projects/portfolio/src/components/Projects.js');
+  __REACT_HOT_LOADER__.register(frontEnd, 'frontEnd', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/Projects.js');
 
-  __REACT_HOT_LOADER__.register(backEnd, 'backEnd', '/Users/Joe/Dropbox/Projects/portfolio/src/components/Projects.js');
+  __REACT_HOT_LOADER__.register(backEnd, 'backEnd', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/Projects.js');
 
-  __REACT_HOT_LOADER__.register(Project, 'Project', '/Users/Joe/Dropbox/Projects/portfolio/src/components/Projects.js');
+  __REACT_HOT_LOADER__.register(Project, 'Project', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/Projects.js');
 
-  __REACT_HOT_LOADER__.register(Projects, 'Projects', '/Users/Joe/Dropbox/Projects/portfolio/src/components/Projects.js');
+  __REACT_HOT_LOADER__.register(Projects, 'Projects', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/Projects.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/portfolio/src/components/Projects.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/Projects.js');
 }();
 
 ;

@@ -57,9 +57,9 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(store, 'store', '/Users/Joe/Dropbox/Projects/portfolio/src/render/index.js');
+  __REACT_HOT_LOADER__.register(store, 'store', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/render/index.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/portfolio/src/render/index.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/render/index.js');
 }();
 
 ;

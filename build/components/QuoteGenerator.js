@@ -152,9 +152,9 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(QuoteGenerator, 'QuoteGenerator', '/Users/Joe/Dropbox/Projects/portfolio/src/components/QuoteGenerator.js');
+  __REACT_HOT_LOADER__.register(QuoteGenerator, 'QuoteGenerator', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/QuoteGenerator.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/portfolio/src/components/QuoteGenerator.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/QuoteGenerator.js');
 }();
 
 ;

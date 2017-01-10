@@ -64,11 +64,11 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(links, 'links', '/Users/Joe/Dropbox/Projects/portfolio/src/components/Footer.js');
+  __REACT_HOT_LOADER__.register(links, 'links', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/Footer.js');
 
-  __REACT_HOT_LOADER__.register(Footer, 'Footer', '/Users/Joe/Dropbox/Projects/portfolio/src/components/Footer.js');
+  __REACT_HOT_LOADER__.register(Footer, 'Footer', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/Footer.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/portfolio/src/components/Footer.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/Footer.js');
 }();
 
 ;

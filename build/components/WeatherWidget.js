@@ -4,6 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = require('react');
@@ -19,6 +21,8 @@ var _ProjectNotes = require('./ProjectNotes');
 var _ProjectNotes2 = _interopRequireDefault(_ProjectNotes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -155,26 +159,33 @@ var WeatherWidget = function (_React$Component) {
     value: function __getWeather__REACT_HOT_LOADER__(location) {
       var _this3 = this;
 
-      var searchString = 'http://api.openweathermap.org/data/2.5/forecast?' + location + '&units=metric&appid=61573140cac722bdbfd9eb0b2f1a6b50';
+      var api = function (location) {
+        return function (url) {
+          return fetch('http://api.openweathermap.org/data/2.5/' + url + '?' + location + '&units=metric&appid=61573140cac722bdbfd9eb0b2f1a6b50').then(function (res) {
+            return res.json();
+          });
+        };
+      }(location);
 
       this.setState({ location: 'Loading...' });
 
-      fetch(searchString).then(function (res) {
-        return res.json();
-      }).then(function (json) {
-        var current = _this3.makeWeatherObject(json.list[0]);
-        var forecast = json.list.reduce(function (prev, curr) {
+      Promise.all([api('weather'), api('forecast')]).then(function (_ref2) {
+        var _ref3 = _slicedToArray(_ref2, 2),
+            current = _ref3[0],
+            forecast = _ref3[1];
+
+        var newForecast = forecast.list.reduce(function (prev, curr) {
           if (/12:00:00/ig.test(curr['dt_txt']) && _this3.getDay(curr.dt) !== _this3.getDay(Date.now() / 1000)) {
-            prev.push(_this3.makeWeatherObject(curr));
+            return [].concat(_toConsumableArray(prev), [_this3.makeWeatherObject(curr)]);
           }
 
           return prev;
-        }, [_this3.makeWeatherObject(json.list[0])]).slice(0, 5);
+        }, [_this3.makeWeatherObject(current)]).slice(0, 5);
 
         _this3.setState({
-          location: json.city.name + ', ' + json.city.country,
-          current: _this3.getCurrent(_this3.state.selectedDay, forecast),
-          forecast: forecast
+          location: forecast.city.name + ', ' + forecast.city.country,
+          current: _this3.getCurrent(_this3.state.selectedDay, newForecast),
+          forecast: newForecast
         });
       }).catch(function (error) {
         _this3.setState({ location: 'Unable to find city' });
@@ -313,11 +324,11 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(WeatherIcon, 'WeatherIcon', '/Users/Joe/Dropbox/Projects/portfolio/src/components/WeatherWidget.js');
+  __REACT_HOT_LOADER__.register(WeatherIcon, 'WeatherIcon', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/WeatherWidget.js');
 
-  __REACT_HOT_LOADER__.register(WeatherWidget, 'WeatherWidget', '/Users/Joe/Dropbox/Projects/portfolio/src/components/WeatherWidget.js');
+  __REACT_HOT_LOADER__.register(WeatherWidget, 'WeatherWidget', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/WeatherWidget.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/portfolio/src/components/WeatherWidget.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/WeatherWidget.js');
 }();
 
 ;

@@ -523,11 +523,11 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(GamePiece, 'GamePiece', '/Users/Joe/Dropbox/Projects/portfolio/src/components/SimonGame.js');
+  __REACT_HOT_LOADER__.register(GamePiece, 'GamePiece', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/SimonGame.js');
 
-  __REACT_HOT_LOADER__.register(SimonGame, 'SimonGame', '/Users/Joe/Dropbox/Projects/portfolio/src/components/SimonGame.js');
+  __REACT_HOT_LOADER__.register(SimonGame, 'SimonGame', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/SimonGame.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/portfolio/src/components/SimonGame.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/SimonGame.js');
 }();
 
 ;

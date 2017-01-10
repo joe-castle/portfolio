@@ -27,7 +27,7 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(navVisble, 'navVisble', '/Users/Joe/Dropbox/Projects/portfolio/src/reducers/navVisible.js');
+  __REACT_HOT_LOADER__.register(navVisble, 'navVisble', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/reducers/navVisible.js');
 }();
 
 ;

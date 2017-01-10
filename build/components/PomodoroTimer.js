@@ -238,11 +238,11 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(RangeInput, 'RangeInput', '/Users/Joe/Dropbox/Projects/portfolio/src/components/PomodoroTimer.js');
+  __REACT_HOT_LOADER__.register(RangeInput, 'RangeInput', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/PomodoroTimer.js');
 
-  __REACT_HOT_LOADER__.register(PomodoroTimer, 'PomodoroTimer', '/Users/Joe/Dropbox/Projects/portfolio/src/components/PomodoroTimer.js');
+  __REACT_HOT_LOADER__.register(PomodoroTimer, 'PomodoroTimer', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/PomodoroTimer.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/portfolio/src/components/PomodoroTimer.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/PomodoroTimer.js');
 }();
 
 ;

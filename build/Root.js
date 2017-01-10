@@ -37,7 +37,7 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(Root, 'Root', '/Users/Joe/Dropbox/Projects/portfolio/src/Root.js');
+  __REACT_HOT_LOADER__.register(Root, 'Root', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/Root.js');
 }();
 
 ;

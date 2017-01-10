@@ -26,9 +26,9 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(toggleNav, 'toggleNav', '/Users/Joe/Dropbox/Projects/portfolio/src/actions/actionCreators.js');
+  __REACT_HOT_LOADER__.register(toggleNav, 'toggleNav', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/actions/actionCreators.js');
 
-  __REACT_HOT_LOADER__.register(makeFooterVisible, 'makeFooterVisible', '/Users/Joe/Dropbox/Projects/portfolio/src/actions/actionCreators.js');
+  __REACT_HOT_LOADER__.register(makeFooterVisible, 'makeFooterVisible', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/actions/actionCreators.js');
 }();
 
 ;

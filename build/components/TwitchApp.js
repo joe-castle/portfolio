@@ -396,17 +396,17 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(makePromiseCancelable, 'makePromiseCancelable', '/Users/Joe/Dropbox/Projects/portfolio/src/components/TwitchApp.js');
+  __REACT_HOT_LOADER__.register(makePromiseCancelable, 'makePromiseCancelable', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/TwitchApp.js');
 
-  __REACT_HOT_LOADER__.register(Nav, 'Nav', '/Users/Joe/Dropbox/Projects/portfolio/src/components/TwitchApp.js');
+  __REACT_HOT_LOADER__.register(Nav, 'Nav', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/TwitchApp.js');
 
-  __REACT_HOT_LOADER__.register(StreamersBox, 'StreamersBox', '/Users/Joe/Dropbox/Projects/portfolio/src/components/TwitchApp.js');
+  __REACT_HOT_LOADER__.register(StreamersBox, 'StreamersBox', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/TwitchApp.js');
 
-  __REACT_HOT_LOADER__.register(Streamer, 'Streamer', '/Users/Joe/Dropbox/Projects/portfolio/src/components/TwitchApp.js');
+  __REACT_HOT_LOADER__.register(Streamer, 'Streamer', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/TwitchApp.js');
 
-  __REACT_HOT_LOADER__.register(TwitchApp, 'TwitchApp', '/Users/Joe/Dropbox/Projects/portfolio/src/components/TwitchApp.js');
+  __REACT_HOT_LOADER__.register(TwitchApp, 'TwitchApp', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/TwitchApp.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/portfolio/src/components/TwitchApp.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/TwitchApp.js');
 }();
 
 ;

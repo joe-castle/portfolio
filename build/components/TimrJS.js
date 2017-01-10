@@ -2732,23 +2732,23 @@ var _temp = function () {
     return;
   }
 
-  __REACT_HOT_LOADER__.register(StartExample, 'StartExample', '/Users/Joe/Dropbox/Projects/portfolio/src/components/TimrJS.js');
+  __REACT_HOT_LOADER__.register(StartExample, 'StartExample', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/TimrJS.js');
 
-  __REACT_HOT_LOADER__.register(OptionsExample, 'OptionsExample', '/Users/Joe/Dropbox/Projects/portfolio/src/components/TimrJS.js');
+  __REACT_HOT_LOADER__.register(OptionsExample, 'OptionsExample', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/TimrJS.js');
 
-  __REACT_HOT_LOADER__.register(TickerExample, 'TickerExample', '/Users/Joe/Dropbox/Projects/portfolio/src/components/TimrJS.js');
+  __REACT_HOT_LOADER__.register(TickerExample, 'TickerExample', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/TimrJS.js');
 
-  __REACT_HOT_LOADER__.register(FinishExample, 'FinishExample', '/Users/Joe/Dropbox/Projects/portfolio/src/components/TimrJS.js');
+  __REACT_HOT_LOADER__.register(FinishExample, 'FinishExample', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/TimrJS.js');
 
-  __REACT_HOT_LOADER__.register(ControlExample, 'ControlExample', '/Users/Joe/Dropbox/Projects/portfolio/src/components/TimrJS.js');
+  __REACT_HOT_LOADER__.register(ControlExample, 'ControlExample', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/TimrJS.js');
 
-  __REACT_HOT_LOADER__.register(StoreExample, 'StoreExample', '/Users/Joe/Dropbox/Projects/portfolio/src/components/TimrJS.js');
+  __REACT_HOT_LOADER__.register(StoreExample, 'StoreExample', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/TimrJS.js');
 
-  __REACT_HOT_LOADER__.register(UtilitiesExample, 'UtilitiesExample', '/Users/Joe/Dropbox/Projects/portfolio/src/components/TimrJS.js');
+  __REACT_HOT_LOADER__.register(UtilitiesExample, 'UtilitiesExample', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/TimrJS.js');
 
-  __REACT_HOT_LOADER__.register(TimrJS, 'TimrJS', '/Users/Joe/Dropbox/Projects/portfolio/src/components/TimrJS.js');
+  __REACT_HOT_LOADER__.register(TimrJS, 'TimrJS', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/TimrJS.js');
 
-  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/portfolio/src/components/TimrJS.js');
+  __REACT_HOT_LOADER__.register(_default, 'default', '/Users/Joe/Dropbox/Projects/Web/portfolio/src/components/TimrJS.js');
 }();
 
 ;
