@@ -8,8 +8,6 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRedux = require('react-redux');
-
 var _reactRouter = require('react-router');
 
 var _classnames = require('classnames');
@@ -42,7 +40,9 @@ function Nav(_ref) {
             _reactRouter.Link,
             {
               key: link[0],
-              onClick: toggleNav,
+              onClick: navVisible ? toggleNav : function (f) {
+                return f;
+              },
               to: link[0],
               className: (0, _classnames2.default)({
                 'Nav__links__link': true,
