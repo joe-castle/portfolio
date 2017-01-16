@@ -1,0 +1,8 @@
+- properlly redseign site
+- redesign projects page to make it look less codepeny
+- move all front-end projects to github pages and make them standalone (remove use of typographic everywhere mixin), include these links on freecodecamp
+- remove timrjs on site and keep readme in github
+- comments everywhere
+- remove redux, not overly needed, maybe even react? Probably a bit overkill for a static page. Note: as projects will be standalone, react isn't needed.
+ - Look into jekyll template devtips uses?
+- host the site on github pages, heroku is slow to load and unecassary

@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import classNames from 'classnames';
 
@@ -16,7 +15,7 @@ function Nav({ navVisible, toggleNav, path }) {
           {[['/', 'Home'], ['/projects', 'Projects'], ['/about', 'About']].map(link => (
             <Link
               key={link[0]}
-              onClick={toggleNav}
+              onClick={navVisible ? toggleNav : f => f}
               to={link[0]}
               className={classNames({
                 'Nav__links__link': true,
